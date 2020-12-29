@@ -70,9 +70,24 @@ namespace BarberShop.Service.Services
             return customer;
         }
 
-        public Customer Update(Customer customer)
+        public Customer Update(Customer customerArgument)
         {
-            throw new System.NotImplementedException();
+            Customer customer = new Customer();
+
+            try
+            {
+                customer = _customerRepository.Update(customerArgument);
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.Message);
+            }
+            finally
+            {
+                _logger.CreateLog("Database", "Update", "Customer", new List<string> { customerArgument.Cpf, customerArgument.Name, customerArgument.Birth.ToString(), customerArgument.Phone });
+            }
+
+            return customer;
         }
     }
 }

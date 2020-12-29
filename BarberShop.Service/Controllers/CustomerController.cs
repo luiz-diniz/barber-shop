@@ -37,5 +37,11 @@ namespace BarberShop.Service.Controllers
         }
 
         //UpdateCustomer
+        [HttpPut]
+        [Route("UpdateCustomer")]
+        public Customer Update(Customer customer)
+        {
+            return _customerService.Update(customer);
+        }
     }
 }

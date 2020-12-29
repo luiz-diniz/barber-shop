@@ -80,9 +80,29 @@ namespace BarberShop.Service.Repository.ModelsRepository
             }
         }
 
-        public Customer Update(Customer type)
+        public Customer Update(Customer customer)
         {
-            throw new NotImplementedException();
+            string query = "update customer set name_customer = @P0, birth_customer = @P1, phone_customer = @P2 where " +
+                "cpf_customer = @P3";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    cmd.Parameters.Add(new SqlParameter("P0", customer.Name));
+                    cmd.Parameters.Add(new SqlParameter("P1", customer.Birth));
+                    cmd.Parameters.Add(new SqlParameter("P2", customer.Phone));
+                    cmd.Parameters.Add(new SqlParameter("P3", customer.Cpf));
+
+                    cmd.ExecuteNonQuery();
+
+                    return customer;
+                }
+            }
         }
     }
 }
