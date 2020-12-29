@@ -10,7 +10,7 @@ namespace BarberShop.Service.Repository.ModelsRepository
     {
         public void Create(Customer customer)
         {
-            string query = "insert into Customer values(@P0, @P1, @P2, @P3)";
+            string query = "insert into Customer values(@P0, @P1, @P2, @P5)";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
