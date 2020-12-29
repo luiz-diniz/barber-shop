@@ -16,7 +16,7 @@ namespace BarberShop.Service.Services
 
         public void Create(Customer customer)
         {
-            throw new System.NotImplementedException();
+            _customerRepository.Create(customer);
         }
 
         public void Delete(string type)
