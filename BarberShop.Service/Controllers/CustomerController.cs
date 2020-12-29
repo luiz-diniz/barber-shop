@@ -28,5 +28,14 @@ namespace BarberShop.Service.Controllers
         {
             _customerService.Delete(cpf);
         }
+
+        [HttpGet]
+        [Route("ReadCustomer/{cpf}")]
+        public Customer Read(string cpf)
+        {
+            return _customerService.Read(cpf);
+        }
+
+        //UpdateCustomer
     }
 }

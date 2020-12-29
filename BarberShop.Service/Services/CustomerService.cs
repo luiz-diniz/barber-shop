@@ -52,7 +52,22 @@ namespace BarberShop.Service.Services
 
         public Customer Read(string cpf)
         {
-            throw new System.NotImplementedException();
+            Customer customer = new Customer();
+
+            try
+            {
+                customer = _customerRepository.Read(cpf);
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.Message);
+            }
+            finally
+            {
+                _logger.CreateLog("Database", "Select", "Customer", new List<string> { customer.Cpf, customer.Name, customer.Birth.ToString(), customer.Phone });
+            }
+
+            return customer;
         }
 
         public Customer Update(Customer customer)

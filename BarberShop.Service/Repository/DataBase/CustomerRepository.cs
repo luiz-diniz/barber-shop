@@ -10,7 +10,7 @@ namespace BarberShop.Service.Repository.ModelsRepository
     {
         public void Create(Customer customer)
         {
-            string query = "insert into Customer values(@P0, @P1, @P2, @P5)";
+            string query = "insert into customer values(@P0, @P1, @P2, @P5)";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -49,9 +49,35 @@ namespace BarberShop.Service.Repository.ModelsRepository
             }
         }
 
-        public Customer Read(string type)
+        public Customer Read(string cpf)
         {
-            throw new NotImplementedException();
+            string query = "select * from customer where cpf_customer = @P0";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    cmd.Parameters.Add(new SqlParameter("P0", cpf));
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    Customer customer = new Customer();
+
+                    if (reader.Read())
+                    {
+                        customer.Cpf = Convert.ToString(reader["cpf_customer"]);
+                        customer.Name = Convert.ToString(reader["name_customer"]);
+                        customer.Birth = Convert.ToDateTime(reader["birth_customer"]);
+                        customer.Phone = Convert.ToString(reader["phone_customer"]);
+                    }
+
+                    return customer;
+                }
+            }
         }
 
         public Customer Update(Customer type)
