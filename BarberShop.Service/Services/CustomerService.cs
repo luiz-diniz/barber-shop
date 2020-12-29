@@ -2,21 +2,25 @@
 using BarberShop.Service.Repository.Interfaces;
 using BarberShop.Service.Repository.ModelsRepository;
 using BarberShop.Service.Services.Interfaces;
+using System.Collections.Generic;
 
 namespace BarberShop.Service.Services
 {
     public class CustomerService : ICustomerService
     {
         private ICustomerRepository _customerRepository;
+        private ILogger _logger;
 
-        public CustomerService(ICustomerRepository customerRepository)
+        public CustomerService(ICustomerRepository customerRepository, ILogger logger)
         {
             _customerRepository = customerRepository;
+            _logger = logger;
         }
 
         public void Create(Customer customer)
         {
             _customerRepository.Create(customer);
+            _logger.CreateLog("Database", "Insert", "Customer", new List<string> { customer.Cpf, customer.Name, customer.Birth.ToString(), customer.Phone });
         }
 
         public void Delete(string type)
