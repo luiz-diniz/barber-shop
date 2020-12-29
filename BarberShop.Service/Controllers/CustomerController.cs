@@ -21,5 +21,12 @@ namespace BarberShop.Service.Controllers
         {
             _customerService.Create(customer);
         }
+
+        [HttpDelete]
+        [Route("DeleteCustomer/{cpf}")]
+        public void Delete(string cpf)
+        {
+            _customerService.Delete(cpf);
+        }
     }
 }

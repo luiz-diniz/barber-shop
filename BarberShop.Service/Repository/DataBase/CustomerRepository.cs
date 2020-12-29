@@ -30,9 +30,23 @@ namespace BarberShop.Service.Repository.ModelsRepository
             }
         }
 
-        public void Delete(string type)
+        public void Delete(string cpf)
         {
-            throw new NotImplementedException();
+            string query = "delete from customer where cpf_customer = @P0";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    cmd.Parameters.Add(new SqlParameter("P0", cpf));
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         public Customer Read(string type)
