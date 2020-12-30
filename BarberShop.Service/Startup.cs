@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using BarberShop.Service.Repository.Database;
 using BarberShop.Service.Repository.ModelsRepository;
 using BarberShop.Service.Repository.Interfaces.ModelsRepository;
+using BarberShop.Service.Utilities;
 
 namespace BarberShop.Service
 {
@@ -26,6 +27,7 @@ namespace BarberShop.Service
             services.AddMvc(options => options.EnableEndpointRouting = false);
 
             services.AddSingleton<ILogger, Logger>();
+            services.AddSingleton<IHasher, Hasher>();
             services.AddSingleton<ICustomerService, CustomerService>();
             services.AddSingleton<ICustomerRepository, CustomerRepository>();
             services.AddSingleton<IEmployeeService, EmployeeService>();
