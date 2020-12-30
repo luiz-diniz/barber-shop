@@ -1,5 +1,4 @@
 using BarberShop.Service.Repository.Interfaces;
-using BarberShop.Service.Repository.ModelsRepository;
 using BarberShop.Service.Services;
 using BarberShop.Service.Services.Interfaces;
 using BarberShop.Service.Repository.IO;
@@ -9,6 +8,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using BarberShop.Service.Repository.Database;
+using BarberShop.Service.Repository.ModelsRepository;
+using BarberShop.Service.Repository.Interfaces.ModelsRepository;
 
 namespace BarberShop.Service
 {
@@ -26,6 +28,8 @@ namespace BarberShop.Service
             services.AddSingleton<ILogger, Logger>();
             services.AddSingleton<ICustomerService, CustomerService>();
             services.AddSingleton<ICustomerRepository, CustomerRepository>();
+            services.AddSingleton<IEmployeeService, EmployeeService>();
+            services.AddSingleton<IEmployeeRepository, EmployeeRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
