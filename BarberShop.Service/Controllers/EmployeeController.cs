@@ -1,4 +1,5 @@
-﻿using BarberShop.Service.Services.Interfaces;
+﻿using BarberShop.Service.Models;
+using BarberShop.Service.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BarberShop.Service.Controllers
@@ -16,9 +17,9 @@ namespace BarberShop.Service.Controllers
 
         [HttpPost]
         [Route("CreateEmployee")]
-        public void Create()
+        public void Create(Employee employee)
         {
-
+            _employeeService.Create(employee);
         }
     }
 }
