@@ -22,7 +22,7 @@ create table Employee(
 	name_employee varchar(50) not null,
 	username_employee varchar(50) not null,
 	password_employee varchar(50) not null,
-	hash_password_employee varchar(50) not null,
+	salt_hash_password_employee varchar(50) not null,
 )
 
 create table Payment(
