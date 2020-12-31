@@ -8,6 +8,7 @@ namespace BarberShop.Service.Repository.ModelsRepository
 {
     public class CustomerRepository : DatabaseConfiguration, ICustomerRepository
     {
+        //Customer
         public void Create(Customer customer)
         {
             string query = "insert into customer values(@P0, @P1, @P2, @P3)";
@@ -28,7 +29,7 @@ namespace BarberShop.Service.Repository.ModelsRepository
                     cmd.ExecuteNonQuery();
                 }
             }
-        }
+        }        
 
         public void Delete(string cpf)
         {
@@ -103,6 +104,27 @@ namespace BarberShop.Service.Repository.ModelsRepository
                     return customer;
                 }
             }
+        }
+
+        //CustomerPhone
+        public void CreatePhone(CustomerPhone customerPhone)
+        {
+            
+        }
+
+        public void DeletePhone(CustomerPhone customerPhone)
+        {
+            throw new NotImplementedException();
+        }
+
+        public CustomerPhone ReadPhone(string cpf)
+        {
+            throw new NotImplementedException();
+        }
+
+        public CustomerPhone UpdatePhone(CustomerPhone customerPhone)
+        {
+            throw new NotImplementedException();
         }
     }
 }

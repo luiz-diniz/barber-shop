@@ -15,6 +15,7 @@ namespace BarberShop.Service.Controllers
             _customerService = customerService;
         }
 
+        //Customer table
         [HttpPost]
         [Route("CreateCustomer")]
         public void Create(Customer customer)
@@ -42,5 +43,7 @@ namespace BarberShop.Service.Controllers
         {
             return _customerService.Update(customer);
         }
+
+        //CustomerPhone table
     }
 }

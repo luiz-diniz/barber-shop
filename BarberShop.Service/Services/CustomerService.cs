@@ -18,6 +18,7 @@ namespace BarberShop.Service.Services
             _logger = logger;
         }
 
+        //Customer
         public void Create(Customer customer)
         {
             try
@@ -32,7 +33,7 @@ namespace BarberShop.Service.Services
             {
                 _logger.CreateLog("Database", "Insert", "Customer", new List<string> { customer.Cpf, customer.Name, customer.Birth.ToString(), customer.Phone });
             }
-        }
+        }           
 
         public void Delete(string cpf)
         {
@@ -88,6 +89,38 @@ namespace BarberShop.Service.Services
             }
 
             return customer;
+        }
+
+        //CustomerPhone
+        public void CreatePhone(CustomerPhone customerPhone)
+        {
+            try
+            {
+                _customerRepository.CreatePhone(customerPhone);
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.Message);
+            }
+            finally
+            {
+                _logger.CreateLog("Database", "Insert", "CustomerPhone", new List<string> { customerPhone.CustomerInfo.Cpf, customerPhone.Phone });
+            }
+        }
+
+        public void DeletePhone(CustomerPhone customerPhone)
+        {
+            throw new NotImplementedException();
+        }
+
+        public CustomerPhone ReadPhone(string cpf)
+        {
+            throw new NotImplementedException();
+        }
+
+        public CustomerPhone UpdatePhone(CustomerPhone customerPhone)
+        {
+            throw new NotImplementedException();
         }
     }
 }
