@@ -56,14 +56,44 @@ namespace BarberShop.Service.Services
             }
         }
 
-        public Employee Read(string type)
+        public Employee Read(string cpf)
         {
-            throw new System.NotImplementedException();
+            Employee employee = new Employee();
+
+            try
+            {
+                employee = _employeeRepository.Read(cpf);
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.Message);
+            }
+            finally
+            {
+                _logger.CreateLog("Database", "Read", "Employee", new List<string> { employee.Cpf, employee.Name, employee.Username });
+            }
+
+            return employee;
         }
 
-        public Employee Update(Employee type)
+        public Employee Update(Employee cpf)
         {
-            throw new System.NotImplementedException();
+            Employee employee = new Employee();
+
+            try
+            {
+                employee = _employeeRepository.Update(cpf);
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.Message);
+            }
+            finally
+            {
+                _logger.CreateLog("Database", "Update", "Employee", new List<string> { employee.Cpf, employee.Name, employee.Username });
+            }
+
+            return employee;
         }
     }
 }

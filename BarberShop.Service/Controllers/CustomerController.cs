@@ -36,7 +36,6 @@ namespace BarberShop.Service.Controllers
             return _customerService.Read(cpf);
         }
 
-        //UpdateCustomer
         [HttpPut]
         [Route("UpdateCustomer")]
         public Customer Update(Customer customer)

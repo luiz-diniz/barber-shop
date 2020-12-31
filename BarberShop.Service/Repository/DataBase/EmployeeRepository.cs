@@ -49,14 +49,14 @@ namespace BarberShop.Service.Repository.Database
             }
         }
 
-        public Employee Read(string type)
+        public Employee Read(string cpf)
         {
-            throw new System.NotImplementedException();
+            string query = "select cpf_employee, name_employee, username_employee from employee where cpf_employee = @P0";                       
         }
 
         public Employee Update(Employee type)
         {
-            throw new System.NotImplementedException();
+            string query = "update employee set name_employee = @P0, username_employee = @P1 where cpf_employee = @P2";
         }
     }
 }

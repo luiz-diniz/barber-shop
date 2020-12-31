@@ -28,5 +28,19 @@ namespace BarberShop.Service.Controllers
         {
             _employeeService.Delete(cpf);
         }
+
+        [HttpPut]
+        [Route("ReadEmployee")]
+        public Employee Read(string cpf)
+        {
+            return _employeeService.Read(cpf);
+        }
+
+        [HttpDelete]
+        [Route("UpdateEmployee")]
+        public Employee Update(Employee employee)
+        {
+            return _employeeService.Update(employee);
+        }
     }
 }
