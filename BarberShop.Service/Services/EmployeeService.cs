@@ -40,9 +40,20 @@ namespace BarberShop.Service.Services
             }
         }
 
-        public void Delete(string type)
+        public void Delete(string cpf)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                _employeeRepository.Delete(cpf);
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.Message);
+            }
+            finally
+            {
+                _logger.CreateLog("Database", "Delete", "Employee", new List<string> { cpf });
+            }
         }
 
         public Employee Read(string type)
