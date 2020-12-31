@@ -76,13 +76,13 @@ namespace BarberShop.Service.Services
             return employee;
         }
 
-        public Employee Update(Employee cpf)
+        public Employee Update(Employee employeeArgument)
         {
             Employee employee = new Employee();
 
             try
             {
-                employee = _employeeRepository.Update(cpf);
+                employee = _employeeRepository.Update(employeeArgument);
             }
             catch (Exception ex)
             {
@@ -90,7 +90,7 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Update", "Employee", new List<string> { employee.Cpf, employee.Name, employee.Username });
+                _logger.CreateLog("Database", "Update", "Employee", new List<string> { employeeArgument.Cpf, employeeArgument.Name, employeeArgument.Username });
             }
 
             return employee;
