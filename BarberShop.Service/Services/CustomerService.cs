@@ -108,9 +108,20 @@ namespace BarberShop.Service.Services
             }
         }
 
-        public void DeletePhone(CustomerPhone customerPhone)
+        public void DeletePhone(string phone)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _customerRepository.DeletePhone(phone);
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.Message);
+            }
+            finally
+            {
+                _logger.CreateLog("Database", "Delete", "CustomerPhone", new List<string> { phone });
+            }
         }
 
         public CustomerPhone ReadPhone(string cpf)

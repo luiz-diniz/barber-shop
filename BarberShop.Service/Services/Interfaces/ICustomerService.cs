@@ -5,7 +5,7 @@ namespace BarberShop.Service.Services.Interfaces
     public interface ICustomerService : ICRUDService<Customer, Customer>
     {
         void CreatePhone(CustomerPhone customerPhone);
-        void DeletePhone(CustomerPhone customerPhone);
+        void DeletePhone(string phone);
         CustomerPhone ReadPhone(string cpf);
         CustomerPhone UpdatePhone(CustomerPhone customerPhone);
     }

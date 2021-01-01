@@ -127,9 +127,23 @@ namespace BarberShop.Service.Repository.ModelsRepository
             }
         }
 
-        public void DeletePhone(CustomerPhone customerPhone)
+        public void DeletePhone(string phone)
         {
-            throw new NotImplementedException();
+            string query = "delete from customerPhone where phone_customer = @P0";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    cmd.Parameters.Add(new SqlParameter("P0", phone));
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         public CustomerPhone ReadPhone(string cpf)

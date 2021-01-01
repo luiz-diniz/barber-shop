@@ -51,5 +51,12 @@ namespace BarberShop.Service.Controllers
         {
             _customerService.CreatePhone(customer);
         }
+
+        [HttpDelete]
+        [Route("DeleteCustomerPhone/{phone}")]
+        public void DeletePhone(string phone)
+        {
+            _customerService.DeletePhone(phone);
+        }
     }
 }
