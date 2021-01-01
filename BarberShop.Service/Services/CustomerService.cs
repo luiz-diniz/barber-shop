@@ -65,7 +65,10 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Select", "Customer", new List<string> { customer.Cpf, customer.Name, customer.Birth.ToString(), customer.Phone.ToString() });
+                for (int i = 0; i < customer.Phone.Count; i++)
+                {
+                    _logger.CreateLog("Database", "Update", "Customer", new List<string> { customer.Cpf, customer.Name, customer.Birth.ToString(), customer.Phone[i] });
+                }
             }
 
             return customer;
@@ -85,7 +88,10 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Update", "Customer", new List<string> { customerArgument.Cpf, customerArgument.Name, customerArgument.Birth.ToString(), customerArgument.Phone.ToString() });
+                for (int i = 0; i < customerArgument.Phone.Count; i++)
+                {
+                    _logger.CreateLog("Database", "Update", "Customer", new List<string> { customerArgument.Cpf, customerArgument.Name, customerArgument.Birth.ToString(), customerArgument.Phone[i] });
+                }            
             }
 
             return customer;
