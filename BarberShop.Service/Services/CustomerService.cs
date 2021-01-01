@@ -31,7 +31,7 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Insert", "Customer", new List<string> { customer.Cpf, customer.Name, customer.Birth.ToString(), customer.Phone });
+                _logger.CreateLog("Database", "Insert", "Customer", new List<string> { customer.Cpf, customer.Name, customer.Birth.ToString() });
             }
         }           
 
@@ -65,7 +65,7 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Select", "Customer", new List<string> { customer.Cpf, customer.Name, customer.Birth.ToString(), customer.Phone });
+                _logger.CreateLog("Database", "Select", "Customer", new List<string> { customer.Cpf, customer.Name, customer.Birth.ToString(), customer.Phone.ToString() });
             }
 
             return customer;
@@ -85,18 +85,18 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Update", "Customer", new List<string> { customerArgument.Cpf, customerArgument.Name, customerArgument.Birth.ToString(), customerArgument.Phone });
+                _logger.CreateLog("Database", "Update", "Customer", new List<string> { customerArgument.Cpf, customerArgument.Name, customerArgument.Birth.ToString(), customerArgument.Phone.ToString() });
             }
 
             return customer;
         }
 
         //CustomerPhone
-        public void CreatePhone(CustomerPhone customerPhone)
+        public void CreatePhone(Customer customer)
         {
             try
             {
-                _customerRepository.CreatePhone(customerPhone);
+                _customerRepository.CreatePhone(customer);
             }
             catch (Exception ex)
             {
@@ -104,7 +104,11 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Insert", "CustomerPhone", new List<string> { customerPhone.CustomerInfo.Cpf, customerPhone.Phone });
+                for (int i = 0; i < customer.Phone.Count; i++)
+                {
+                    _logger.CreateLog("Database", "Insert", "CustomerPhone", new List<string> { customer.Cpf, customer.Phone[i] });
+
+                }            
             }
         }
 
@@ -124,12 +128,12 @@ namespace BarberShop.Service.Services
             }
         }
 
-        public CustomerPhone ReadPhone(string cpf)
+        public Customer ReadPhone(string cpf)
         {
             throw new NotImplementedException();
         }
 
-        public CustomerPhone UpdatePhone(CustomerPhone customerPhone)
+        public Customer UpdatePhone(Customer customerPhone)
         {
             throw new NotImplementedException();
         }

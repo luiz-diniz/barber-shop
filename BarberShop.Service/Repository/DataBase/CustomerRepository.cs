@@ -11,12 +11,12 @@ namespace BarberShop.Service.Repository.ModelsRepository
         //Customer
         public void Create(Customer customer)
         {
-            string query = "insert into customer values(@P0, @P1, @P2, @P3)";
+            string query = "insert into customer values(@P0, @P1, @P2)";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                
+
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.CommandType = CommandType.Text;
@@ -24,12 +24,11 @@ namespace BarberShop.Service.Repository.ModelsRepository
                     cmd.Parameters.Add(new SqlParameter("P0", customer.Cpf));
                     cmd.Parameters.Add(new SqlParameter("P1", customer.Name));
                     cmd.Parameters.Add(new SqlParameter("P2", customer.Birth));
-                    cmd.Parameters.Add(new SqlParameter("P3", customer.Phone));
 
                     cmd.ExecuteNonQuery();
                 }
             }
-        }        
+        }
 
         public void Delete(string cpf)
         {
@@ -73,7 +72,6 @@ namespace BarberShop.Service.Repository.ModelsRepository
                         customer.Cpf = Convert.ToString(reader["cpf_customer"]);
                         customer.Name = Convert.ToString(reader["name_customer"]);
                         customer.Birth = Convert.ToDateTime(reader["birth_customer"]);
-                        customer.Phone = Convert.ToString(reader["phone_customer"]);
                     }
 
                     return customer;
@@ -83,7 +81,7 @@ namespace BarberShop.Service.Repository.ModelsRepository
 
         public Customer Update(Customer customer)
         {
-            string query = "update customer set name_customer = @P0, birth_customer = @P1, phone_customer = @P2 where " +
+            string query = "update customer set name_customer = @P0, birth_customer = @P1 where " +
                 "cpf_customer = @P3";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -96,7 +94,6 @@ namespace BarberShop.Service.Repository.ModelsRepository
 
                     cmd.Parameters.Add(new SqlParameter("P0", customer.Name));
                     cmd.Parameters.Add(new SqlParameter("P1", customer.Birth));
-                    cmd.Parameters.Add(new SqlParameter("P2", customer.Phone));
                     cmd.Parameters.Add(new SqlParameter("P3", customer.Cpf));
 
                     cmd.ExecuteNonQuery();
@@ -107,23 +104,26 @@ namespace BarberShop.Service.Repository.ModelsRepository
         }
 
         //CustomerPhone
-        public void CreatePhone(CustomerPhone customerPhone)
+        public void CreatePhone(Customer customer)
         {
-            string query = "insert into customerPhone values(@P0, @P1)";
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            for (int i = 0; i < customer.Phone.Count; i++)
             {
-                conn.Open();
+                string query = "insert into customerPhone values(@P0, @P1)";
 
-                using(SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    cmd.CommandType = CommandType.Text;
+                    conn.Open();
 
-                    cmd.Parameters.Add(new SqlParameter("P0", customerPhone.CustomerInfo.Cpf));
-                    cmd.Parameters.Add(new SqlParameter("P1", customerPhone.Phone));
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.CommandType = CommandType.Text;
 
-                    cmd.ExecuteNonQuery();
-                }
+                        cmd.Parameters.Add(new SqlParameter("P0", customer.Cpf));
+                        cmd.Parameters.Add(new SqlParameter("P1", customer.Phone[i]));
+
+                        cmd.ExecuteNonQuery();
+                    }
+                } 
             }
         }
 
@@ -146,12 +146,12 @@ namespace BarberShop.Service.Repository.ModelsRepository
             }
         }
 
-        public CustomerPhone ReadPhone(string cpf)
+        public Customer ReadPhone(string cpf)
         {
             throw new NotImplementedException();
         }
 
-        public CustomerPhone UpdatePhone(CustomerPhone customerPhone)
+        public Customer UpdatePhone(Customer customerPhone)
         {
             throw new NotImplementedException();
         }

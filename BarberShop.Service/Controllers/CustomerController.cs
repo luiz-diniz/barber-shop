@@ -47,7 +47,7 @@ namespace BarberShop.Service.Controllers
         //CustomerPhone table
         [HttpPost]
         [Route("CreateCustomerPhone")]
-        public void CreatePhone(CustomerPhone customer)
+        public void CreatePhone(Customer customer)
         {
             _customerService.CreatePhone(customer);
         }
@@ -58,5 +58,8 @@ namespace BarberShop.Service.Controllers
         {
             _customerService.DeletePhone(phone);
         }
+
+        //[HttpGet]
+        //[Route("ReadCustomerPhone/{cpf]")]
     }
 }

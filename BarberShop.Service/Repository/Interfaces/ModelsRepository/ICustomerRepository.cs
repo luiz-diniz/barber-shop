@@ -4,9 +4,9 @@ namespace BarberShop.Service.Repository.Interfaces
 {
     public interface ICustomerRepository : ICRUD<Customer, Customer>
     {
-        void CreatePhone(CustomerPhone customerPhone);
+        void CreatePhone(Customer customer);
         void DeletePhone(string phone);
-        CustomerPhone ReadPhone(string cpf);
-        CustomerPhone UpdatePhone(CustomerPhone customerPhone);
+        Customer ReadPhone(string cpf);
+        Customer UpdatePhone(Customer customer);
     }
 }

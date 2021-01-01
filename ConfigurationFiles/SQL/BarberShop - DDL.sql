@@ -6,7 +6,6 @@ create table Customer(
 	cpf_customer char(11) primary key,
 	name_customer varchar(50) not null,
 	birth_customer date,
-	phone_customer varchar(20)
 )
 
 create table CustomerPhone(
