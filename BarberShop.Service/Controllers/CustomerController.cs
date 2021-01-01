@@ -45,5 +45,11 @@ namespace BarberShop.Service.Controllers
         }
 
         //CustomerPhone table
+        [HttpPost]
+        [Route("CreateCustomerPhone")]
+        public void CreatePhone(CustomerPhone customer)
+        {
+            _customerService.CreatePhone(customer);
+        }
     }
 }

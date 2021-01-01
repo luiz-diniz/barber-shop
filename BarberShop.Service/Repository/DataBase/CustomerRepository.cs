@@ -109,7 +109,22 @@ namespace BarberShop.Service.Repository.ModelsRepository
         //CustomerPhone
         public void CreatePhone(CustomerPhone customerPhone)
         {
-            
+            string query = "insert into customerPhone values(@P0, @P1)";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using(SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    cmd.Parameters.Add(new SqlParameter("P0", customerPhone.CustomerInfo.Cpf));
+                    cmd.Parameters.Add(new SqlParameter("P1", customerPhone.Phone));
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         public void DeletePhone(CustomerPhone customerPhone)
