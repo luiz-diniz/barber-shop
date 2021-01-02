@@ -31,7 +31,7 @@ namespace BarberShop.Service.Repository.Database
             }
         }
 
-        public void Delete(string cpf)
+        public void Delete(Employee employee)
         {
             string query = "delete from employee where cpf_employee = @P0";
 
@@ -43,7 +43,7 @@ namespace BarberShop.Service.Repository.Database
                 {
                     cmd.CommandType = CommandType.Text;
 
-                    cmd.Parameters.Add(new SqlParameter("P0", cpf));
+                    cmd.Parameters.Add(new SqlParameter("P0", employee.Cpf));
 
                     cmd.ExecuteNonQuery();
                 }
@@ -52,7 +52,7 @@ namespace BarberShop.Service.Repository.Database
 
         public Employee Read(string cpf)
         {
-            string query = "select cpf_employee, name_employee, username_employee from employee where cpf_employee = @P0";
+            string query = "select id_employee, cpf_employee, name_employee, username_employee from employee where cpf_employee = @P0";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -70,6 +70,7 @@ namespace BarberShop.Service.Repository.Database
 
                     if(reader.Read())
                     {
+                        employee.Id = Convert.ToInt32(reader["id_employee"]);
                         employee.Cpf = Convert.ToString(reader["cpf_employee"]);
                         employee.Name = Convert.ToString(reader["name_employee"]);
                         employee.Username = Convert.ToString(reader["username_employee"]);
@@ -82,7 +83,7 @@ namespace BarberShop.Service.Repository.Database
 
         public Employee Update(Employee employee)
         {
-            string query = "update employee set name_employee = @P0, username_employee = @P1 where cpf_employee = @P2";
+            string query = "update employee set cpf_employee = @P0, name_employee = @P1, username_employee = @P2 where id_employee = @P3";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -92,9 +93,10 @@ namespace BarberShop.Service.Repository.Database
                 {
                     cmd.CommandType = CommandType.Text;
 
-                    cmd.Parameters.Add(new SqlParameter("P0", employee.Name));
-                    cmd.Parameters.Add(new SqlParameter("P1", employee.Username));
-                    cmd.Parameters.Add(new SqlParameter("P2", employee.Cpf));
+                    cmd.Parameters.Add(new SqlParameter("P0", employee.Cpf));
+                    cmd.Parameters.Add(new SqlParameter("P2", employee.Name));
+                    cmd.Parameters.Add(new SqlParameter("P2", employee.Username));
+                    cmd.Parameters.Add(new SqlParameter("P3", employee.Id));
 
                     cmd.ExecuteNonQuery();
 

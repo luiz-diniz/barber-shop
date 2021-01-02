@@ -1,4 +1,5 @@
 ﻿using BarberShop.Service.Models;
+using System.Collections.Generic;
 
 namespace BarberShop.Service.Services.Interfaces
 {
@@ -6,7 +7,7 @@ namespace BarberShop.Service.Services.Interfaces
     {
         void CreatePhone(Customer customerPhone);
         void DeletePhone(string phone);
-        Customer ReadPhone(string cpf);
+        List<string> ReadPhone(int id);
         Customer UpdatePhone(Customer customerPhone);
     }
 }

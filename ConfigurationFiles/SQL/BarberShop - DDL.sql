@@ -3,21 +3,23 @@ create database BarberShop
 use BarberShop
 
 create table Customer(
-	cpf_customer char(11) primary key,
+	id_customer int identity(1,1) primary key,
+	cpf_customer char(11) unique,
 	name_customer varchar(50) not null,
-	birth_customer date,
+	birth_customer date
 )
 
 create table CustomerPhone(
 	id_customer_phone int identity(1,1) primary key,
-	cpf_customer char(11),
+	id_customer int,
 	phone_customer varchar(20),
 
-	foreign key(cpf_customer) references Customer(cpf_customer)
+	foreign key(id_customer) references Customer(id_customer)
 )
 
 create table Employee(
-	cpf_employee char(11) primary key,
+	id_employee int identity(1,1) primary key,
+	cpf_employee char(11) unique,
 	name_employee varchar(50) not null,
 	username_employee varchar(50) not null,
 	password_employee varchar(50) not null,
@@ -38,12 +40,12 @@ create table ServiceInfo(
 
 create table OrderInfo(
 	id_order_info int identity(1,1) primary key,
-	cpf_customer char(11),
-	cpf_employee char(11),
+	id_customer int,
+	id_employee int,
 	order_date datetime,
 
-	foreign key (cpf_customer) references Customer(cpf_customer),
-	foreign key (cpf_employee) references Employee(cpf_employee)
+	foreign key (id_customer) references Customer(id_customer),
+	foreign key (id_employee) references Employee(id_employee)
 )
 
 create table OrderServices(
@@ -60,6 +62,6 @@ create table OrderPayment(
 	id_payment int,
 	id_order_info int,
 
-	foreign key (id_payment) references payment(id_payment),
+	foreign key (id_payment) references Payment(id_payment),
 	foreign key (id_order_info) references OrderInfo(id_order_info)
 )

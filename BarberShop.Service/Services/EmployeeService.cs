@@ -40,11 +40,11 @@ namespace BarberShop.Service.Services
             }
         }
 
-        public void Delete(string cpf)
+        public void Delete(Employee employee)
         {
             try
             {
-                _employeeRepository.Delete(cpf);
+                _employeeRepository.Delete(employee);
             }
             catch (Exception ex)
             {
@@ -52,7 +52,7 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Delete", "Employee", new List<string> { cpf });
+                _logger.CreateLog("Database", "Delete", "Employee", new List<string> { employee.Cpf });
             }
         }
 
@@ -70,7 +70,7 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Read", "Employee", new List<string> { employee.Cpf, employee.Name, employee.Username });
+                _logger.CreateLog("Database", "Read", "Employee", new List<string> { employee.Id.ToString(), employee.Cpf, employee.Name, employee.Username });
             }
 
             return employee;
@@ -90,7 +90,7 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Update", "Employee", new List<string> { employeeArgument.Cpf, employeeArgument.Name, employeeArgument.Username });
+                _logger.CreateLog("Database", "Update", "Employee", new List<string> { employee.Id.ToString(), employeeArgument.Cpf, employeeArgument.Name, employeeArgument.Username });
             }
 
             return employee;

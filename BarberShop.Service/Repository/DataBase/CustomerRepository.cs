@@ -3,6 +3,7 @@ using BarberShop.Service.Repository.Interfaces;
 using System;
 using System.Data.SqlClient;
 using System.Data;
+using System.Collections.Generic;
 
 namespace BarberShop.Service.Repository.ModelsRepository
 {
@@ -30,7 +31,7 @@ namespace BarberShop.Service.Repository.ModelsRepository
             }
         }
 
-        public void Delete(string cpf)
+        public void Delete(Customer customer)
         {
             string query = "delete from customer where cpf_customer = @P0";
 
@@ -42,7 +43,7 @@ namespace BarberShop.Service.Repository.ModelsRepository
                 {
                     cmd.CommandType = CommandType.Text;
 
-                    cmd.Parameters.Add(new SqlParameter("P0", cpf));
+                    cmd.Parameters.Add(new SqlParameter("P0", customer.Cpf));
 
                     cmd.ExecuteNonQuery();
                 }
@@ -69,6 +70,7 @@ namespace BarberShop.Service.Repository.ModelsRepository
 
                     if (reader.Read())
                     {
+                        customer.Id = Convert.ToInt32(reader["id_customer"]);
                         customer.Cpf = Convert.ToString(reader["cpf_customer"]);
                         customer.Name = Convert.ToString(reader["name_customer"]);
                         customer.Birth = Convert.ToDateTime(reader["birth_customer"]);
@@ -81,8 +83,8 @@ namespace BarberShop.Service.Repository.ModelsRepository
 
         public Customer Update(Customer customer)
         {
-            string query = "update customer set name_customer = @P0, birth_customer = @P1 where " +
-                "cpf_customer = @P3";
+            string query = "update customer set cpf_customer = @P0, name_customer = @P1, birth_customer = @P2 where " +
+                "id_customer = @P3";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -92,9 +94,10 @@ namespace BarberShop.Service.Repository.ModelsRepository
                 {
                     cmd.CommandType = CommandType.Text;
 
-                    cmd.Parameters.Add(new SqlParameter("P0", customer.Name));
-                    cmd.Parameters.Add(new SqlParameter("P1", customer.Birth));
-                    cmd.Parameters.Add(new SqlParameter("P3", customer.Cpf));
+                    cmd.Parameters.Add(new SqlParameter("P0", customer.Cpf));
+                    cmd.Parameters.Add(new SqlParameter("P1", customer.Name));
+                    cmd.Parameters.Add(new SqlParameter("P2", customer.Birth));
+                    cmd.Parameters.Add(new SqlParameter("P3", customer.Id));
 
                     cmd.ExecuteNonQuery();
 
@@ -118,7 +121,7 @@ namespace BarberShop.Service.Repository.ModelsRepository
                     {
                         cmd.CommandType = CommandType.Text;
 
-                        cmd.Parameters.Add(new SqlParameter("P0", customer.Cpf));
+                        cmd.Parameters.Add(new SqlParameter("P0", customer.Id));
                         cmd.Parameters.Add(new SqlParameter("P1", customer.Phone[i]));
 
                         cmd.ExecuteNonQuery();
@@ -146,14 +149,57 @@ namespace BarberShop.Service.Repository.ModelsRepository
             }
         }
 
-        public Customer ReadPhone(string cpf)
+        public void DeleteAllPhones(int id)
         {
-            throw new NotImplementedException();
+            string query = "delete from customerPhone where id_customer = @P0";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    cmd.Parameters.Add(new SqlParameter("P0", id));
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public List<string> ReadPhone(int id)
+        {
+            string query = "select phone_customer from customerPhone where id_customer = @P0";
+            List<string> phones = new List<string>();
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    cmd.Parameters.Add(new SqlParameter("P0", id));
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    Customer customer = new Customer();
+
+                    while(reader.Read())
+                    {
+                        phones.Add(Convert.ToString(reader["phone_customer"]));
+                    }
+
+                    return phones;
+                }
+            }
         }
 
         public Customer UpdatePhone(Customer customerPhone)
         {
             throw new NotImplementedException();
-        }
+        }       
     }
 }

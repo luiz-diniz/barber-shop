@@ -35,11 +35,12 @@ namespace BarberShop.Service.Services
             }
         }           
 
-        public void Delete(string cpf)
+        public void Delete(Customer customer)
         {
             try
             {
-                _customerRepository.Delete(cpf);
+                _customerRepository.DeleteAllPhones(customer.Id);
+                _customerRepository.Delete(customer);               
             }
             catch (Exception ex)
             {
@@ -47,7 +48,7 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Delete", "Customer", new List<string> { cpf });
+                _logger.CreateLog("Database", "Delete", "Customer", new List<string> { customer.Cpf });
             }
         }
 
@@ -58,6 +59,7 @@ namespace BarberShop.Service.Services
             try
             {
                 customer = _customerRepository.Read(cpf);
+                customer.Phone = _customerRepository.ReadPhone(customer.Id);
             }
             catch (Exception ex)
             {
@@ -67,7 +69,7 @@ namespace BarberShop.Service.Services
             {
                 for (int i = 0; i < customer.Phone.Count; i++)
                 {
-                    _logger.CreateLog("Database", "Update", "Customer", new List<string> { customer.Cpf, customer.Name, customer.Birth.ToString(), customer.Phone[i] });
+                    _logger.CreateLog("Database", "Update", "Customer", new List<string> { customer.Id.ToString(), customer.Cpf, customer.Name, customer.Birth.ToString(), customer.Phone[i] });
                 }
             }
 
@@ -90,7 +92,7 @@ namespace BarberShop.Service.Services
             {
                 for (int i = 0; i < customerArgument.Phone.Count; i++)
                 {
-                    _logger.CreateLog("Database", "Update", "Customer", new List<string> { customerArgument.Cpf, customerArgument.Name, customerArgument.Birth.ToString(), customerArgument.Phone[i] });
+                    _logger.CreateLog("Database", "Update", "Customer", new List<string> { customer.Id.ToString(), customerArgument.Cpf, customerArgument.Name, customerArgument.Birth.ToString(), customerArgument.Phone[i] });
                 }            
             }
 
@@ -134,9 +136,9 @@ namespace BarberShop.Service.Services
             }
         }
 
-        public Customer ReadPhone(string cpf)
+        public List<string> ReadPhone(int id)
         {
-            throw new NotImplementedException();
+            return _customerRepository.ReadPhone(id);
         }
 
         public Customer UpdatePhone(Customer customerPhone)
