@@ -26,9 +26,23 @@ namespace BarberShop.Service.Repository.Database
             }
         }
 
-        public void Delete(Payment name)
+        public void Delete(Payment payment)
         {
-            throw new System.NotImplementedException();
+            string query = "delete from payment where name_payment = @P0";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    cmd.Parameters.Add(new SqlParameter("P0", payment.Name));
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         public Payment Read(string name)

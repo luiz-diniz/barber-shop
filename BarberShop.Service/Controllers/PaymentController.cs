@@ -32,5 +32,19 @@ namespace BarberShop.Service.Controllers
         {
             _paymentService.Delete(payment);
         }
+
+        [HttpGet]
+        [Route("ReadPayment/{payment}")]
+        public Payment Read(string payment)
+        {
+            return _paymentService.Read(payment);
+        }
+
+        [HttpPut]
+        [Route("UpdatePayment")]
+        public void Update(Payment payment)
+        {
+            _paymentService.Update(payment);
+        }
     }
 }
