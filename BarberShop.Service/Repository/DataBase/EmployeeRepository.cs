@@ -81,7 +81,7 @@ namespace BarberShop.Service.Repository.Database
             }
         }
 
-        public Employee Update(Employee employee)
+        public void Update(Employee employee)
         {
             string query = "update employee set cpf_employee = @P0, name_employee = @P1, username_employee = @P2 where id_employee = @P3";
 
@@ -99,8 +99,6 @@ namespace BarberShop.Service.Repository.Database
                     cmd.Parameters.Add(new SqlParameter("P3", employee.Id));
 
                     cmd.ExecuteNonQuery();
-
-                    return employee;
                 }
             }
         }

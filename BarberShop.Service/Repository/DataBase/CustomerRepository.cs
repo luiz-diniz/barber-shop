@@ -81,7 +81,7 @@ namespace BarberShop.Service.Repository.ModelsRepository
             }
         }
 
-        public Customer Update(Customer customer)
+        public void Update(Customer customer)
         {
             string query = "update customer set cpf_customer = @P0, name_customer = @P1, birth_customer = @P2 where " +
                 "id_customer = @P3";
@@ -100,8 +100,6 @@ namespace BarberShop.Service.Repository.ModelsRepository
                     cmd.Parameters.Add(new SqlParameter("P3", customer.Id));
 
                     cmd.ExecuteNonQuery();
-
-                    return customer;
                 }
             }
         }
@@ -168,9 +166,9 @@ namespace BarberShop.Service.Repository.ModelsRepository
             }
         }
 
-        public List<string> ReadPhone(int id)
+        public List<string> ReadPhone(string cpf)
         {
-            string query = "select phone_customer from customerPhone where id_customer = @P0";
+            string query = "select p.phone_customer from CustomerPhone p inner join Customer c on p.id_customer = c.id_customer where c.cpf_customer = @P0";
             List<string> phones = new List<string>();
 
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -181,7 +179,7 @@ namespace BarberShop.Service.Repository.ModelsRepository
                 {
                     cmd.CommandType = CommandType.Text;
 
-                    cmd.Parameters.Add(new SqlParameter("P0", id));
+                    cmd.Parameters.Add(new SqlParameter("P0", cpf));
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -197,9 +195,24 @@ namespace BarberShop.Service.Repository.ModelsRepository
             }
         }
 
-        public Customer UpdatePhone(Customer customerPhone)
+        public void UpdatePhone(string[] phone)
         {
-            throw new NotImplementedException();
+            string query = "update CustomerPhone set phone_customer = @P0 where phone_customer = @P1";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    cmd.Parameters.Add(new SqlParameter("P0", phone[1]));
+                    cmd.Parameters.Add(new SqlParameter("P1", phone[0]));
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }       
     }
 }

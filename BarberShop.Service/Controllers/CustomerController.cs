@@ -1,6 +1,7 @@
 ﻿using BarberShop.Service.Models;
 using BarberShop.Service.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace BarberShop.Service.Controllers
 {
@@ -39,9 +40,9 @@ namespace BarberShop.Service.Controllers
 
         [HttpPut]
         [Route("UpdateCustomer")]
-        public Customer Update(Customer customer)
+        public void Update(Customer customer)
         {
-            return _customerService.Update(customer);
+            _customerService.Update(customer);
         }
 
         //CustomerPhone table
@@ -59,7 +60,18 @@ namespace BarberShop.Service.Controllers
             _customerService.DeletePhone(phone);
         }
 
-        //[HttpGet]
-        //[Route("ReadCustomerPhone/{cpf]")]
+        [HttpGet]
+        [Route("ReadCustomerPhone/{cpf}")]
+        public List<string> ReadPhone(string cpf)
+        {
+            return _customerService.ReadPhone(cpf);
+        }
+
+        [HttpPut]
+        [Route("UpdateCustomerPhone")]
+        public void UpdatePhone(string[] phones)
+        {
+            _customerService.UpdatePhone(phones);
+        }
     }
 }

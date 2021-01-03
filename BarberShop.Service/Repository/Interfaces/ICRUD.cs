@@ -4,7 +4,7 @@
     {
         void Create(X type);
         T Read(string type);
-        T Update(X type);
+        void Update(X type);
         void Delete(X type);
     }
 }

@@ -38,9 +38,9 @@ namespace BarberShop.Service.Controllers
 
         [HttpPut]
         [Route("UpdateEmployee")]
-        public Employee Update(Employee employee)
+        public void Update(Employee employee)
         {
-            return _employeeService.Update(employee);
+            _employeeService.Update(employee);
         }
     }
 }

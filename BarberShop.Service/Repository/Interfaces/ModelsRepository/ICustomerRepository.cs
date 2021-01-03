@@ -7,8 +7,8 @@ namespace BarberShop.Service.Repository.Interfaces
     {
         void CreatePhone(Customer customer);
         void DeletePhone(string phone);
-        List<string> ReadPhone(int id);
-        Customer UpdatePhone(Customer customer);
+        List<string> ReadPhone(string cpf);
+        void UpdatePhone(string[] phones);
         void DeleteAllPhones(int id);
     }
 }
