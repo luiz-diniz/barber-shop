@@ -7,4 +7,4 @@ A barber shop system
 Future features:
   - Register customer, employee, services etc.
   - Business charts
-  - Export data from SQL to CSV
+  - Export data from SQL to Excel
