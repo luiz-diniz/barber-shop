@@ -4,6 +4,7 @@ A barber shop system
 
 - Under development
 
-Main features:
+Future features:
   - Register customer, employee, services etc.
   - Business charts
+  - Export data from SQL to Excel
