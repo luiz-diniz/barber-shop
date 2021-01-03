@@ -9,7 +9,7 @@ namespace BarberShop.Service.Repository.IO
     {
         public void CreateLog(string header, string log)
         {
-            string fileName = $"{DateTime.Now.Day}_{DateTime.Now.Month}_{DateTime.Now.Year}";
+            string fileName = $"{DateTime.Now.Year}_{DateTime.Now.Month}_{DateTime.Now.Day}";
             string path = $@"../logs/{fileName}.txt";
 
             if (!Directory.Exists($@"../logs/"))
@@ -20,7 +20,7 @@ namespace BarberShop.Service.Repository.IO
             using (StreamWriter sw = new StreamWriter(path, true))
             {
                 sw.WriteLine($"---{header}---");
-                sw.WriteLine($"{DateTime.Now.Day}/{DateTime.Now.Month}/{DateTime.Now.Year}_{DateTime.Now.Hour}h{DateTime.Now.Minute}m{DateTime.Now.Second}s");
+                sw.WriteLine($"{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}_{DateTime.Now.Hour}h{DateTime.Now.Minute}m{DateTime.Now.Second}s");
                 sw.WriteLine(log);
                 sw.Write("\n\n");
             }
@@ -28,7 +28,7 @@ namespace BarberShop.Service.Repository.IO
 
         public void CreateLog(string header, string log, string type, List<string> data)
         {
-            string fileName = $"{DateTime.Now.Day}_{DateTime.Now.Month}_{DateTime.Now.Year}";
+            string fileName = $"{DateTime.Now.Year}_{DateTime.Now.Month}_{DateTime.Now.Day}";
             string path = $@"../logs/{fileName}.txt";
 
             if (!Directory.Exists($@"../logs/"))
@@ -39,7 +39,7 @@ namespace BarberShop.Service.Repository.IO
             using (StreamWriter sw = new StreamWriter(path, true))
             {
                 sw.WriteLine($"---{header}---");
-                sw.WriteLine($"{DateTime.Now.Day}/{DateTime.Now.Month}/{DateTime.Now.Year}_{DateTime.Now.Hour}h{DateTime.Now.Minute}m{DateTime.Now.Second}s");
+                sw.WriteLine($"{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}_{DateTime.Now.Hour}h{DateTime.Now.Minute}m{DateTime.Now.Second}s");
                 sw.WriteLine(log);
                 sw.WriteLine(type);
                 sw.WriteLine("Data:");
