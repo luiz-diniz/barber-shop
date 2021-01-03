@@ -8,7 +8,7 @@ namespace BarberShop.Service.Utilities
     {
         //SHA256
         public string GenerateHash(string input, string salt)
-        {
+        { 
             byte[] bytes = Encoding.UTF8.GetBytes(input + salt);
 
             SHA256Managed sha256 = new SHA256Managed();
