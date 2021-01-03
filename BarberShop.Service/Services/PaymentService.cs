@@ -52,12 +52,38 @@ namespace BarberShop.Service.Services
 
         public Payment Read(string name)
         {
-            throw new System.NotImplementedException();
+            Payment payment = new Payment();
+
+            try
+            {
+                payment = _paymentRepository.Read(name);
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.Message);
+            }
+            finally
+            {
+                _logger.CreateLog("Database", "Read", "Payment", new List<string> { payment.Name });
+            }
+
+            return payment;
         }
 
         public void Update(Payment payment)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                _paymentRepository.Update(payment);
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.Message);
+            }
+            finally
+            {
+                _logger.CreateLog("Database", "Update", "Payment", new List<string> { payment.Name });
+            }
         }
     }
 }
