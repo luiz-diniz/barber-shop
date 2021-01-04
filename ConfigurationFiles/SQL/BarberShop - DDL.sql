@@ -51,6 +51,7 @@ create table OrderInfo(
 	id_order_info int identity(1,1) primary key,
 	id_customer int,
 	id_employee int,
+	id_shop int,
 	order_date datetime not null,
 
 	foreign key (id_customer) references Customer(id_customer),
