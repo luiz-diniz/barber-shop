@@ -4,9 +4,9 @@ use BarberShop
 
 create table Customer(
 	id_customer int identity(1,1) primary key,
-	cpf_customer char(11) unique,
+	cpf_customer char(11) not null unique,
 	name_customer varchar(50) not null,
-	birth_customer date
+	birth_customer date not null
 )
 
 create table CustomerPhone(
@@ -19,7 +19,7 @@ create table CustomerPhone(
 
 create table Employee(
 	id_employee int identity(1,1) primary key,
-	cpf_employee char(11) unique,
+	cpf_employee char(11) not null unique,
 	name_employee varchar(50) not null,
 	username_employee varchar(50) not null,
 	password_employee varchar(50) not null,
@@ -28,7 +28,16 @@ create table Employee(
 
 create table Payment(
 	id_payment int identity(1,1) primary key,
-	name_payment varchar(50)
+	name_payment varchar(50) not null
+)
+
+create table ShopAddress(
+	id_shop int identity(1,1) primary key,
+	name_shop varchar(20) not null unique,
+	street_shop varchar(50) not null,
+	number_shop int not null,
+	city_shop varchar(50) not null,
+	state_shop varchar(50) not null
 )
 
 create table ServiceInfo(
@@ -42,10 +51,11 @@ create table OrderInfo(
 	id_order_info int identity(1,1) primary key,
 	id_customer int,
 	id_employee int,
-	order_date datetime,
+	order_date datetime not null,
 
 	foreign key (id_customer) references Customer(id_customer),
-	foreign key (id_employee) references Employee(id_employee)
+	foreign key (id_employee) references Employee(id_employee),
+	foreign key (id_shop) references ShopAddress(id_shop)
 )
 
 create table OrderServices(
