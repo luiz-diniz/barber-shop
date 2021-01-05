@@ -48,7 +48,7 @@ namespace BarberShop.Service.Services
             }
             catch (Exception ex)
             {
-                _logger.CreateLog("Error", ex.Message);
+                _logger.CreateLog("Error", ex.ToString());
             }
             finally
             {
@@ -66,7 +66,7 @@ namespace BarberShop.Service.Services
             }
             catch (Exception ex)
             {
-                _logger.CreateLog("Error", ex.Message);
+                _logger.CreateLog("Error", ex.ToString());
             }
             finally
             {
@@ -84,7 +84,7 @@ namespace BarberShop.Service.Services
             }
             catch (Exception ex)
             {
-                _logger.CreateLog("Error", ex.Message);
+                _logger.CreateLog("Error", ex.ToString());
             }
             finally
             {

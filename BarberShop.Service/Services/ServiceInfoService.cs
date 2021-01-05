@@ -26,7 +26,7 @@ namespace BarberShop.Service.Services
             }
             catch (Exception ex)
             {
-                _logger.CreateLog("Error", ex.Message);
+                _logger.CreateLog("Error", ex.ToString());
             }
             finally
             {
@@ -36,7 +36,18 @@ namespace BarberShop.Service.Services
 
         public void Delete(ServiceInfo shopService)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                _shopServiceRepository.Create(shopService);
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.ToString());
+            }
+            finally
+            {
+                _logger.CreateLog("Database", "Insert", "ShopService", new List<string> { shopService.Name, shopService.Description, shopService.Value.ToString() });
+            }
         }
 
         public ServiceInfo Read(string name)
