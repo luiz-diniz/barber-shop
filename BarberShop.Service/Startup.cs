@@ -12,6 +12,7 @@ using BarberShop.Service.Repository.Database;
 using BarberShop.Service.Repository.ModelsRepository;
 using BarberShop.Service.Repository.Interfaces.ModelsRepository;
 using BarberShop.Service.Utilities;
+using BarberShop.Service.Models;
 
 namespace BarberShop.Service
 {
@@ -34,6 +35,7 @@ namespace BarberShop.Service
             services.AddSingleton<IEmployeeRepository, EmployeeRepository>();
             services.AddSingleton<IPaymentService, PaymentService>();
             services.AddSingleton<IPaymentRepository, PaymentRepository>();
+            services.AddSingleton<IShopServiceService, ShopServiceService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
