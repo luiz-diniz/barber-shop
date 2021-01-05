@@ -6,7 +6,7 @@ namespace BarberShop.Service.Controllers
 {
     [Route("api/employee")]
     [ApiController]
-    public class EmployeeController
+    public class EmployeeController : Controller
     {
         private IEmployeeService _employeeService;
 

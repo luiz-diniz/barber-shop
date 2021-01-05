@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BarberShop.Service.Controllers
 {
-    public class ShopAddressController
+    public class ShopAddressController : Controller
     {
         private IShopAddressService _shopAddressService;
 

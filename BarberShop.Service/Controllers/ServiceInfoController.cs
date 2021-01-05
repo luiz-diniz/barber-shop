@@ -6,7 +6,7 @@ namespace BarberShop.Service.Controllers
 {
     [Route("api/serviceinfo")]
     [ApiController]
-    public class ServiceInfoController
+    public class ServiceInfoController : Controller
     {
         private IServiceInfoService _serviceInfoService;
 

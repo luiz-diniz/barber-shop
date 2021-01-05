@@ -6,7 +6,7 @@ namespace BarberShop.Service.Controllers
 {
     [Route("api/payment")]
     [ApiController]
-    public class PaymentController
+    public class PaymentController : Controller
     {
         private IPaymentService _paymentService;
 
