@@ -30,7 +30,7 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Insert", "ShopService", new List<string> { shopService.Name, shopService.Description, shopService.Value.ToString() });
+                _logger.CreateLog("Database", "Insert", "ServiceInfo", new List<string> { shopService.Name, shopService.Description, shopService.Value.ToString() });
             }
         }
 
@@ -38,7 +38,7 @@ namespace BarberShop.Service.Services
         {
             try
             {
-                _shopServiceRepository.Create(shopService);
+                _shopServiceRepository.Delete(shopService);
             }
             catch (Exception ex)
             {
@@ -46,7 +46,7 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Insert", "ShopService", new List<string> { shopService.Name, shopService.Description, shopService.Value.ToString() });
+                _logger.CreateLog("Database", "Delete", "ServiceInfo", new List<string> { shopService.Name, shopService.Description, shopService.Value.ToString() });
             }
         }
 
