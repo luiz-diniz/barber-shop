@@ -1,6 +1,6 @@
 ﻿namespace BarberShop.Service.Models
 {
-    public class ShopService
+    public class ServiceInfo
     {
         public int Id { get; set; }
         public string Name { get; set; }
