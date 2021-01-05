@@ -5,11 +5,11 @@ using System.Data;
 
 namespace BarberShop.Service.Repository.Database
 {
-    public class ShopServiceRepository : DatabaseConfiguration, IServiceInfoRepository
+    public class ServiceInfoRepository : DatabaseConfiguration, IServiceInfoRepository
     {
         public void Create(ServiceInfo shopService)
         {
-            string query = "insert into shopservice values(@P0, @P1, @P2)";
+            string query = "insert into serviceinfo values(@P0, @P1, @P2)";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -21,7 +21,9 @@ namespace BarberShop.Service.Repository.Database
 
                     cmd.Parameters.Add(new SqlParameter("P0", shopService.Name));
                     cmd.Parameters.Add(new SqlParameter("P1", shopService.Description));
-                    cmd.Parameters.Add(new SqlParameter("P3", shopService.Value));
+                    cmd.Parameters.Add(new SqlParameter("P2", shopService.Value));
+
+                    cmd.ExecuteNonQuery();
                 }
             }
         }

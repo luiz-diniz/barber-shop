@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BarberShop.Service.Controllers
 {
-    [Route("api/shopservice")]
+    [Route("api/serviceinfo")]
     [ApiController]
     public class ServiceInfoController
     {
@@ -16,10 +16,20 @@ namespace BarberShop.Service.Controllers
         }
 
         [HttpPost]
-        [Route("CreateShopService")]
-        private void Create(ServiceInfo shopService)
+        [Route("CreateServiceInfo")]
+        public void Create(ServiceInfo shopService)
         {
             _shopServiceService.Create(shopService);
         }
+
+        [HttpDelete]
+        [Route("DeleteServiceInfo")]
+        public void Delete(ServiceInfo shopService)
+        {
+            _shopServiceService.Delete(shopService);
+        }
+
+        //Read
+        //Update
     }
 }
