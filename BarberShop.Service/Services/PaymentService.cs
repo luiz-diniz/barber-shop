@@ -30,7 +30,7 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Create", "Payment", new List<string> { payment.Name });
+                _logger.CreateLog("Database", "Create", "Payment", new string[] { payment.Name });
             }
         }
 
@@ -46,7 +46,7 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Delete", "Payment", new List<string> { payment.Name });
+                _logger.CreateLog("Database", "Delete", "Payment", new string[] { payment.Name });
             }
         }
 
@@ -64,7 +64,7 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Read", "Payment", new List<string> { payment.Name });
+                _logger.CreateLog("Database", "Read", "Payment", new string[] { payment.Name });
             }
 
             return payment;
@@ -82,7 +82,7 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Update", "Payment", new List<string> { payment.Name });
+                _logger.CreateLog("Database", "Update", "Payment", new string[] { payment.Name });
             }
         }
     }

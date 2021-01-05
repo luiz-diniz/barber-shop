@@ -52,7 +52,7 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Delete", "Employee", new List<string> { employee.Cpf });
+                _logger.CreateLog("Database", "Delete", "Employee", new string[] { employee.Cpf });
             }
         }
 
@@ -70,7 +70,7 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Read", "Employee", new List<string> { employee.Id.ToString(), employee.Cpf, employee.Name, employee.Username });
+                _logger.CreateLog("Database", "Read", "Employee", new string[] { employee.Id.ToString(), employee.Cpf, employee.Name, employee.Username });
             }
 
             return employee;
@@ -88,7 +88,7 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Update", "Employee", new List<string> { employeeArgument.Cpf, employeeArgument.Name, employeeArgument.Username });
+                _logger.CreateLog("Database", "Update", "Employee", new string[] { employeeArgument.Cpf, employeeArgument.Name, employeeArgument.Username });
             }
         }
     }

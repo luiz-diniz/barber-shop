@@ -30,7 +30,7 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Insert", "Customer", new List<string> { customer.Cpf, customer.Name, customer.Birth.ToString() });
+                _logger.CreateLog("Database", "Insert", "Customer", new string[] { customer.Cpf, customer.Name, customer.Birth.ToString() });
             }
         }           
 
@@ -47,7 +47,7 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Delete", "Customer", new List<string> { customer.Cpf });
+                _logger.CreateLog("Database", "Delete", "Customer", new string[] { customer.Cpf });
             }
         }
 
@@ -68,7 +68,7 @@ namespace BarberShop.Service.Services
             {
                 for (int i = 0; i < customer.Phone.Count; i++)
                 {
-                    _logger.CreateLog("Database", "Update", "Customer", new List<string> { customer.Id.ToString(), customer.Cpf, customer.Name, customer.Birth.ToString(), customer.Phone[i] });
+                    _logger.CreateLog("Database", "Update", "Customer", new string[] { customer.Id.ToString(), customer.Cpf, customer.Name, customer.Birth.ToString(), customer.Phone[i] });
                 }
             }
 
@@ -87,7 +87,7 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Update", "Customer", new List<string> { customerArgument.Cpf, customerArgument.Name, customerArgument.Birth.ToString() });
+                _logger.CreateLog("Database", "Update", "Customer", new string[] { customerArgument.Cpf, customerArgument.Name, customerArgument.Birth.ToString() });
             }
         }
 
@@ -106,7 +106,7 @@ namespace BarberShop.Service.Services
             {
                 for (int i = 0; i < customer.Phone.Count; i++)
                 {
-                    _logger.CreateLog("Database", "Insert", "CustomerPhone", new List<string> { customer.Cpf, customer.Phone[i] });
+                    _logger.CreateLog("Database", "Insert", "CustomerPhone", new string[] { customer.Cpf, customer.Phone[i] });
 
                 }            
             }
@@ -124,7 +124,7 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Delete", "CustomerPhone", new List<string> { phone });
+                _logger.CreateLog("Database", "Delete", "CustomerPhone", new string[] { phone });
             }
         }
 
@@ -142,7 +142,7 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Read", "CustomerPhone", new List<string> { cpf });
+                _logger.CreateLog("Database", "Read", "CustomerPhone", new string[] { cpf });
             }
 
             return phones;
@@ -160,7 +160,7 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Update", "CustomerPhone", new List<string> { phone[0], phone[1] });
+                _logger.CreateLog("Database", "Update", "CustomerPhone", new string[] { phone[0], phone[1] });
             }
         }
     }

@@ -30,7 +30,7 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Insert", "ServiceInfo", new List<string> { shopService.Name, shopService.Description, shopService.Value.ToString() });
+                _logger.CreateLog("Database", "Insert", "ServiceInfo", new string[] { shopService.Name, shopService.Description, shopService.Value.ToString() });
             }
         }
 
@@ -46,7 +46,7 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Delete", "ServiceInfo", new List<string> { shopService.Name, shopService.Description, shopService.Value.ToString() });
+                _logger.CreateLog("Database", "Delete", "ServiceInfo", new string[] { shopService.Name, shopService.Description, shopService.Value.ToString() });
             }
         }
 
@@ -64,7 +64,7 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Read", "ServiceInfo", new List<string> { name });
+                _logger.CreateLog("Database", "Read", "ServiceInfo", new string[] { name });
             }
 
             return serviceInfo;
@@ -82,7 +82,7 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Update", "ServiceInfo", new List<string> { shopService.Id.ToString(), shopService.Name, shopService.Description, shopService.Value.ToString() });
+                _logger.CreateLog("Database", "Update", "ServiceInfo", new string[] { shopService.Id.ToString(), shopService.Name, shopService.Description, shopService.Value.ToString() });
             }
         }
     }

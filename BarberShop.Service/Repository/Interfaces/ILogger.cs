@@ -8,6 +8,6 @@ namespace BarberShop.Service.Repository.Interfaces
     public interface ILogger
     {
         void CreateLog(string header, string log);
-        void CreateLog(string header, string log, string type, List<string> data);
+        void CreateLog(string header, string log, string type, string[] data);
     }
 }
