@@ -8,28 +8,39 @@ namespace BarberShop.Service.Controllers
     [ApiController]
     public class ServiceInfoController
     {
-        private IServiceInfoService _shopServiceService;
+        private IServiceInfoService _serviceInfoService;
 
-        public ServiceInfoController(IServiceInfoService shopServiceService)
+        public ServiceInfoController(IServiceInfoService serviceInfoService)
         {
-            _shopServiceService = shopServiceService;
+            _serviceInfoService = serviceInfoService;
         }
 
         [HttpPost]
         [Route("CreateServiceInfo")]
         public void Create(ServiceInfo shopService)
         {
-            _shopServiceService.Create(shopService);
+            _serviceInfoService.Create(shopService);
         }
 
         [HttpDelete]
         [Route("DeleteServiceInfo")]
         public void Delete(ServiceInfo shopService)
         {
-            _shopServiceService.Delete(shopService);
+            _serviceInfoService.Delete(shopService);
         }
 
-        //Read
-        //Update
+        [HttpGet]
+        [Route("ReadServiceInfo/{name}")]
+        public ServiceInfo Read(string name)
+        {
+            return _serviceInfoService.Read(name);
+        }
+
+        [HttpPut]
+        [Route("UpdateServiceInfo")]
+        public void Update(ServiceInfo serviceInfo)
+        {
+            _serviceInfoService.Update(serviceInfo);
+        }
     }
 }

@@ -52,12 +52,38 @@ namespace BarberShop.Service.Services
 
         public ServiceInfo Read(string name)
         {
-            throw new System.NotImplementedException();
+            ServiceInfo serviceInfo = new ServiceInfo();
+
+            try
+            {
+                serviceInfo = _shopServiceRepository.Read(name);
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.ToString());
+            }
+            finally
+            {
+                _logger.CreateLog("Database", "Read", "ServiceInfo", new List<string> { name });
+            }
+
+            return serviceInfo;
         }
 
         public void Update(ServiceInfo shopService)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                _shopServiceRepository.Update(shopService);
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.ToString());
+            }
+            finally
+            {
+                _logger.CreateLog("Database", "Update", "ServiceInfo", new List<string> { shopService.Id.ToString(), shopService.Name, shopService.Description, shopService.Value.ToString() });
+            }
         }
     }
 }
