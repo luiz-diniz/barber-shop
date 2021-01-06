@@ -28,5 +28,12 @@ namespace BarberShop.Service.Controllers
         {
             _shopAddressService.Delete(shopAddress);
         }
+
+        [HttpGet]
+        [Route("ReadShopAddress/{name}")]
+        public ShopAddress Read(string name)
+        {
+            return _shopAddressService.Read(name);
+        }
     }
 }

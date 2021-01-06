@@ -51,7 +51,22 @@ namespace BarberShop.Service.Services
 
         public ShopAddress Read(string name)
         {
-            throw new System.NotImplementedException();
+            ShopAddress shopAddress = new ShopAddress();
+
+            try
+            {
+                shopAddress = _shopAddressRepository.Read(name);
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.ToString());
+            }
+            finally
+            {
+                _logger.CreateLog("Database", "Read", "ShopAddress", new string[] { shopAddress.Id.ToString(), shopAddress.Name, shopAddress.Street, shopAddress.Number.ToString(), shopAddress.State });
+            }
+
+            return shopAddress;
         }
 
         public void Update(ShopAddress shopAddress)
