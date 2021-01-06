@@ -1,17 +1,33 @@
 ﻿using BarberShop.Service.Models;
 using BarberShop.Service.Repository.Interfaces.ModelsRepository;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace BarberShop.Service.Repository.Database
 {
-    public class OrderInfoRepository : IOrderInfoRepository
+    public class OrderInfoRepository : DatabaseConfiguration, IOrderInfoRepository
     {
         public void Create(OrderInfo orderInfo)
         {
-            throw new NotImplementedException();
+            string query = "insert into orderInfo values(@P0, @P1, @P2, @P3)";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    cmd.Parameters.Add(new SqlParameter("P0", orderInfo.CustomerInfo.Id));
+                    cmd.Parameters.Add(new SqlParameter("P1", orderInfo.EmployeeInfo.Id));
+                    cmd.Parameters.Add(new SqlParameter("P2", orderInfo.ShopAddressInfo.Id));
+                    cmd.Parameters.Add(new SqlParameter("P3", orderInfo.OrderDate));
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         public void Delete(OrderInfo orderInfo)
