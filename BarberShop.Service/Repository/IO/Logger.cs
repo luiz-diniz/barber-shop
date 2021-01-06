@@ -26,7 +26,7 @@ namespace BarberShop.Service.Repository.IO
             }
         }
 
-        public void CreateLog(string header, string log, string type, List<string> data)
+        public void CreateLog(string header, string log, string type, string[] data)
         {
             string fileName = $"{DateTime.Now.Year}_{DateTime.Now.Month}_{DateTime.Now.Day}";
             string path = $@"../logs/{fileName}.txt";
@@ -43,7 +43,7 @@ namespace BarberShop.Service.Repository.IO
                 sw.WriteLine(log);
                 sw.WriteLine(type);
                 sw.WriteLine("Data:");
-                for (int i = 0;i < data.Count;i++)
+                for (int i = 0;i < data.Length;i++)
                 {
                     sw.WriteLine(data[i]);
                 }
