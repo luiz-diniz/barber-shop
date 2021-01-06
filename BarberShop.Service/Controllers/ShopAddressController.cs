@@ -1,11 +1,11 @@
-﻿using BarberShop.Service.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using BarberShop.Service.Models;
+using BarberShop.Service.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BarberShop.Service.Controllers
 {
+    [Route("api/shopaddress")]
+    [ApiController]
     public class ShopAddressController : Controller
     {
         private IShopAddressService _shopAddressService;
@@ -13,6 +13,13 @@ namespace BarberShop.Service.Controllers
         public ShopAddressController(IShopAddressService shopAddressService)
         {
             _shopAddressService = shopAddressService;
+        }
+
+        [HttpPost]
+        [Route("CreateShopAddress")]
+        public void Create(ShopAddress shopAddress)
+        {
+            _shopAddressService.Create(shopAddress);
         }
     }
 }

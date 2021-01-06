@@ -36,7 +36,7 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Insert", "Employee", new List<string> { employee.Cpf, employee.Name, employee.Username });
+                _logger.CreateLog("Database", "Insert", "Employee", new string[] { employee.Cpf, employee.Name, employee.Username });
             }
         }
 
