@@ -36,7 +36,21 @@ namespace BarberShop.Service.Repository.Database
 
         public void Delete(ShopAddress shopAddress)
         {
-            throw new NotImplementedException();
+            string query = "delete from shopAddress where id_shop = @P0";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    cmd.Parameters.Add(new SqlParameter("P0", shopAddress.Id));
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         public ShopAddress Read(string name)

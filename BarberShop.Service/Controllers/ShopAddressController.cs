@@ -21,5 +21,12 @@ namespace BarberShop.Service.Controllers
         {
             _shopAddressService.Create(shopAddress);
         }
+
+        [HttpDelete]
+        [Route("DeleteShopAddress")]
+        public void Delete(ShopAddress shopAddress)
+        {
+            _shopAddressService.Delete(shopAddress);
+        }
     }
 }

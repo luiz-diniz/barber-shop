@@ -35,7 +35,18 @@ namespace BarberShop.Service.Services
 
         public void Delete(ShopAddress shopAddress)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                _shopAddressRepository.Delete(shopAddress);
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.ToString());
+            }
+            finally
+            {
+                _logger.CreateLog("Database", "Delete", "ShopAddress", new string[] { shopAddress.Id.ToString(), shopAddress.Name, shopAddress.Street, shopAddress.Number.ToString(), shopAddress.State });
+            }
         }
 
         public ShopAddress Read(string name)
