@@ -88,7 +88,26 @@ namespace BarberShop.Service.Repository.Database
 
         public void Update(ShopAddress shopAddress)
         {
-            throw new NotImplementedException();
+            string query = "update shopAddress set name_shop = @P0, street_shop = @P1, number_shop = @P2, city_shop = @P3," +
+                "state_shop = @P4 where id_shop = @P5";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    cmd.Parameters.Add(new SqlParameter("P0", shopAddress.Name));
+                    cmd.Parameters.Add(new SqlParameter("P1", shopAddress.Street));
+                    cmd.Parameters.Add(new SqlParameter("P2", shopAddress.Number));
+                    cmd.Parameters.Add(new SqlParameter("P3", shopAddress.City));
+                    cmd.Parameters.Add(new SqlParameter("P4", shopAddress.State));
+                    cmd.Parameters.Add(new SqlParameter("P5", shopAddress.Id));
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
     }
 }

@@ -35,5 +35,12 @@ namespace BarberShop.Service.Controllers
         {
             return _shopAddressService.Read(name);
         }
+
+        [HttpPut]
+        [Route("UpdateShopAddress")]
+        public void Update(ShopAddress shopAddress)
+        {
+            _shopAddressService.Update(shopAddress);
+        }
     }
 }
