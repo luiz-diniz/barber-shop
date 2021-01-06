@@ -7,7 +7,7 @@ namespace BarberShop.Service.Models
         public int Id { get; set; }
         public Customer CustomerInfo { get; set; }
         public Employee EmployeeInfo { get; set; }
-        public ShopAddress AddressInfo { get; set; }
+        public ShopAddress ShopAddressInfo { get; set; }
         public DateTime OrderDate { get; set; }
     }
 }
