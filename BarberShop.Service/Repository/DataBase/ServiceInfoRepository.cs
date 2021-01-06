@@ -50,8 +50,6 @@ namespace BarberShop.Service.Repository.Database
 
         public ServiceInfo Read(string name)
         {
-            ServiceInfo serviceInfo = new ServiceInfo();
-
             string query = "select * from serviceInfo where name_service = @P0";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -65,6 +63,8 @@ namespace BarberShop.Service.Repository.Database
                     cmd.Parameters.Add(new SqlParameter("P0", name));
 
                     SqlDataReader reader = cmd.ExecuteReader();
+
+                    ServiceInfo serviceInfo = new ServiceInfo();
 
                     if (reader.Read())
                     {
