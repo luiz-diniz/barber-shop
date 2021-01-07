@@ -37,7 +37,18 @@ namespace BarberShop.Service.Services
 
         public void Delete(OrderInfo orderInfo)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _orderInfoRepository.Delete(orderInfo);
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.ToString());
+            }
+            finally
+            {
+                _logger.CreateLog("Database", "Delete", "OrderInfo", new string[] { orderInfo.CustomerInfo.Cpf, orderInfo.EmployeeInfo.Cpf, orderInfo.ShopAddressInfo.Name, orderInfo.OrderDate.ToString() });
+            }
         }
 
         public OrderInfo Read(string orderId)
@@ -67,7 +78,18 @@ namespace BarberShop.Service.Services
 
         public void Update(OrderInfo orderInfo)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _orderInfoRepository.Update(orderInfo);
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.ToString());
+            }
+            finally
+            {
+                _logger.CreateLog("Database", "Update", "OrderInfo", new string[] { orderInfo.CustomerInfo.Cpf, orderInfo.EmployeeInfo.Cpf, orderInfo.ShopAddressInfo.Name, orderInfo.OrderDate.ToString() });
+            }
         }
     }
 }

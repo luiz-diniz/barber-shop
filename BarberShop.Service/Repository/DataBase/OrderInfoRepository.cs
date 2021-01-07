@@ -32,7 +32,21 @@ namespace BarberShop.Service.Repository.Database
 
         public void Delete(OrderInfo orderInfo)
         {
-            throw new NotImplementedException();
+            string query = "delete from orderInfo where id_order_info = @P0";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    cmd.Parameters.Add(new SqlParameter("P0", orderInfo.Id));
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         public OrderInfo Read(string orderId)
@@ -73,7 +87,24 @@ namespace BarberShop.Service.Repository.Database
 
         public void Update(OrderInfo orderInfo)
         {
-            throw new NotImplementedException();
+            string query = "update orderInfo set id_customer = @P0, id_employee = @P1, id_shop = @P2 where id_order_info = @P3";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    cmd.Parameters.Add(new SqlParameter("P0", orderInfo.CustomerInfo.Id));
+                    cmd.Parameters.Add(new SqlParameter("P1", orderInfo.EmployeeInfo.Id));
+                    cmd.Parameters.Add(new SqlParameter("P2", orderInfo.ShopAddressInfo.Id));
+                    cmd.Parameters.Add(new SqlParameter("P3", orderInfo.Id));
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
     }
 }
