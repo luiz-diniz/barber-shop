@@ -37,7 +37,38 @@ namespace BarberShop.Service.Repository.Database
 
         public OrderInfo Read(string orderId)
         {
-            throw new NotImplementedException();
+            string query = "select * from orderInfo where id_order_info = @P0";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    cmd.Parameters.Add(new SqlParameter("P0", orderId));
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    OrderInfo orderInfo = new OrderInfo {
+                        CustomerInfo = new Customer(),
+                        EmployeeInfo = new Employee(),
+                        ShopAddressInfo = new ShopAddress()
+                    };
+
+                    if (reader.Read())
+                    {
+                        orderInfo.Id = Convert.ToInt32(reader["id_order_info"]);
+                        orderInfo.CustomerInfo.Id = Convert.ToInt32(reader["id_customer"]);
+                        orderInfo.EmployeeInfo.Id = Convert.ToInt32(reader["id_employee"]);
+                        orderInfo.ShopAddressInfo.Id = Convert.ToInt32(reader["id_shop"]);
+                        orderInfo.OrderDate = Convert.ToDateTime(reader["order_date"]);
+                    }
+
+                    return orderInfo;
+                }
+            }
         }
 
         public void Update(OrderInfo orderInfo)

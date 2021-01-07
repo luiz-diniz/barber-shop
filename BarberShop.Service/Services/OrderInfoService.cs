@@ -42,7 +42,27 @@ namespace BarberShop.Service.Services
 
         public OrderInfo Read(string orderId)
         {
-            throw new NotImplementedException();
+            OrderInfo orderInfo = new OrderInfo
+            {
+                CustomerInfo = new Customer(),
+                EmployeeInfo = new Employee(),
+                ShopAddressInfo = new ShopAddress()
+            };
+
+            try
+            {
+                orderInfo = _orderInfoRepository.Read(orderId);
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.ToString());
+            }
+            finally
+            {
+                _logger.CreateLog("Database", "Read", "OrderInfo", new string[] { orderId });
+            }
+
+            return orderInfo;
         }
 
         public void Update(OrderInfo orderInfo)
