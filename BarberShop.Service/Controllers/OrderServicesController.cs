@@ -23,6 +23,7 @@ namespace BarberShop.Service.Controllers
         [Route("CreateOrderServices")]
         public void Create(OrderServices orderServices)
         {
+            _orderServicesService.Create(orderServices);
         }
 
         [HttpDelete]
@@ -32,9 +33,10 @@ namespace BarberShop.Service.Controllers
         }
 
         [HttpGet]
-        [Route("ReadOrderServices/{id}]")]
+        [Route("ReadOrderServices/{id}")]
         public OrderServices Read(string id)
         {
+            throw new System.NotImplementedException();
         }
 
         [HttpPut]
