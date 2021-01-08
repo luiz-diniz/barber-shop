@@ -27,9 +27,24 @@ namespace BarberShop.Service.Repository.Database
             }
         }
 
-        public void Delete(OrderServices type)
+        public void Delete(OrderServices orderServices)
         {
-            throw new System.NotImplementedException();
+            string query = "delete from orderServices where id_order_info = @P0 and id_service_shop = @P1";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    cmd.Parameters.Add(new SqlParameter("P0", orderServices.Order.Id));
+                    cmd.Parameters.Add(new SqlParameter("P1", orderServices.Service.Id));
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         public OrderServices Read(string type)

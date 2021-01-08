@@ -30,6 +30,7 @@ namespace BarberShop.Service.Controllers
         [Route("DeleteOrderServices")]
         public void Delete(OrderServices orderServices)
         {
+            _orderServicesService.Delete(orderServices);
         }
 
         [HttpGet]

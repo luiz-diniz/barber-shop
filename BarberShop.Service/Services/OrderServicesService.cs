@@ -33,9 +33,20 @@ namespace BarberShop.Service.Services
             }
         }
 
-        public void Delete(OrderServices type)
+        public void Delete(OrderServices orderServices)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                _orderServicesRepository.Delete(orderServices);
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.ToString());
+            }
+            finally
+            {
+                _logger.CreateLog("Database", "Delete", "OrderServices", new string[] { orderServices.Id.ToString(), orderServices.Order.Id.ToString(), orderServices.Service.Id.ToString() });
+            }
         }
 
         public OrderServices Read(string type)
