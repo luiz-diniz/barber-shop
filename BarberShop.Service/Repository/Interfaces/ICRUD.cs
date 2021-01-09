@@ -1,9 +1,9 @@
 ﻿namespace BarberShop.Service.Repository
 {
-    public interface ICRUD<T,X>
+    public interface ICRUD<T,X,Z>
     {
         void Create(X type);
-        T Read(string type);
+        T Read(Z type);
         void Update(X type);
         void Delete(X type);
     }

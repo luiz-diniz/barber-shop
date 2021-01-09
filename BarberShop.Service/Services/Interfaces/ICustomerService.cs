@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BarberShop.Service.Services.Interfaces
 {
-    public interface ICustomerService : ICRUDService<Customer, Customer>
+    public interface ICustomerService : ICRUDService<Customer, Customer, string>
     {
         void CreatePhone(Customer customerPhone);
         void DeletePhone(string phone);

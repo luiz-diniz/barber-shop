@@ -2,7 +2,7 @@
 
 namespace BarberShop.Service.Repository.Interfaces.ModelsRepository
 {
-    public interface IPaymentRepository : ICRUD<Payment, Payment>
+    public interface IPaymentRepository : ICRUD<Payment, Payment, string>
     {
     }
 }

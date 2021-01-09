@@ -2,7 +2,7 @@
 
 namespace BarberShop.Service.Services.Interfaces
 {
-    public interface IServiceInfoService : ICRUDService<ServiceInfo, ServiceInfo>
+    public interface IServiceInfoService : ICRUDService<ServiceInfo, ServiceInfo, string>
     {
     }
 }

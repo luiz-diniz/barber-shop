@@ -49,7 +49,7 @@ namespace BarberShop.Service.Repository.Database
             }
         }
 
-        public OrderInfo Read(string orderId)
+        public OrderInfo Read(int orderId)
         {
             string query = "select * from orderInfo where id_order_info = @P0";
 

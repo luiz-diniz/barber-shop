@@ -31,7 +31,7 @@ namespace BarberShop.Service.Controllers
 
         [HttpGet]
         [Route("ReadOrderInfo/{orderId}")]
-        public OrderInfo Read(string orderId)
+        public OrderInfo Read(int orderId)
         {
             return _orderInfoService.Read(orderId);
         }

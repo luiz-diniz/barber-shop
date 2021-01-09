@@ -49,7 +49,7 @@ namespace BarberShop.Service.Services
             }
         }
 
-        public OrderServices Read(string type)
+        public OrderServices Read(int orderId)
         {
             throw new System.NotImplementedException();
         }

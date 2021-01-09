@@ -47,7 +47,7 @@ namespace BarberShop.Service.Repository.Database
             }
         }
 
-        public OrderServices Read(string type)
+        public OrderServices Read(int orderId)
         {
             throw new System.NotImplementedException();
         }

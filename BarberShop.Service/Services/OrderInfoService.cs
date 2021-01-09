@@ -51,7 +51,7 @@ namespace BarberShop.Service.Services
             }
         }
 
-        public OrderInfo Read(string orderId)
+        public OrderInfo Read(int orderId)
         {
             OrderInfo orderInfo = new OrderInfo
             {
@@ -70,7 +70,7 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Read", "OrderInfo", new string[] { orderId });
+                _logger.CreateLog("Database", "Read", "OrderInfo", new string[] { orderId.ToString() });
             }
 
             return orderInfo;

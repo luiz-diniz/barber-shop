@@ -2,7 +2,7 @@
 
 namespace BarberShop.Service.Repository.Interfaces.ModelsRepository
 {
-    public interface IOrderInfoRepository : ICRUD<OrderInfo, OrderInfo>
+    public interface IOrderInfoRepository : ICRUD<OrderInfo, OrderInfo, int>
     {
     }
 }

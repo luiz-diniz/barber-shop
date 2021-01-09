@@ -31,9 +31,9 @@ namespace BarberShop.Service.Controllers
 
         [HttpGet]
         [Route("ReadPayment/{payment}")]
-        public Payment Read(string payment)
+        public Payment Read(string name)
         {
-            return _paymentService.Read(payment);
+            return _paymentService.Read(name);
         }
 
         [HttpPut]
