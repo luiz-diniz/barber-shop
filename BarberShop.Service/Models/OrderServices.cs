@@ -1,4 +1,6 @@
-﻿namespace BarberShop.Service.Models
+﻿using System.Collections.Generic;
+
+namespace BarberShop.Service.Models
 {
     public class OrderServices
     {

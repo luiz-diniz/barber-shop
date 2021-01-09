@@ -3,6 +3,7 @@ using BarberShop.Service.Repository.Interfaces;
 using BarberShop.Service.Repository.Interfaces.ModelsRepository;
 using BarberShop.Service.Services.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace BarberShop.Service.Services
 {
@@ -49,9 +50,24 @@ namespace BarberShop.Service.Services
             }
         }
 
-        public OrderServices Read(int orderId)
+        public List<ServiceInfo> Read(int orderInfoId)
         {
-            throw new System.NotImplementedException();
+            List<ServiceInfo> services = new List<ServiceInfo>();
+
+            try
+            {
+                services = _orderServicesRepository.Read(orderInfoId);
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.ToString());
+            }
+            finally
+            {
+                _logger.CreateLog("Database", "Read", "OrderServices", new string[] { orderInfoId.ToString() });
+            }
+
+            return services;
         }
 
         public void Update(OrderServices type)

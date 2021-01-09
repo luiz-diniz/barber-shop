@@ -3,8 +3,6 @@ using BarberShop.Service.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BarberShop.Service.Controllers
 {
@@ -34,16 +32,17 @@ namespace BarberShop.Service.Controllers
         }
 
         [HttpGet]
-        [Route("ReadOrderServices/{id}")]
-        public OrderServices Read(string id)
+        [Route("ReadOrderServices/{orderInfoId}")]
+        public List<ServiceInfo> Read(int orderInfoId)
         {
-            throw new System.NotImplementedException();
+            return _orderServicesService.Read(orderInfoId);
         }
 
         [HttpPut]
         [Route("UpdateOrderServices")]
         public void Update(OrderServices orderServices)
         {
+            throw new System.NotImplementedException();
         }
     }
 }
