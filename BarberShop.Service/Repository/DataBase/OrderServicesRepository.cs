@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 namespace BarberShop.Service.Repository.Database
 {
@@ -11,23 +12,26 @@ namespace BarberShop.Service.Repository.Database
     {
         public void Create(OrderServices orderServices)
         {
-
-            string query = "insert into orderServices values (@P0, @P1)";
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            foreach (var x in orderServices.Service)
             {
-                conn.Open();
+                string query = "insert into orderServices values (@P0, @P1)";
 
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    cmd.CommandType = CommandType.Text;
+                    conn.Open();
 
-                    cmd.Parameters.Add(new SqlParameter("P0", orderServices.Order.Id));
-                    cmd.Parameters.Add(new SqlParameter("P1", orderServices.Service.Id));
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.CommandType = CommandType.Text;
 
-                    cmd.ExecuteNonQuery();
+                        cmd.Parameters.Add(new SqlParameter("P0", orderServices.Order.Id));
+                        cmd.Parameters.Add(new SqlParameter("P1", x.Id));
+
+                        cmd.ExecuteNonQuery();
+                    }
                 }
             }
+            
         }
 
         public void Delete(OrderServices orderServices)
@@ -43,17 +47,17 @@ namespace BarberShop.Service.Repository.Database
                     cmd.CommandType = CommandType.Text;
 
                     cmd.Parameters.Add(new SqlParameter("P0", orderServices.Order.Id));
-                    cmd.Parameters.Add(new SqlParameter("P1", orderServices.Service.Id));
+                    cmd.Parameters.Add(new SqlParameter("P1", orderServices.Service[0].Id));
 
                     cmd.ExecuteNonQuery();
                 }
             }
         }
 
-        public List<ServiceInfo> Read(int orderInfoId)
+        public OrderServices Read(int orderInfoId)
         {
-            string query = "select * from ServiceInfo si inner join OrderServices os on si.id_service = os.id_service_shop " +
-                "where os.id_order_info = @P0";
+            string query = "select * from ServiceInfo si right join OrderServices os on si.id_service = os.id_service_shop " +
+                "right join OrderInfo oi on oi.id_order_info = os.id_order_info where os.id_order_info = @P0";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -67,20 +71,15 @@ namespace BarberShop.Service.Repository.Database
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
-                    List<ServiceInfo> services = new List<ServiceInfo>();
+                    OrderServices services = new OrderServices();
 
                     while (reader.Read())
                     {
-                        services.Add(new ServiceInfo
-                        {
-                            Id = Convert.ToInt32(reader["id_service"]),
-                            Name = Convert.ToString(reader["name_service"]),
-                            Description = Convert.ToString(reader["description_service"]),
-                            Value = Convert.ToDecimal(reader["value_service"])
-                        });
+                        services.Id = Convert.ToInt32(reader["id_order_services"]);
+                        services.Order.Id = Convert.ToInt32(reader["id_order_info"]);
+                        services.Order.CustomerInfo.Id = Convert.ToInt32(reader["id_customer"]);
+                        services.Order.EmployeeInfo.Id = Convert.ToInt32(reader["id_employee"]);
                     }
-
-                    return services;
                 }
             }
         }
