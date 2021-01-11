@@ -30,7 +30,7 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Insert", "OrderServices", new string[] { orderServices.Id.ToString(), orderServices.Order.Id.ToString(), orderServices.Service.Id.ToString() });
+                _logger.CreateLog("Database", "Insert", "OrderServices", new string[] { orderServices.Id.ToString(), orderServices.Order.Id.ToString() });
             }
         }
 
@@ -46,13 +46,13 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Delete", "OrderServices", new string[] { orderServices.Id.ToString(), orderServices.Order.Id.ToString(), orderServices.Service.Id.ToString() });
+                _logger.CreateLog("Database", "Delete", "OrderServices", new string[] { orderServices.Id.ToString(), orderServices.Order.Id.ToString() });
             }
         }
 
-        public List<ServiceInfo> Read(int orderInfoId)
+        public OrderServices Read(int orderInfoId)
         {
-            List<ServiceInfo> services = new List<ServiceInfo>();
+            OrderServices services = new OrderServices();
 
             try
             {

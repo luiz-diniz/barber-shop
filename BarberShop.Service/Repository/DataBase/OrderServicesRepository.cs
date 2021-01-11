@@ -72,14 +72,47 @@ namespace BarberShop.Service.Repository.Database
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     OrderServices services = new OrderServices();
+                    services.Service = new List<ServiceInfo>();
+
+                    var flag = true;
 
                     while (reader.Read())
                     {
-                        services.Id = Convert.ToInt32(reader["id_order_services"]);
-                        services.Order.Id = Convert.ToInt32(reader["id_order_info"]);
-                        services.Order.CustomerInfo.Id = Convert.ToInt32(reader["id_customer"]);
-                        services.Order.EmployeeInfo.Id = Convert.ToInt32(reader["id_employee"]);
-                    }
+                        if (flag)
+                        {
+                            services.Id = Convert.ToInt32(reader["id_order_services"]);
+
+                            services.Order = new OrderInfo
+                            {
+                                Id = Convert.ToInt32(reader["id_order_info"]),
+                                CustomerInfo = new Customer
+                                {
+                                    Id = Convert.ToInt32(reader["id_customer"])
+                                },
+                                EmployeeInfo = new Employee
+                                {
+                                    Id = Convert.ToInt32(reader["id_employee"])
+                                },
+                                ShopAddressInfo = new ShopAddress
+                                {
+                                    Id = Convert.ToInt32(reader["id_service_shop"])
+                                },
+                                OrderDate = Convert.ToDateTime(reader["order_date"])
+                            };
+
+                            flag = false;
+                        }
+                        
+                        services.Service.Add(new ServiceInfo
+                        {
+                            Id = Convert.ToInt32(reader["id_service"]),
+                            Name = Convert.ToString(reader["name_service"]),
+                            Description = Convert.ToString(reader["description_service"]),
+                            Value = Convert.ToDecimal(reader["value_service"])
+                        });
+                    }                          
+
+                    return services;
                 }
             }
         }
