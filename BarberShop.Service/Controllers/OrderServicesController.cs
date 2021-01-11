@@ -42,7 +42,7 @@ namespace BarberShop.Service.Controllers
         [Route("UpdateOrderServices")]
         public void Update(OrderServices orderServices)
         {
-            throw new System.NotImplementedException();
+            _orderServicesService.Update(orderServices);
         }
     }
 }

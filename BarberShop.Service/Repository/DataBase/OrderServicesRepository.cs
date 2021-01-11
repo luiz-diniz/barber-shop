@@ -31,7 +31,6 @@ namespace BarberShop.Service.Repository.Database
                     }
                 }
             }
-            
         }
 
         public void Delete(OrderServices orderServices)
@@ -117,9 +116,24 @@ namespace BarberShop.Service.Repository.Database
             }
         }
 
-        public void Update(OrderServices type)
+        public void Update(OrderServices orderServices)
         {
-            throw new System.NotImplementedException();
+            string query = "update OrderServices set id_service_shop = @P0 where id_service_shop = @P1";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    cmd.Parameters.Add(new SqlParameter("P0", orderServices.Service[0].Id));
+                    cmd.Parameters.Add(new SqlParameter("P1", orderServices.Service[1].Id));
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
     }
 }

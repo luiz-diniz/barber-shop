@@ -30,7 +30,10 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Insert", "OrderServices", new string[] { orderServices.Id.ToString(), orderServices.Order.Id.ToString() });
+                for (int i = 0; i < orderServices.Service.Count; i++)
+                {
+                    _logger.CreateLog("Database", "Insert", "OrderServices", new string[] { orderServices.Id.ToString(), orderServices.Order.Id.ToString(), orderServices.Service[i].Id.ToString() });
+                }
             }
         }
 
@@ -46,7 +49,7 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Delete", "OrderServices", new string[] { orderServices.Id.ToString(), orderServices.Order.Id.ToString() });
+                _logger.CreateLog("Database", "Delete", "OrderServices", new string[] { orderServices.Id.ToString(), orderServices.Order.Id.ToString(), orderServices.Service[0].Id.ToString() });
             }
         }
 
@@ -70,9 +73,20 @@ namespace BarberShop.Service.Services
             return services;
         }
 
-        public void Update(OrderServices type)
+        public void Update(OrderServices orderServices)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                _orderServicesRepository.Update(orderServices);
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.ToString());
+            }
+            finally
+            {
+                _logger.CreateLog("Database", "Update", "OrderServices", new string[] { orderServices.Order.Id.ToString(), orderServices.Service[0].Id.ToString(), orderServices.Service[1].Id.ToString() });
+            }        
         }
     }
 }
