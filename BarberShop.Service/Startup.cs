@@ -43,6 +43,8 @@ namespace BarberShop.Service
             services.AddSingleton<IOrderInfoRepository, OrderInfoRepository>();
             services.AddSingleton<IOrderServicesService, OrderServicesService>();
             services.AddSingleton<IOrderServicesRepository, OrderServicesRepository>();
+            services.AddSingleton<IOrderPaymentService, OrderPaymentService>();
+            services.AddSingleton<IOrderPaymentRepository, OrderPaymentRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
