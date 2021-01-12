@@ -1,0 +1,45 @@
+@import '../../sass/variables.scss';
+@import '../../sass/general.scss';
+
+/*Login*/
+.login-form{
+    min-width: 20rem;
+    min-height: 30rem;
+    background: $ghost-white;
+    text-align: center;
+    padding: 3rem;
+    border-radius: 5px;
+
+    .login-logo{
+        width: 20rem;
+        height: 20rem;
+    }
+
+    .group-item{
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        margin-bottom: 1rem;
+    }
+
+    label{
+        font-weight: bold;
+        margin-bottom: .2rem;
+    }
+
+    input{
+        padding: .4rem;
+    }
+
+    .btn-login{
+        background-color: $black;
+        color: $white;
+        border: none;
+        transition: .4s;
+
+        &:hover{
+            background-color: $yellow;
+            color: $black;
+        }
+    }
+}
