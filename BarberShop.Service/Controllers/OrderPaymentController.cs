@@ -1,4 +1,5 @@
-﻿using BarberShop.Service.Services.Interfaces;
+﻿using BarberShop.Service.Models;
+using BarberShop.Service.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BarberShop.Service.Controllers
@@ -12,6 +13,20 @@ namespace BarberShop.Service.Controllers
         public OrderPaymentController(IOrderPaymentService orderPaymentService)
         {
             _orderPaymentService = orderPaymentService;
+        }
+
+        [HttpPost]
+        [Route("CreateOrderPayment")]
+        public void Create(OrderPayment orderPayment)
+        {
+            _orderPaymentService.Create(orderPayment);
+        }
+
+        [HttpDelete]
+        [Route("DeleteOrderPayment")]
+        public void Delete(OrderPayment orderPayment)
+        {
+            _orderPaymentService.Delete(orderPayment);
         }
     }
 }
