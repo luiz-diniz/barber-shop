@@ -94,7 +94,7 @@ namespace BarberShop.Service.Repository.Database
                                 },
                                 ShopAddressInfo = new ShopAddress
                                 {
-                                    Id = Convert.ToInt32(reader["id_service_shop"])
+                                    Id = Convert.ToInt32(reader["id_shop"])
                                 },
                                 OrderDate = Convert.ToDateTime(reader["order_date"])
                             };

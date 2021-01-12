@@ -28,5 +28,19 @@ namespace BarberShop.Service.Controllers
         {
             _orderPaymentService.Delete(orderPayment);
         }
+
+        [HttpGet]
+        [Route("ReadOrderPayment/{orderId}")]
+        public OrderPayment Read(int orderId)
+        {
+            return _orderPaymentService.Read(orderId);
+        }
+
+        [HttpPut]
+        [Route("UpdateOrderPayment")]
+        public void Update(OrderPayment orderPayment)
+        {
+            _orderPaymentService.Update(orderPayment);
+        }
     }
 }

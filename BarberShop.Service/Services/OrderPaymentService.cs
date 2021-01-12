@@ -54,12 +54,38 @@ namespace BarberShop.Service.Services
 
         public OrderPayment Read(int orderId)
         {
-            throw new NotImplementedException();
+            OrderPayment orderPayment = new OrderPayment();
+
+            try
+            {
+                orderPayment = _orderPaymentRepository.Read(orderId);
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.ToString());
+            }
+            finally
+            {
+                _logger.CreateLog("Database", "Read", "OrderPayment", new string[] { orderId.ToString() });
+            }
+
+            return orderPayment;
         }
 
         public void Update(OrderPayment orderPayment)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _orderPaymentRepository.Update(orderPayment);
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.ToString());
+            }
+            finally
+            {
+                _logger.CreateLog("Database", "Update", "OrderPayment", new string[] { orderPayment.Order.Id.ToString(), orderPayment.PaymentInfo[0].Id.ToString(), orderPayment.PaymentInfo[1].Id.ToString() });
+            }
         }
     }
 }
