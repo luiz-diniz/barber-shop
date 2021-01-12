@@ -3,9 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/components/login.js"></script>
     <title>BarberShop</title>
 </head>
 <body>
-    
+    <div class="container">
+        <form class="login-form">
+            <img src="img/logo.png" class="login-logo">
+            <div class="group-item">
+                <label for="username">Username</label>
+                <input type="text" name="username" required>
+            </div>
+            <div class="group-item">
+                <label for="password">Password</label>
+                <input type="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-login">
+                Login
+            </button>
+        </form>
+    </div>
 </body>
 </html>
