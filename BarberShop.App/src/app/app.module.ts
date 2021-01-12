@@ -13,6 +13,6 @@ import { LoginComponent } from './login/login.component';
     BrowserModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [LoginComponent]
 })
 export class AppModule { }
