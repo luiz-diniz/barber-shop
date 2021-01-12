@@ -1,9 +1,0 @@
-black - 001011
-
-yellow - FFE900
-
-grey - 646E78
-
-ghost white - F4F4F9
-
-white - FFFFFF
