@@ -35,7 +35,7 @@ namespace BarberShop.Service.Repository.Database
 
         public void Delete(OrderServices orderServices)
         {
-            string query = "delete from orderServices where id_order_info = @P0 and id_service_shop = @P1";
+            string query = "delete from orderServices where id_order_info = @P0 and id_service = @P1";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -55,7 +55,7 @@ namespace BarberShop.Service.Repository.Database
 
         public OrderServices Read(int orderInfoId)
         {
-            string query = "select * from ServiceInfo si right join OrderServices os on si.id_service = os.id_service_shop " +
+            string query = "select * from ServiceInfo si right join OrderServices os on si.id_service = os.id_service " +
                 "right join OrderInfo oi on oi.id_order_info = os.id_order_info where os.id_order_info = @P0";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -118,7 +118,7 @@ namespace BarberShop.Service.Repository.Database
 
         public void Update(OrderServices orderServices)
         {
-            string query = "update OrderServices set id_service_shop = @P0 where id_service_shop = @P1";
+            string query = "update OrderServices set id_service = @P0 where id_service = @P1";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {

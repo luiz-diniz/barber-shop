@@ -62,10 +62,10 @@ create table OrderInfo(
 create table OrderServices(
 	id_order_services int identity(1,1) primary key,
 	id_order_info int,
-	id_service_shop int,
+	id_service int,
 
 	foreign key(id_order_info) references OrderInfo(id_order_info),
-	foreign key(id_service_shop) references ServiceInfo(id_service)
+	foreign key(id_service) references ServiceInfo(id_service)
 )
 
 create table OrderPayment(
