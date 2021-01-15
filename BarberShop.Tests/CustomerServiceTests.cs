@@ -1,4 +1,5 @@
-﻿using BarberShop.Service.Repository.Interfaces;
+﻿using BarberShop.Service.Models;
+using BarberShop.Service.Repository.Interfaces;
 using BarberShop.Service.Services;
 using Moq;
 using System;
@@ -18,7 +19,14 @@ namespace BarberShop.Tests
         }
 
         [Fact]
+        public void CreateCustomerNullTest()
+        {
+            Customer customer = null;
 
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentNullException>(() => instance.Create(customer));
+        }
 
         public CustomerService GetInstance()
         {

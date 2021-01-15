@@ -22,15 +22,16 @@ namespace BarberShop.Service.Services
         {
             try
             {
+                if (customer == null) throw new ArgumentNullException();
+
                 _customerRepository.Create(customer);
+
+                _logger.CreateLog("Database", "Insert", "Customer", new string[] { customer.Cpf, customer.Name, customer.Birth.ToString() });
             }
             catch (Exception ex)
             {
                 _logger.CreateLog("Error", ex.ToString());
-            }
-            finally
-            {
-                _logger.CreateLog("Database", "Insert", "Customer", new string[] { customer.Cpf, customer.Name, customer.Birth.ToString() });
+                throw ex;
             }
         }           
 

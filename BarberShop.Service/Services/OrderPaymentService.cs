@@ -18,7 +18,7 @@ namespace BarberShop.Service.Services
         }
 
         public void Create(OrderPayment orderPayment)
-        {
+        {            
             try
             {
                 _orderPaymentRepository.Create(orderPayment);
@@ -26,6 +26,7 @@ namespace BarberShop.Service.Services
             catch (Exception ex)
             {
                 _logger.CreateLog("Error", ex.ToString());
+                throw ex;
             }
             finally
             {
