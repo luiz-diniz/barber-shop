@@ -2,6 +2,7 @@
 using BarberShop.Service.Services;
 using Moq;
 using System;
+using Xunit;
 
 namespace BarberShop.Tests
 {
@@ -15,6 +16,9 @@ namespace BarberShop.Tests
             _customerRepository = new Mock<ICustomerRepository>();
             _logger = new Mock<ILogger>();
         }
+
+        [Fact]
+
 
         public CustomerService GetInstance()
         {
