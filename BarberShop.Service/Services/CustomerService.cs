@@ -23,6 +23,7 @@ namespace BarberShop.Service.Services
             try
             {
                 if (customer == null) throw new ArgumentNullException();
+                if (String.IsNullOrEmpty(customer.Cpf) || String.IsNullOrEmpty(customer.Name) || customer.Birth == null) throw new ArgumentException();                
 
                 _customerRepository.Create(customer);
 
@@ -30,7 +31,7 @@ namespace BarberShop.Service.Services
             }
             catch (Exception ex)
             {
-                _logger.CreateLog("Error", ex.ToString());
+                _logger.CreateLog("Database", "Insert", "Customer", new string[] { ex.ToString() });
                 throw ex;
             }
         }           
