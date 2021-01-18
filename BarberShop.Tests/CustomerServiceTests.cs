@@ -49,6 +49,45 @@ namespace BarberShop.Tests
             _logger.Verify();
         }
 
+        [Fact]
+        public void CreateCustomerNameNullTest()
+        {
+            Customer customer = new Customer
+            {
+                Cpf = "000000000",
+                Birth = Convert.ToDateTime("2000-01-01T00:00:00")
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Insert", "Customer", new string[] { "Error" }));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Create(customer));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void CreateCustomerTest()
+        {
+            Customer customer = new Customer
+            {
+                Cpf = "000000000",
+                Name = "Test",
+                Birth = Convert.ToDateTime("2000-01-01T00:00:00")
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Insert", "Customer", new string[] { "Error" }));
+            _customerRepository.Setup(x => x.Create(customer));
+
+            var instance = GetInstance();
+
+            instance.Create(customer);
+
+            _logger.Verify();
+            _customerRepository.Verify();
+        }
+
         public CustomerService GetInstance()
         {
             return new CustomerService(_customerRepository.Object, _logger.Object);
