@@ -40,16 +40,18 @@ namespace BarberShop.Service.Services
         {
             try
             {
+                if (customer == null) throw new ArgumentNullException();
+                if (String.IsNullOrEmpty(customer.Cpf)) throw new ArgumentException();
+
                 _customerRepository.DeleteAllPhones(customer.Id);
-                _customerRepository.Delete(customer);               
+                _customerRepository.Delete(customer);
+
+                _logger.CreateLog("Database", "Delete", "Customer", new string[] { customer.Cpf });
             }
             catch (Exception ex)
             {
                 _logger.CreateLog("Error", ex.ToString());
-            }
-            finally
-            {
-                _logger.CreateLog("Database", "Delete", "Customer", new string[] { customer.Cpf });
+                throw ex;
             }
         }
 

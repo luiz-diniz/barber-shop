@@ -88,6 +88,20 @@ namespace BarberShop.Tests
             _customerRepository.Verify();
         }
 
+        [Fact]
+        public void DeleteCustomerNullTest()
+        {
+            Customer customer = null;
+
+            _logger.Setup(x => x.CreateLog("Error", "Delete", "Customer", new string[] { "Error" }));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentNullException>(() => instance.Delete(customer));
+
+            _logger.Verify();
+        }
+
         public CustomerService GetInstance()
         {
             return new CustomerService(_customerRepository.Object, _logger.Object);
