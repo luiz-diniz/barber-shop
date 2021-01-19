@@ -43,7 +43,6 @@ namespace BarberShop.Service.Services
                 if (customer == null) throw new ArgumentNullException();
                 if (String.IsNullOrEmpty(customer.Cpf)) throw new ArgumentException();
 
-                _customerRepository.DeleteAllPhones(customer.Id);
                 _customerRepository.Delete(customer);
 
                 _logger.CreateLog("Database", "Delete", "Customer", new string[] { customer.Cpf });
@@ -57,41 +56,39 @@ namespace BarberShop.Service.Services
 
         public Customer Read(string cpf)
         {
-            Customer customer = new Customer();
-
             try
             {
+                if (String.IsNullOrEmpty(cpf)) throw new ArgumentException();
+
+                Customer customer = new Customer();
+
                 customer = _customerRepository.Read(cpf);
-                customer.Phone = _customerRepository.ReadPhone(cpf);
+
+                _logger.CreateLog("Database", "Update", "Customer", new string[] { customer.Id.ToString(), customer.Cpf, customer.Name, customer.Birth.ToString() });
+
+                return customer;
             }
             catch (Exception ex)
             {
                 _logger.CreateLog("Error", ex.ToString());
+                throw ex;
             }
-            finally
-            {
-                for (int i = 0; i < customer.Phone.Count; i++)
-                {
-                    _logger.CreateLog("Database", "Update", "Customer", new string[] { customer.Id.ToString(), customer.Cpf, customer.Name, customer.Birth.ToString(), customer.Phone[i] });
-                }
-            }
-
-            return customer;
         }
 
         public void Update(Customer customerArgument)
         {
             try
             {
+                if (customerArgument == null) throw new ArgumentNullException();
+
                 _customerRepository.Update(customerArgument);
+
+                _logger.CreateLog("Database", "Update", "Customer", new string[] { customerArgument.Cpf, customerArgument.Name, customerArgument.Birth.ToString() });
             }
             catch (Exception ex)
             {
                 _logger.CreateLog("Error", ex.ToString());
-            }
-            finally
-            {
-                _logger.CreateLog("Database", "Update", "Customer", new string[] { customerArgument.Cpf, customerArgument.Name, customerArgument.Birth.ToString() });
+                throw ex;
             }
         }
 
