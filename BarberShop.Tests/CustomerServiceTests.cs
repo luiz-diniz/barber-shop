@@ -17,6 +17,7 @@ namespace BarberShop.Tests
         private string _cpf = "00000000000";
         private string _name = "Angus";
         private DateTime _birth = Convert.ToDateTime("2000-01-01T00:00:00");
+        private string _phone = "00111112222";
         private List<string> _phones = new List<string>
         {
             "00111112222", "00111113333"
@@ -338,6 +339,50 @@ namespace BarberShop.Tests
             var instance = GetInstance();
 
             instance.CreatePhone(customer);
+
+            _logger.Verify();
+            _customerRepository.Verify();
+        }
+
+        [Fact]
+        public void DeleteCustomerPhoneNullTest()
+        {
+            string phone = null;
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.DeletePhone(phone));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void DeleteCustomerPhoneEmptyTest()
+        {
+            string phone = "";
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.DeletePhone(phone));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void DeleteCustomerPhoneTest()
+        {
+            string phone = _phone;
+
+            _logger.Setup(x => x.CreateLog("Database", "Delete", "CustomerPhone", new string[] { phone }));
+            _customerRepository.Setup(x => x.DeletePhone(phone));
+
+            var instance = GetInstance();
+
+            instance.DeletePhone(phone);
 
             _logger.Verify();
             _customerRepository.Verify();

@@ -118,15 +118,16 @@ namespace BarberShop.Service.Services
         {
             try
             {
+                if (String.IsNullOrEmpty(phone)) throw new ArgumentException();
+
                 _customerRepository.DeletePhone(phone);
+
+                _logger.CreateLog("Database", "Delete", "CustomerPhone", new string[] { phone });
             }
             catch (Exception ex)
             {
                 _logger.CreateLog("Error", ex.Message);
-            }
-            finally
-            {
-                _logger.CreateLog("Database", "Delete", "CustomerPhone", new string[] { phone });
+                throw ex;
             }
         }
 
