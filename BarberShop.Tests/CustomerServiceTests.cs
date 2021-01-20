@@ -250,7 +250,9 @@ namespace BarberShop.Tests
 
             var instance = GetInstance();
 
-            instance.Read(cpf);
+            var result = instance.Read(cpf);
+
+            Assert.IsAssignableFrom<Customer>(result);
 
             _logger.Verify();
             _customerRepository.Verify();
@@ -305,7 +307,7 @@ namespace BarberShop.Tests
         }
 
         [Fact]
-        public void CreateCustomerPhonePhoneNullTest()
+        public void CreatePhoneNullTest()
         {
             Customer customer = new Customer
             {
@@ -323,7 +325,7 @@ namespace BarberShop.Tests
         }
 
         [Fact]
-        public void CreateCustomerPhoneTest()
+        public void CreatePhoneTest()
         {
             Customer customer = new Customer
             {
@@ -345,7 +347,7 @@ namespace BarberShop.Tests
         }
 
         [Fact]
-        public void DeleteCustomerPhoneNullTest()
+        public void DeletePhoneNullTest()
         {
             string phone = null;
 
@@ -359,7 +361,7 @@ namespace BarberShop.Tests
         }
 
         [Fact]
-        public void DeleteCustomerPhoneEmptyTest()
+        public void DeletePhoneEmptyTest()
         {
             string phone = "";
 
@@ -373,7 +375,7 @@ namespace BarberShop.Tests
         }
 
         [Fact]
-        public void DeleteCustomerPhoneTest()
+        public void DeletePhoneTest()
         {
             string phone = _phone;
 
@@ -388,6 +390,86 @@ namespace BarberShop.Tests
             _customerRepository.Verify();
         }
 
+        [Fact]
+        public void ReadPhoneNullTest()
+        {
+            string cpf = null;
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.ReadPhone(cpf));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void ReadPhoneEmptyTest()
+        {
+            string cpf = "";
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.ReadPhone(cpf));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void ReadPhoneTest()
+        {
+            string cpf = _cpf;
+            List<string> phones = _phones;
+
+            _logger.Setup(x => x.CreateLog("Database", "Read", "CustomerPhone", new string[] { cpf }));
+            _customerRepository.Setup(x => x.ReadPhone(cpf)).Returns(phones);
+
+            var instance = GetInstance();
+
+            var result = instance.ReadPhone(cpf);
+
+            Assert.IsAssignableFrom<List<String>>(result);
+
+            _logger.Verify();
+            _customerRepository.Verify();
+        }
+
+        [Fact]
+        public void UpdatePhoneNullTest()
+        {
+            string[] phones = null;
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentNullException>(() => instance.UpdatePhone(phones));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void UpdatePhoneTest()
+        {
+            string[] phones = new string[]
+            {
+                "00111112222", "00111113333"
+            };
+
+            _logger.Setup(x => x.CreateLog("Database", "Update", "CustomerPhone", new string[] { phones[0], phones[1] }));
+            _customerRepository.Setup(x => x.UpdatePhone(phones));
+
+            var instance = GetInstance();
+
+            instance.UpdatePhone(phones);
+
+            _logger.Verify();
+            _customerRepository.Verify();
+        }
+        
         private CustomerService GetInstance()
         {
             return new CustomerService(_customerRepository.Object, _logger.Object);

@@ -133,37 +133,39 @@ namespace BarberShop.Service.Services
 
         public List<string> ReadPhone(string cpf)
         {
-            List<string> phones = new List<string>();
-
             try
             {
+                if (String.IsNullOrEmpty(cpf)) throw new ArgumentException();
+
+                List<string> phones = new List<string>();
+
                 phones = _customerRepository.ReadPhone(cpf);
+
+                _logger.CreateLog("Database", "Read", "CustomerPhone", new string[] { cpf });
+
+                return phones;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.CreateLog("Error", ex.Message);
+                throw ex;
             }
-            finally
-            {
-                _logger.CreateLog("Database", "Read", "CustomerPhone", new string[] { cpf });
-            }
-
-            return phones;
         }
 
         public void UpdatePhone(string[] phone)
         {
             try
             {
+                if (phone == null) throw new ArgumentNullException();
+
                 _customerRepository.UpdatePhone(phone);
+
+                _logger.CreateLog("Database", "Update", "CustomerPhone", new string[] { phone[0], phone[1] });
             }
             catch (Exception ex)
             {
                 _logger.CreateLog("Error", ex.Message);
-            }
-            finally
-            {
-                _logger.CreateLog("Database", "Update", "CustomerPhone", new string[] { phone[0], phone[1] });
+                throw ex;
             }
         }
     }
