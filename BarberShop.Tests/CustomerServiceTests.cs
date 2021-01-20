@@ -3,6 +3,7 @@ using BarberShop.Service.Repository.Interfaces;
 using BarberShop.Service.Services;
 using Moq;
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace BarberShop.Tests
@@ -16,6 +17,10 @@ namespace BarberShop.Tests
         private string _cpf = "00000000000";
         private string _name = "Angus";
         private DateTime _birth = Convert.ToDateTime("2000-01-01T00:00:00");
+        private List<string> _phones = new List<string>
+        {
+            "00111112222", "00111113333"
+        };
 
         public CustomerServiceTests()
         {
@@ -281,6 +286,58 @@ namespace BarberShop.Tests
             var instance = GetInstance();
 
             instance.Update(customer);
+
+            _logger.Verify();
+            _customerRepository.Verify();
+        }
+
+        [Fact]
+        public void CreateCustomerPhoneNullTest()
+        {
+            Customer customer = null;
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentNullException>(() => instance.CreatePhone(customer));
+        }
+
+        [Fact]
+        public void CreateCustomerPhonePhoneNullTest()
+        {
+            Customer customer = new Customer
+            {
+                Id = _id,
+                Name = _name,
+                Cpf = _cpf,
+                Phone = null
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.CreatePhone(customer));
+        }
+
+        [Fact]
+        public void CreateCustomerPhoneTest()
+        {
+            Customer customer = new Customer
+            {
+                Id = _id,
+                Name = _name,
+                Cpf = _cpf,
+                Phone = _phones
+            };
+
+            _logger.Setup(x => x.CreateLog("Database", "Insert", "CustomerPhone", new string[] { customer.Cpf, customer.Phone[0] }));
+            _customerRepository.Setup(x => x.CreatePhone(customer));
+
+            var instance = GetInstance();
+
+            instance.CreatePhone(customer);
 
             _logger.Verify();
             _customerRepository.Verify();

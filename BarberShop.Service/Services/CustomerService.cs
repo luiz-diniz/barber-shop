@@ -97,19 +97,20 @@ namespace BarberShop.Service.Services
         {
             try
             {
+                if (customer == null) throw new ArgumentNullException();
+                if (customer.Phone == null) throw new ArgumentException(); 
+
                 _customerRepository.CreatePhone(customer);
+
+                for (int i = 0; i < customer.Phone.Count; i++)
+                {
+                    _logger.CreateLog("Database", "Insert", "CustomerPhone", new string[] { customer.Cpf, customer.Phone[i] });
+                }
             }
             catch (Exception ex)
             {
                 _logger.CreateLog("Error", ex.Message);
-            }
-            finally
-            {
-                for (int i = 0; i < customer.Phone.Count; i++)
-                {
-                    _logger.CreateLog("Database", "Insert", "CustomerPhone", new string[] { customer.Cpf, customer.Phone[i] });
-
-                }            
+                throw ex;
             }
         }
 
