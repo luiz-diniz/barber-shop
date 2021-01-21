@@ -2,5 +2,8 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=17199008_002D861a_002D4898_002D9f94_002D576d708686f7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="CreateCustomerNullTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::EF238C09-A5D1-4ED4-8135-01EAC999CD10::.NETCoreApp,Version=v3.1::BarberShop.Tests.CustomerServiceTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::EF238C09-A5D1-4ED4-8135-01EAC999CD10::.NETCoreApp,Version=v3.1::BarberShop.Tests.EmployeeServiceTests.CreateEmployeeNullTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::EF238C09-A5D1-4ED4-8135-01EAC999CD10::.NETCoreApp,Version=v3.1::BarberShop.Tests.EmployeeServiceTests.CreateEmployeeCpfNullTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::EF238C09-A5D1-4ED4-8135-01EAC999CD10::.NETCoreApp,Version=v3.1::BarberShop.Tests.EmployeeServiceTests.CreateEmployeeCpfEmptyTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

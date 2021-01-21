@@ -25,18 +25,20 @@ namespace BarberShop.Service.Services
         {
             try
             {
+                if (employee == null) throw new ArgumentNullException();
+                if (String.IsNullOrEmpty(employee.Cpf)) throw new ArgumentException();
+
                 employee.SaltPassword = _hasher.CreateSalt(20);
                 employee.Password = _hasher.GenerateHash(employee.Password, employee.SaltPassword);
            
                 _employeeRepository.Create(employee);
+
+                _logger.CreateLog("Database", "Insert", "Employee", new string[] { employee.Cpf, employee.Name, employee.Username });
             }
             catch (Exception ex)
             {
                 _logger.CreateLog("Error", ex.Message);
-            }
-            finally
-            {
-                _logger.CreateLog("Database", "Insert", "Employee", new string[] { employee.Cpf, employee.Name, employee.Username });
+                throw ex;
             }
         }
 
