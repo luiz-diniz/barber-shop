@@ -220,6 +220,7 @@ namespace BarberShop.Tests
             _logger.Setup(x => x.CreateLog("Database", "Insert", "Employee", new string[] { employee.Cpf, employee.Name, employee.Username }));
             _hasher.Setup(x => x.CreateSalt(20)).Returns(salt);
             _hasher.Setup(x => x.GenerateHash(_password, salt)).Returns(passwordHash);
+            _employeeRepository.Setup(x => x.Create(employee));
 
             var instance = GetInstance();
 
