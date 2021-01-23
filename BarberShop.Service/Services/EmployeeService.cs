@@ -26,7 +26,8 @@ namespace BarberShop.Service.Services
             try
             {
                 if (employee == null) throw new ArgumentNullException();
-                if (String.IsNullOrEmpty(employee.Cpf)) throw new ArgumentException();
+                if (String.IsNullOrEmpty(employee.Cpf) || String.IsNullOrEmpty(employee.Name) || 
+                    String.IsNullOrEmpty(employee.Username) || String.IsNullOrEmpty(employee.Password)) throw new ArgumentException();
 
                 employee.SaltPassword = _hasher.CreateSalt(20);
                 employee.Password = _hasher.GenerateHash(employee.Password, employee.SaltPassword);

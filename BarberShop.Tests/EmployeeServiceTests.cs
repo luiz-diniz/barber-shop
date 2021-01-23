@@ -83,6 +83,152 @@ namespace BarberShop.Tests
             _logger.Verify();
         }
 
+        [Fact]
+        public void CreateEmployeeNameNullTest()
+        {
+            Employee employee = new Employee
+            {
+                Cpf = _cpf,
+                Name = null,
+                Username = _username,
+                Password = _password
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Create(employee));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void CreateEmployeeNameEmptyTest()
+        {
+            Employee employee = new Employee
+            {
+                Cpf = _cpf,
+                Name = "",
+                Username = _username,
+                Password = _password
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Create(employee));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void CreateEmployeeUsernameNullTest()
+        {
+            Employee employee = new Employee
+            {
+                Cpf = _cpf,
+                Name = _name,
+                Username = null,
+                Password = _password
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Create(employee));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void CreateEmployeeUsernameEmptyTest()
+        {
+            Employee employee = new Employee
+            {
+                Cpf = _cpf,
+                Name = _name,
+                Username = "",
+                Password = _password
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Create(employee));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void CreateEmployeePasswordNullTest()
+        {
+            Employee employee = new Employee
+            {
+                Cpf = _cpf,
+                Name = _name,
+                Username = _username,
+                Password = null
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Create(employee));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void CreateEmployeePasswordEmptyTest()
+        {
+            Employee employee = new Employee
+            {
+                Cpf = _cpf,
+                Name = _name,
+                Username = _username,
+                Password = ""
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Create(employee));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void CreateEmployeeTest()
+        {
+            Employee employee = new Employee
+            {
+                Cpf = _cpf,
+                Name = _name,
+                Username = _username,
+                Password = _password
+            };
+
+            var salt = "aaaaaaaaaaaaaaaaaaaa";
+            var passwordHash = "eddietopaaaaaaaaaaaaaaaaaaaa";
+
+            _logger.Setup(x => x.CreateLog("Database", "Insert", "Employee", new string[] { employee.Cpf, employee.Name, employee.Username }));
+            _hasher.Setup(x => x.CreateSalt(20)).Returns(salt);
+            _hasher.Setup(x => x.GenerateHash(_password, salt)).Returns(passwordHash);
+
+            var instance = GetInstance();
+
+            instance.Create(employee);
+
+            _logger.Verify();
+            _hasher.Verify();
+        }
+
         private EmployeeService GetInstance()
         {
             return new EmployeeService(_employeeRepository.Object, _logger.Object, _hasher.Object);

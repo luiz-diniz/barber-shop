@@ -5,5 +5,12 @@
     &lt;TestId&gt;xUnit::EF238C09-A5D1-4ED4-8135-01EAC999CD10::.NETCoreApp,Version=v3.1::BarberShop.Tests.EmployeeServiceTests.CreateEmployeeNullTest&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::EF238C09-A5D1-4ED4-8135-01EAC999CD10::.NETCoreApp,Version=v3.1::BarberShop.Tests.EmployeeServiceTests.CreateEmployeeCpfNullTest&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::EF238C09-A5D1-4ED4-8135-01EAC999CD10::.NETCoreApp,Version=v3.1::BarberShop.Tests.EmployeeServiceTests.CreateEmployeeCpfEmptyTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::EF238C09-A5D1-4ED4-8135-01EAC999CD10::.NETCoreApp,Version=v3.1::BarberShop.Tests.EmployeeServiceTests.CreateEmployeeNameNullTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::EF238C09-A5D1-4ED4-8135-01EAC999CD10::.NETCoreApp,Version=v3.1::BarberShop.Tests.EmployeeServiceTests.CreateEmployeeNameEmptyTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::EF238C09-A5D1-4ED4-8135-01EAC999CD10::.NETCoreApp,Version=v3.1::BarberShop.Tests.EmployeeServiceTests.CreateEmployeeUsernameNullTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::EF238C09-A5D1-4ED4-8135-01EAC999CD10::.NETCoreApp,Version=v3.1::BarberShop.Tests.EmployeeServiceTests.CreateEmployeeUsernameEmptyTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::EF238C09-A5D1-4ED4-8135-01EAC999CD10::.NETCoreApp,Version=v3.1::BarberShop.Tests.EmployeeServiceTests.CreateEmployeePasswordNullTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::EF238C09-A5D1-4ED4-8135-01EAC999CD10::.NETCoreApp,Version=v3.1::BarberShop.Tests.EmployeeServiceTests.CreateEmployeePasswordEmptyTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::EF238C09-A5D1-4ED4-8135-01EAC999CD10::.NETCoreApp,Version=v3.1::BarberShop.Tests.EmployeeServiceTests.CreateEmployeeTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
