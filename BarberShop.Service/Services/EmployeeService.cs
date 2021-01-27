@@ -63,22 +63,24 @@ namespace BarberShop.Service.Services
 
         public Employee Read(string cpf)
         {
-            Employee employee = new Employee();
 
             try
             {
+                if (String.IsNullOrEmpty(cpf)) throw new ArgumentException();
+
+                Employee employee = new Employee();
+
                 employee = _employeeRepository.Read(cpf);
+
+                _logger.CreateLog("Database", "Read", "Employee", new string[] { employee.Id.ToString(), employee.Cpf, employee.Name, employee.Username });
+
+                return employee;
             }
             catch (Exception ex)
             {
                 _logger.CreateLog("Error", ex.ToString());
+                throw ex;
             }
-            finally
-            {
-                _logger.CreateLog("Database", "Read", "Employee", new string[] { employee.Id.ToString(), employee.Cpf, employee.Name, employee.Username });
-            }
-
-            return employee;
         }
 
         public void Update(Employee employeeArgument)

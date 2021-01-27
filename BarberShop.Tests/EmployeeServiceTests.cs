@@ -305,6 +305,59 @@ namespace BarberShop.Tests
             _employeeRepository.Verify();
         }
 
+        [Fact]
+        public void ReadEmployeeCpfNullTest()
+        {
+            string cpf = null;
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Read(cpf));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void ReadEmployeeCpfEmptyTest()
+        {
+            string cpf = null;
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Read(cpf));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void ReadEmployeeTest()
+        {
+            string cpf = _cpf;
+
+            Employee employee = new Employee()
+            {
+                Id = _id,
+                Cpf = _cpf,
+                Name = _name,
+                Username = _username
+            };
+
+            _logger.Setup(x => x.CreateLog("Database", "Read", "Employee", new string[] { employee.Id.ToString(), employee.Cpf, employee.Name, employee.Username }));
+            _employeeRepository.Setup(x => x.Read(cpf)).Returns(employee);
+
+            var instance = GetInstance();
+            var result = instance.Read(cpf);
+
+            Assert.IsAssignableFrom<Employee>(result);
+
+            _logger.Verify();
+            _employeeRepository.Verify();
+        }
+
         private EmployeeService GetInstance()
         {
             return new EmployeeService(_employeeRepository.Object, _logger.Object, _hasher.Object);
