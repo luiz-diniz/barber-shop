@@ -358,6 +358,161 @@ namespace BarberShop.Tests
             _employeeRepository.Verify();
         }
 
+        [Fact]
+        public void UpdateEmployeeNullTest()
+        {
+            Employee employee = null;
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentNullException>(() => instance.Update(employee));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void UpdateEmployeeCpfNullTest()
+        {
+            Employee employee = new Employee
+            {
+                Name = _name,
+                Username = _username,
+                Password = _password
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Update(employee));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void UpdateEmployeeCpfEmptyTest()
+        {
+            Employee employee = new Employee
+            {
+                Cpf = "",
+                Name = _name,
+                Username = _username,
+                Password = _password
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Update(employee));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void UpdateEmployeeNameNullTest()
+        {
+            Employee employee = new Employee
+            {
+                Cpf = _cpf,
+                Name = null,
+                Username = _username,
+                Password = _password
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Update(employee));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void UpdateEmployeeNameEmptyTest()
+        {
+            Employee employee = new Employee
+            {
+                Cpf = _cpf,
+                Name = "",
+                Username = _username,
+                Password = _password
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Update(employee));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void UpdateEmployeeUsernameNullTest()
+        {
+            Employee employee = new Employee
+            {
+                Cpf = _cpf,
+                Name = _name,
+                Username = null,
+                Password = _password
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Update(employee));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void UpdateEmployeeUsernameEmptyTest()
+        {
+            Employee employee = new Employee
+            {
+                Cpf = _cpf,
+                Name = _name,
+                Username = "",
+                Password = _password
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Update(employee));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void UpdateEmployeeTest()
+        {
+            Employee employee = new Employee
+            {
+                Cpf = _cpf,
+                Name = _name,
+                Username = _username,
+                Password = _password
+            };
+
+            _logger.Setup(x => x.CreateLog("Database", "Update", "Employee", new string[] { employee.Cpf, employee.Name, employee.Username }));
+            _employeeRepository.Setup(x => x.Update(employee));
+
+            var instance = GetInstance();
+
+            instance.Update(employee);
+
+            _logger.Verify();
+            _employeeRepository.Verify();
+        }
+
         private EmployeeService GetInstance()
         {
             return new EmployeeService(_employeeRepository.Object, _logger.Object, _hasher.Object);

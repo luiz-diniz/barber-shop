@@ -87,15 +87,18 @@ namespace BarberShop.Service.Services
         {
             try
             {
+                if (employeeArgument == null) throw new ArgumentNullException();
+                if (String.IsNullOrEmpty(employeeArgument.Cpf) || String.IsNullOrEmpty(employeeArgument.Name) ||
+                    String.IsNullOrEmpty(employeeArgument.Username)) throw new ArgumentException();
+
                 _employeeRepository.Update(employeeArgument);
+
+                _logger.CreateLog("Database", "Update", "Employee", new string[] { employeeArgument.Cpf, employeeArgument.Name, employeeArgument.Username });
             }
             catch (Exception ex)
             {
                 _logger.CreateLog("Error", ex.ToString());
-            }
-            finally
-            {
-                _logger.CreateLog("Database", "Update", "Employee", new string[] { employeeArgument.Cpf, employeeArgument.Name, employeeArgument.Username });
+                throw ex;
             }
         }
     }
