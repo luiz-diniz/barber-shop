@@ -230,6 +230,81 @@ namespace BarberShop.Tests
             _hasher.Verify();
         }
 
+        [Fact]
+        public void DeleteEmployeeNullTest()
+        {
+            Employee employee = null;
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentNullException>(() => instance.Delete(employee));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void DeleteEmployeeCpfNullTest()
+        {
+            Employee employee = new Employee() {
+                Cpf = null,
+                Name = _name,
+                Username = _username,
+                Password = _password
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Delete(employee));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void DeleteEmployeeEmptyNullTest()
+        {
+            Employee employee = new Employee()
+            {
+                Cpf = "",
+                Name = _name,
+                Username = _username,
+                Password = _password
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Delete(employee));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void DeleteEmployeeTest()
+        {
+            Employee employee = new Employee()
+            {
+                Cpf = _cpf,
+                Name = _name,
+                Username = _username,
+                Password = _password
+            };
+
+            _logger.Setup(x => x.CreateLog("Database", "Delete", "Employee", new string[] { employee.Cpf }));
+            _employeeRepository.Setup(x => x.Delete(employee));
+
+            var instance = GetInstance();
+
+            instance.Delete(employee);
+
+            _logger.Verify();
+            _employeeRepository.Verify();
+        }
+
         private EmployeeService GetInstance()
         {
             return new EmployeeService(_employeeRepository.Object, _logger.Object, _hasher.Object);

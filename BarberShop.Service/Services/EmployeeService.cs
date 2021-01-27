@@ -47,15 +47,17 @@ namespace BarberShop.Service.Services
         {
             try
             {
+                if (employee == null) throw new ArgumentNullException();
+                if (String.IsNullOrEmpty(employee.Cpf)) throw new ArgumentException();
+                
                 _employeeRepository.Delete(employee);
+
+                _logger.CreateLog("Database", "Delete", "Employee", new string[] { employee.Cpf });
             }
             catch (Exception ex)
             {
                 _logger.CreateLog("Error", ex.ToString());
-            }
-            finally
-            {
-                _logger.CreateLog("Database", "Delete", "Employee", new string[] { employee.Cpf });
+                throw ex;
             }
         }
 
