@@ -1,10 +1,11 @@
 # barber-shop
 
-A barber shop system
+Barber shop system under development
 
-- Under development
+Doing:
+  - Unit tests
+  - Studying Angular components and services
 
-Future features:
-  - Register customer, employee, services etc.
+To do:
   - Business charts
   - Export data from SQL to Excel
