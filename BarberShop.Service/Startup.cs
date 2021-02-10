@@ -45,6 +45,15 @@ namespace BarberShop.Service
             services.AddSingleton<IOrderServicesRepository, OrderServicesRepository>();
             services.AddSingleton<IOrderPaymentService, OrderPaymentService>();
             services.AddSingleton<IOrderPaymentRepository, OrderPaymentRepository>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAnyOrigin",
+                    builder => builder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +65,7 @@ namespace BarberShop.Service
             }
 
             app.UseRouting();
+            app.UseCors("AllowAnyOrigin");
             app.UseMvc();
 
             app.UseEndpoints(endpoints =>
