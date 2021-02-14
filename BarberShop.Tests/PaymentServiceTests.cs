@@ -208,6 +208,91 @@ namespace BarberShop.Tests
             _paymentRepository.Verify();
         }
 
+        [Fact]
+        public void UpdatePaymentNullTest()
+        {
+            Payment payment = null;
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentNullException>(() => instance.Update(payment));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void UpdatePaymentIdLessThanZeroTest()
+        {
+            Payment payment = new Payment()
+            {
+                Id = -1
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Update(payment));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void UpdatePaymentNameNullTest()
+        {
+            Payment payment = new Payment()
+            {
+                Name = null
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Update(payment));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void UpdatePaymentNameEmptyTest()
+        {
+            Payment payment = new Payment()
+            {
+                Name = ""
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Update(payment));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void UpdatePaymentTest()
+        {
+            Payment payment = new Payment()
+            {
+                Id = _id,
+                Name = _name
+            };
+
+            _logger.Setup(x => x.CreateLog("Database", "Update", "Payment", new string[] { payment.Name }));
+            _paymentRepository.Setup(x => x.Update(payment));
+
+            var instance = GetInstance();
+
+            instance.Update(payment);
+
+            _logger.Verify();
+            _paymentRepository.Verify();
+        }
+
         private PaymentService GetInstance()
         {
             return new PaymentService(_paymentRepository.Object, _logger.Object);

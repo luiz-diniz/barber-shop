@@ -81,15 +81,19 @@ namespace BarberShop.Service.Services
         {
             try
             {
+                if (payment == null) throw new ArgumentNullException();
+
+                if (payment.Id < 0) throw new ArgumentException();
+                if (String.IsNullOrEmpty(payment.Name)) throw new ArgumentException();
+
                 _paymentRepository.Update(payment);
+
+                _logger.CreateLog("Database", "Update", "Payment", new string[] { payment.Name });
             }
             catch (Exception ex)
             {
                 _logger.CreateLog("Error", ex.ToString());
-            }
-            finally
-            {
-                _logger.CreateLog("Database", "Update", "Payment", new string[] { payment.Name });
+                throw ex;                
             }
         }
     }
