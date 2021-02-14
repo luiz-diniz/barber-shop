@@ -14,6 +14,8 @@ namespace BarberShop.Tests
     {
         private Mock<IPaymentRepository> _paymentRepository;
         private Mock<ILogger> _logger;
+        private int _id = 666;
+        private string _name = "Money";
 
         public PaymentServiceTests()
         {
@@ -83,6 +85,74 @@ namespace BarberShop.Tests
             var instance = GetInstance();
 
             instance.Create(payment);
+
+            _logger.Verify();
+            _paymentRepository.Verify();
+        }
+
+        [Fact]
+        public void DeletePaymentNullTest()
+        {
+            Payment payment = null;
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentNullException>(() => instance.Delete(payment));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void DeletePaymentNameNullTest()
+        {
+            Payment payment = new Payment()
+            {
+                Name = null
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Delete(payment));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void DeletePaymentNameEmptyTest()
+        {
+            Payment payment = new Payment()
+            {
+                Name = ""
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Delete(payment));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void DeletePaymentTest()
+        {
+            Payment payment = new Payment()
+            {
+                Id = _id,
+                Name = _name
+            };
+
+            _logger.Setup(x => x.CreateLog("Database", "Delete", "Payment", new string[] { payment.Name }));
+            _paymentRepository.Setup(x => x.Delete(payment));
+
+            var instance = GetInstance();
+
+            instance.Delete(payment);
 
             _logger.Verify();
             _paymentRepository.Verify();

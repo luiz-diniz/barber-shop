@@ -41,15 +41,18 @@ namespace BarberShop.Service.Services
         {
             try
             {
+                if (payment == null) throw new ArgumentNullException();
+
+                if (String.IsNullOrEmpty(payment.Name)) throw new ArgumentException();
+
                 _paymentRepository.Delete(payment);
+
+                _logger.CreateLog("Database", "Delete", "Payment", new string[] { payment.Name });
             }
             catch (Exception ex)
             {
                 _logger.CreateLog("Error", ex.ToString());
-            }
-            finally
-            {
-                _logger.CreateLog("Database", "Delete", "Payment", new string[] { payment.Name });
+                throw ex;
             }
         }
 
