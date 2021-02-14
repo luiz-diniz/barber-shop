@@ -58,22 +58,23 @@ namespace BarberShop.Service.Services
 
         public Payment Read(string name)
         {
-            Payment payment = new Payment();
-
             try
             {
+                if (String.IsNullOrEmpty(name)) throw new ArgumentException();
+
+                Payment payment = new Payment();
+
                 payment = _paymentRepository.Read(name);
+
+                _logger.CreateLog("Database", "Read", "Payment", new string[] { payment.Name });
+
+                return payment;
             }
             catch (Exception ex)
             {
                 _logger.CreateLog("Error", ex.ToString());
+                throw ex;
             }
-            finally
-            {
-                _logger.CreateLog("Database", "Read", "Payment", new string[] { payment.Name });
-            }
-
-            return payment;
         }
 
         public void Update(Payment payment)

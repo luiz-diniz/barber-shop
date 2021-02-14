@@ -158,6 +158,56 @@ namespace BarberShop.Tests
             _paymentRepository.Verify();
         }
 
+        [Fact]
+        public void ReadPaymentNameNullTest()
+        {
+            string name = null;
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Read(name));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void ReadPaymentNameEmptyTest()
+        {
+            string name = "";
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Read(name));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void ReadPaymentTest()
+        {
+            string name = "Money";
+
+            Payment payment = new Payment()
+            {
+                Id = _id,
+                Name = _name
+            };
+
+            _logger.Setup(x => x.CreateLog("Database", "Read", "Payment", new string[] { payment.Name }));
+            _paymentRepository.Setup(x => x.Read(name)).Returns(payment);
+
+            var instance = GetInstance();
+
+            instance.Read(name);
+
+            _logger.Verify();
+            _paymentRepository.Verify();
+        }
+
         private PaymentService GetInstance()
         {
             return new PaymentService(_paymentRepository.Object, _logger.Object);
