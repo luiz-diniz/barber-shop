@@ -21,7 +21,7 @@ namespace BarberShop.Tests
             _logger = new Mock<ILogger>();
         }
 
-        private ServiceInfo GetInstance()
+        private ServiceInfoService GetInstance()
         {
             return new ServiceInfoService(_ServiceInfoService.Object, _logger.Object);
         }
