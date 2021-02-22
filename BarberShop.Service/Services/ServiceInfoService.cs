@@ -43,15 +43,18 @@ namespace BarberShop.Service.Services
         {
             try
             {
+                if (serviceInfo == null) throw new ArgumentNullException();
+
+                if (serviceInfo.Id < 0) throw new ArgumentException();
+
                 _serviceInfoRepository.Delete(serviceInfo);
+
+                _logger.CreateLog("Database", "Delete", "ServiceInfo", new string[] { serviceInfo.Name, serviceInfo.Description, serviceInfo.Value.ToString() });
             }
             catch (Exception ex)
             {
                 _logger.CreateLog("Error", ex.ToString());
-            }
-            finally
-            {
-                _logger.CreateLog("Database", "Delete", "ServiceInfo", new string[] { serviceInfo.Name, serviceInfo.Description, serviceInfo.Value.ToString() });
+                throw ex;
             }
         }
 
