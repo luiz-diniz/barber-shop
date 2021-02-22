@@ -9,36 +9,41 @@ namespace BarberShop.Service.Services
 {
     public class ServiceInfoService : IServiceInfoService
     {
-        private IServiceInfoRepository _shopServiceRepository;
+        private IServiceInfoRepository _serviceInfoRepository;
         private ILogger _logger;
 
-        public ServiceInfoService(IServiceInfoRepository shopServiceRepository, ILogger logger)
+        public ServiceInfoService(IServiceInfoRepository serviceInfoRepository, ILogger logger)
         {
-            _shopServiceRepository = shopServiceRepository;
+            _serviceInfoRepository = serviceInfoRepository;
             _logger = logger;
         }
 
-        public void Create(ServiceInfo shopService)
+        public void Create(ServiceInfo serviceInfo)
         {
             try
             {
-                _shopServiceRepository.Create(shopService);
+                if (serviceInfo == null) throw new ArgumentNullException();
+
+                if (String.IsNullOrEmpty(serviceInfo.Name) || String.IsNullOrEmpty(serviceInfo.Description)) throw new ArgumentException();
+
+                if (serviceInfo.Value < 0) throw new ArgumentException();
+
+                _serviceInfoRepository.Create(serviceInfo);
+
+                _logger.CreateLog("Database", "Insert", "ServiceInfo", new string[] { serviceInfo.Name, serviceInfo.Description, serviceInfo.Value.ToString() });
             }
             catch (Exception ex)
             {
                 _logger.CreateLog("Error", ex.ToString());
-            }
-            finally
-            {
-                _logger.CreateLog("Database", "Insert", "ServiceInfo", new string[] { shopService.Name, shopService.Description, shopService.Value.ToString() });
+                throw ex;
             }
         }
 
-        public void Delete(ServiceInfo shopService)
+        public void Delete(ServiceInfo serviceInfo)
         {
             try
             {
-                _shopServiceRepository.Delete(shopService);
+                _serviceInfoRepository.Delete(serviceInfo);
             }
             catch (Exception ex)
             {
@@ -46,7 +51,7 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Delete", "ServiceInfo", new string[] { shopService.Name, shopService.Description, shopService.Value.ToString() });
+                _logger.CreateLog("Database", "Delete", "ServiceInfo", new string[] { serviceInfo.Name, serviceInfo.Description, serviceInfo.Value.ToString() });
             }
         }
 
@@ -56,7 +61,7 @@ namespace BarberShop.Service.Services
 
             try
             {
-                serviceInfo = _shopServiceRepository.Read(name);
+                serviceInfo = _serviceInfoRepository.Read(name);
             }
             catch (Exception ex)
             {
@@ -70,11 +75,11 @@ namespace BarberShop.Service.Services
             return serviceInfo;
         }
 
-        public void Update(ServiceInfo shopService)
+        public void Update(ServiceInfo serviceInfo)
         {
             try
             {
-                _shopServiceRepository.Update(shopService);
+                _serviceInfoRepository.Update(serviceInfo);
             }
             catch (Exception ex)
             {
@@ -82,7 +87,7 @@ namespace BarberShop.Service.Services
             }
             finally
             {
-                _logger.CreateLog("Database", "Update", "ServiceInfo", new string[] { shopService.Id.ToString(), shopService.Name, shopService.Description, shopService.Value.ToString() });
+                _logger.CreateLog("Database", "Update", "ServiceInfo", new string[] { serviceInfo.Id.ToString(), serviceInfo.Name, serviceInfo.Description, serviceInfo.Value.ToString() });
             }
         }
     }
