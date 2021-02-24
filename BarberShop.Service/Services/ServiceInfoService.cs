@@ -60,22 +60,23 @@ namespace BarberShop.Service.Services
 
         public ServiceInfo Read(string name)
         {
-            ServiceInfo serviceInfo = new ServiceInfo();
-
             try
             {
+                if (String.IsNullOrEmpty(name)) throw new ArgumentException();
+
+                ServiceInfo serviceInfo = new ServiceInfo();
+
                 serviceInfo = _serviceInfoRepository.Read(name);
+
+                _logger.CreateLog("Database", "Read", "ServiceInfo", new string[] { name });
+
+                return serviceInfo;
             }
             catch (Exception ex)
             {
                 _logger.CreateLog("Error", ex.ToString());
+                throw ex;
             }
-            finally
-            {
-                _logger.CreateLog("Database", "Read", "ServiceInfo", new string[] { name });
-            }
-
-            return serviceInfo;
         }
 
         public void Update(ServiceInfo serviceInfo)

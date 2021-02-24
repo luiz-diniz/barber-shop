@@ -16,7 +16,7 @@ namespace BarberShop.Tests
         private Mock<IServiceInfoRepository> _serviceInfoRepository;
         private Mock<ILogger> _logger;
         private int _id = 666;
-        private string _name = "Name";
+        private string _name = "Hair Cut";
         private string _description = "Description";
         private decimal _value = 10.90m;
 
@@ -200,6 +200,58 @@ namespace BarberShop.Tests
             var instance = GetInstance();
 
             instance.Delete(serviceInfo);
+
+            _logger.Verify();
+            _serviceInfoRepository.Verify();
+        }
+
+        [Fact]
+        public void ReadServiceInfoNameNullTest()
+        {
+            string name = null;
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Read(name));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void ReadServiceInfoNameEmptyTest()
+        {
+            string name = "";
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Read(name));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void ReadServiceInfoTest()
+        {
+            string name = _name;
+
+            var serviceInfo = new ServiceInfo()
+            {
+                Id = 0,
+                Name = _name,
+                Description = _description,
+                Value = _value
+            };
+
+            _logger.Setup(x => x.CreateLog("Database", "Read", "ServiceInfo", new string[] { name }));
+            _serviceInfoRepository.Setup(x => x.Read(name)).Returns(serviceInfo);
+
+            var instance = GetInstance();
+
+            instance.Read(name);
 
             _logger.Verify();
             _serviceInfoRepository.Verify();
