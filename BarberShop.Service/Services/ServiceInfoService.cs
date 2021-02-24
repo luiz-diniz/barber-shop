@@ -83,15 +83,21 @@ namespace BarberShop.Service.Services
         {
             try
             {
+                if (serviceInfo.Id < 0) throw new ArgumentException();
+
+                if (String.IsNullOrEmpty(serviceInfo.Name) || String.IsNullOrEmpty(serviceInfo.Description)) 
+                    throw new ArgumentException();
+
+                if (serviceInfo.Value < 0) throw new ArgumentException();
+
                 _serviceInfoRepository.Update(serviceInfo);
+
+                _logger.CreateLog("Database", "Update", "ServiceInfo", new string[] { serviceInfo.Id.ToString(), serviceInfo.Name, serviceInfo.Description, serviceInfo.Value.ToString() });
             }
             catch (Exception ex)
             {
                 _logger.CreateLog("Error", ex.ToString());
-            }
-            finally
-            {
-                _logger.CreateLog("Database", "Update", "ServiceInfo", new string[] { serviceInfo.Id.ToString(), serviceInfo.Name, serviceInfo.Description, serviceInfo.Value.ToString() });
+                throw ex;
             }
         }
     }

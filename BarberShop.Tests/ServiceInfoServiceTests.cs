@@ -257,6 +257,139 @@ namespace BarberShop.Tests
             _serviceInfoRepository.Verify();
         }
 
+        [Fact]
+        public void UpdateServiceInfoIdLessthanZeroTest()
+        {
+            var serviceInfo = new ServiceInfo()
+            {
+                Id = -1
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Update(serviceInfo));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void UpdateServiceInfoNameNullTest()
+        {
+            var serviceInfo = new ServiceInfo()
+            {
+                Id = _id,
+                Name = null
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Update(serviceInfo));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void UpdateServiceInfoNameEmptyTest()
+        {
+            var serviceInfo = new ServiceInfo()
+            {
+                Id = _id,
+                Name = ""
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Update(serviceInfo));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void UpdateServiceInfoDescriptionNullTest()
+        {
+            var serviceInfo = new ServiceInfo()
+            {
+                Id = _id,
+                Name = _name,
+                Description = null
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Update(serviceInfo));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void UpdateServiceInfoDescriptionEmptyTest()
+        {
+            var serviceInfo = new ServiceInfo()
+            {
+                Id = _id,
+                Name = _name,
+                Description = ""
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Update(serviceInfo));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void UpdateServiceInfoValueLessThanZeroTest()
+        {
+            var serviceInfo = new ServiceInfo()
+            {
+                Id = _id,
+                Name = _name,
+                Description = _description,
+                Value = -1
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Update(serviceInfo));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void UpdateServiceInfoTest()
+        {
+            var serviceInfo = new ServiceInfo()
+            {
+                Id = _id,
+                Name = _name,
+                Description = _description,
+                Value = _value
+            };
+
+            _logger.Setup(x => x.CreateLog("Database", "Update", "ServiceInfo", new string[] { serviceInfo.Id.ToString(), serviceInfo.Name, serviceInfo.Description, serviceInfo.Value.ToString() }));
+            _serviceInfoRepository.Setup(x => x.Update(serviceInfo));
+
+            var instance = GetInstance();
+
+            instance.Update(serviceInfo);
+
+            _logger.Verify();
+            _serviceInfoRepository.Verify();
+        }
+
         private ServiceInfoService GetInstance()
         {
             return new ServiceInfoService(_serviceInfoRepository.Object, _logger.Object);
