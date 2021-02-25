@@ -44,15 +44,18 @@ namespace BarberShop.Service.Services
         {
             try
             {
+                if (shopAddress == null) throw new ArgumentNullException();
+
+                if (shopAddress.Id < 0) throw new ArgumentOutOfRangeException();
+
                 _shopAddressRepository.Delete(shopAddress);
+
+                _logger.CreateLog("Database", "Delete", "ShopAddress", new string[] { shopAddress.Id.ToString(), shopAddress.Name, shopAddress.Street, shopAddress.Number.ToString(), shopAddress.State });
             }
             catch (Exception ex)
             {
                 _logger.CreateLog("Error", ex.ToString());
-            }
-            finally
-            {
-                _logger.CreateLog("Database", "Delete", "ShopAddress", new string[] { shopAddress.Id.ToString(), shopAddress.Name, shopAddress.Street, shopAddress.Number.ToString(), shopAddress.State });
+                throw ex;
             }
         }
 
