@@ -46,7 +46,8 @@ namespace BarberShop.Tests
             ServiceInfo serviceInfo = new ServiceInfo()
             {
                 Name = null,
-                Description = _description
+                Description = _description,
+                Value = _value
             };
 
             _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
@@ -64,7 +65,8 @@ namespace BarberShop.Tests
             ServiceInfo serviceInfo = new ServiceInfo()
             {
                 Name = "",
-                Description = _description
+                Description = _description,
+                Value = _value
             };
 
             _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
@@ -82,7 +84,8 @@ namespace BarberShop.Tests
             ServiceInfo serviceInfo = new ServiceInfo()
             {
                 Name = _name,
-                Description = null
+                Description = null,
+                Value = _value
             };
 
             _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
@@ -100,7 +103,8 @@ namespace BarberShop.Tests
             ServiceInfo serviceInfo = new ServiceInfo()
             {
                 Name = _name,
-                Description = ""
+                Description = "",
+                Value = _value
             };
 
             _logger.Setup(x => x.CreateLog("Error", "Exception Message"));

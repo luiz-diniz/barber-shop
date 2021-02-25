@@ -21,15 +21,22 @@ namespace BarberShop.Service.Services
         {
             try
             {
+                if (shopAddress == null) throw new ArgumentNullException();
+
+                if (String.IsNullOrEmpty(shopAddress.Name) || String.IsNullOrEmpty(shopAddress.Street)
+                    || String.IsNullOrEmpty(shopAddress.City) || String.IsNullOrEmpty(shopAddress.State))
+                    throw new ArgumentException();
+
+                if (shopAddress.Number < 0) throw new ArgumentOutOfRangeException();
+
                 _shopAddressRepository.Create(shopAddress);
+
+                _logger.CreateLog("Database", "Insert", "ShopAddress", new string[] { shopAddress.Name, shopAddress.Street, shopAddress.Number.ToString(), shopAddress.State });
             }
             catch (Exception ex)
             {
                 _logger.CreateLog("Error", ex.ToString());
-            }
-            finally
-            {
-                _logger.CreateLog("Database", "Insert", "ShopAddress", new string[] { shopAddress.Name, shopAddress.Street, shopAddress.Number.ToString(), shopAddress.State });
+                throw ex;
             }
         }
 
