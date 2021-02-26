@@ -61,22 +61,23 @@ namespace BarberShop.Service.Services
 
         public ShopAddress Read(string name)
         {
-            ShopAddress shopAddress = new ShopAddress();
-
             try
             {
+                if (String.IsNullOrEmpty(name)) throw new ArgumentException();
+
+                ShopAddress shopAddress = new ShopAddress();
+
                 shopAddress = _shopAddressRepository.Read(name);
+
+                _logger.CreateLog("Database", "Read", "ShopAddress", new string[] { shopAddress.Id.ToString(), shopAddress.Name, shopAddress.Street, shopAddress.Number.ToString(), shopAddress.City, shopAddress.State });
+
+                return shopAddress;
             }
             catch (Exception ex)
             {
                 _logger.CreateLog("Error", ex.ToString());
+                throw ex;
             }
-            finally
-            {
-                _logger.CreateLog("Database", "Read", "ShopAddress", new string[] { shopAddress.Id.ToString(), shopAddress.Name, shopAddress.Street, shopAddress.Number.ToString(), shopAddress.State });
-            }
-
-            return shopAddress;
         }
 
         public void Update(ShopAddress shopAddress)

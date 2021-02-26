@@ -308,6 +308,60 @@ namespace BarberShop.Tests
             _shopAddressRepository.Verify();
         }
 
+        [Fact]
+        public void ReadShopAddressNameNullTest()
+        {
+            string name = null;
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Read(name));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void ReadShopAddressNameEmptyTest()
+        {
+            string name = "";
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Read(name));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void ReadShopAddressTest()
+        {
+            string name = _name;
+
+            var shopAddress = new ShopAddress()
+            {
+                Id = _id,
+                Name = _name,
+                Street = _street,
+                Number = _number,
+                City = _city,
+                State = _state
+            };
+
+            _logger.Setup(x => x.CreateLog("Database", "Read", "ShopAddress", new string[] { shopAddress.Id.ToString(), shopAddress.Name, shopAddress.Street, shopAddress.Number.ToString(), shopAddress.State }));
+            _shopAddressRepository.Setup(x => x.Read(name)).Returns(shopAddress);
+
+            var instance = GetInstance();
+
+            instance.Read(name);
+
+            _logger.Verify();
+            _shopAddressRepository.Verify();
+        }
+
         public ShopAddressService GetInstance()
         {
             return new ShopAddressService(_shopAddressRepository.Object, _logger.Object);

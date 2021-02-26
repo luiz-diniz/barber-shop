@@ -322,7 +322,7 @@ namespace BarberShop.Tests
         [Fact]
         public void ReadEmployeeCpfEmptyTest()
         {
-            string cpf = null;
+            string cpf = "";
 
             _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
 
