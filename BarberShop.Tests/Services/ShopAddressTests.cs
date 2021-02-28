@@ -362,6 +362,232 @@ namespace BarberShop.Tests
             _shopAddressRepository.Verify();
         }
 
+        [Fact]
+        public void UpdateShopAddressNullTest()
+        {
+            ShopAddress shopAddress = null;
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentNullException>(() => instance.Update(shopAddress));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void UpdateShopAddressNameNullTest()
+        {
+            ShopAddress shopAddress = new ShopAddress()
+            {
+                Name = null,
+                Street = _street,
+                City = _city,
+                State = _state,
+                Number = _number
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Update(shopAddress));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void UpdateShopAddressNameEmptyTest()
+        {
+            ShopAddress shopAddress = new ShopAddress()
+            {
+                Name = "",
+                Street = _street,
+                City = _city,
+                State = _state,
+                Number = _number
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Update(shopAddress));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void UpdateShopAddressStreetNullTest()
+        {
+            ShopAddress shopAddress = new ShopAddress()
+            {
+                Name = _name,
+                Street = null,
+                City = _city,
+                State = _state,
+                Number = _number
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Update(shopAddress));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void UpdateShopAddressStreetEmptyTest()
+        {
+            ShopAddress shopAddress = new ShopAddress()
+            {
+                Name = _name,
+                Street = "",
+                City = _city,
+                State = _state,
+                Number = _number
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Update(shopAddress));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void UpdateShopAddressCityNullTest()
+        {
+            ShopAddress shopAddress = new ShopAddress()
+            {
+                Name = _name,
+                Street = _street,
+                City = null,
+                State = _state,
+                Number = _number
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Update(shopAddress));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void UpdateShopAddressCityEmptyTest()
+        {
+            ShopAddress shopAddress = new ShopAddress()
+            {
+                Name = _name,
+                Street = _street,
+                City = "",
+                State = _state,
+                Number = _number
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Update(shopAddress));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void UpdateShopAddressStateNullTest()
+        {
+            ShopAddress shopAddress = new ShopAddress()
+            {
+                Name = _name,
+                Street = _street,
+                City = _state,
+                State = null,
+                Number = _number
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Update(shopAddress));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void UpdateShopAddressStateEmptyTest()
+        {
+            ShopAddress shopAddress = new ShopAddress()
+            {
+                Name = _name,
+                Street = _street,
+                City = _state,
+                State = "",
+                Number = _number
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Update(shopAddress));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void UpdateShopAddressNumberLessThanZeroTest()
+        {
+            ShopAddress shopAddress = new ShopAddress()
+            {
+                Name = _name,
+                Street = _street,
+                City = _city,
+                State = _state,
+                Number = -1
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => instance.Update(shopAddress));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void UpdateShopAddressTest()
+        {
+            ShopAddress shopAddress = new ShopAddress()
+            {
+                Name = _name,
+                Street = _street,
+                City = _city,
+                State = _state,
+                Number = _number
+            };
+
+            _logger.Setup(X => X.CreateLog("Database", "Insert", "ShopAddress", new string[] { shopAddress.Name, shopAddress.Street, shopAddress.Number.ToString(), shopAddress.State }));
+            _shopAddressRepository.Setup(x => x.Update(shopAddress));
+
+            var instance = GetInstance();
+
+            instance.Update(shopAddress);
+
+            _logger.Verify();
+            _shopAddressRepository.Verify();
+        }
+
         public ShopAddressService GetInstance()
         {
             return new ShopAddressService(_shopAddressRepository.Object, _logger.Object);
