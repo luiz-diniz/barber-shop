@@ -12,7 +12,6 @@ using BarberShop.Service.Repository.Database;
 using BarberShop.Service.Repository.ModelsRepository;
 using BarberShop.Service.Repository.Interfaces.ModelsRepository;
 using BarberShop.Service.Utilities;
-using BarberShop.Service.Models;
 
 namespace BarberShop.Service
 {
