@@ -13,6 +13,7 @@ import { ServiceInfoComponent } from './components/service-info/service-info.com
 import { OrderInfoComponent } from './components/order-info/order-info.component';
 import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponentComponent } from './components/not-found-component/not-found-component.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { NotFoundComponentComponent } from './components/not-found-component/not
     ServiceInfoComponent,
     OrderInfoComponent,
     HomeComponent,
-    NotFoundComponentComponent
+    NotFoundComponentComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule
