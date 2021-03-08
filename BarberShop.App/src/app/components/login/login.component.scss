@@ -2,16 +2,25 @@
 @import '../../../sass/general.scss';
 
 /*Login*/
-.login-form{
-    min-width: 20rem;
-    min-height: 30rem;
-    text-align: center;
-    padding: 3rem;
-    border-radius: 5px;
+.form-content{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
+.login-form{
+    max-width: 20rem;
+    height: auto;
+    text-align: center;
+    border-radius: 5px;
+    padding: 1rem;
+  
     .login-logo{
-        width: 20rem;
-        height: 20rem;
+        max-width: 100%;
+        height: auto;
     }
 
     .group-item{
@@ -27,7 +36,8 @@
     }
 
     input{
-        padding: .4rem;
+        padding: .4rem 0 .4rem 0;
+        border: 0.1px solid #D0CCD0;
     }
 
     .btn-login{
