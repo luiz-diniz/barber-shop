@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { CustomerComponent } from './components/customer/customer.component';
-import { CustomerComponentComponent } from './components/customer-component/customer-component.component';
 import { EmployeeComponent } from './components/employee/employee.component';
 import { CustomerPhoneComponent } from './components/customer-phone/customer-phone.component';
 import { PaymentComponent } from './components/payment/payment.component';
@@ -20,8 +19,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     AppComponent,
     LoginComponent,
     CustomerComponent,
-    CustomerComponentComponent,
-    EmployeeComponent,
     CustomerPhoneComponent,
     PaymentComponent,
     ShopAddressComponent,
