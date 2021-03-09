@@ -6,6 +6,6 @@ namespace BarberShop.Service.Models
     {
         public int Id { get; set; }
         public OrderInfo Order { get; set; }
-        public List<Payment> PaymentInfo{ get; set; }
+        public List<Payment> PaymentInfo { get; set; }
     }
 }
