@@ -12,6 +12,7 @@ using BarberShop.Service.Repository.Database;
 using BarberShop.Service.Repository.ModelsRepository;
 using BarberShop.Service.Repository.Interfaces.ModelsRepository;
 using BarberShop.Service.Utilities;
+using BarberShop.Service.Repository.Interfaces.Database;
 
 namespace BarberShop.Service
 {
@@ -44,6 +45,9 @@ namespace BarberShop.Service
             services.AddSingleton<IOrderServicesRepository, OrderServicesRepository>();
             services.AddSingleton<IOrderPaymentService, OrderPaymentService>();
             services.AddSingleton<IOrderPaymentRepository, OrderPaymentRepository>();
+            services.AddSingleton<ILoginService, LoginService>();
+            services.AddSingleton<ILoginRepository, LoginRepository>();
+
 
             services.AddCors(options =>
             {
