@@ -19,6 +19,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     AppComponent,
     LoginComponent,
     CustomerComponent,
+    EmployeeComponent,
     CustomerPhoneComponent,
     PaymentComponent,
     ShopAddressComponent,
@@ -32,6 +33,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     BrowserModule
   ],
   providers: [],
-  bootstrap: [LoginComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

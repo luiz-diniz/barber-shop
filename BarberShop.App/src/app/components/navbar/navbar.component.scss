@@ -1,0 +1,93 @@
+@import '../../../sass/variables.scss';
+@import '../../../sass/general.scss';
+
+
+.navbar{
+    list-style: none;
+    background: $black-light;
+    min-height: 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem 0 1rem;
+
+    .navbar-brand{
+        font-weight: bold;
+        color: $white;
+    }
+
+    ul{
+        list-style: none;
+    }
+
+    ul li{
+        display: inline-block;
+        padding: 1rem;
+        position: relative;
+        color: $white;
+
+        &:hover{
+            cursor: pointer;
+            background: $white;
+            color: $black-light;
+        }
+
+        &:hover a{
+            color: $black-light;
+        }
+
+        &:hover ul{
+            display: block;
+            position: absolute;
+            margin-top: 1rem;
+            left: 0;
+        }
+
+        &:hover ul li{
+            display: block;
+            background: $black-light;
+
+            &:hover{
+                background: $white;
+
+                a{
+                    color: $black-light;
+                }
+            }
+        }
+
+        &:hover ul li a{
+            color: $white;
+        }
+
+        a{
+            text-decoration: none;
+            color: $white;
+        }
+
+        ul{
+            display: none;
+        }
+    }
+}
+
+@media(max-width: 600px){
+    .navbar{
+        display: block;
+        padding: 1rem;
+
+        .navbar-brand{
+            margin-bottom: 1rem;
+        }
+
+        ul li{
+            display: block;
+
+            &:hover ul{
+                width: 100%;
+                position: relative;
+            }
+        }
+
+    }
+}
