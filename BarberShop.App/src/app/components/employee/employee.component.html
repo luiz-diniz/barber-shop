@@ -1,1 +1,15 @@
-<p>employee works!</p>
+<form>
+    <label for="name">CPF</label>
+    <input type="text" name="cpf" [(ngModel)]="this.employee.Cpf">
+    <br>
+    <label for="name">Name</label>
+    <input type="text" name="name" [(ngModel)]="this.employee.Name">
+    <br>
+    <label for="name">Username</label>
+    <input type="text" name="username" [(ngModel)]="this.employee.Username">
+    <br>
+    <label for="name">Password</label>
+    <input type="password" name="password" [(ngModel)]="this.employee.Password">
+    <br>
+    <button type="submit" (click)="Create()">Add</button>
+</form>
