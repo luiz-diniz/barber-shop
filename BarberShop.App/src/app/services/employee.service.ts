@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Employee } from '../models/employee';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CATCH_ERROR_VAR } from '@angular/compiler/src/output/output_ast';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -21,7 +22,8 @@ export class EmployeeService {
 
   }
 
-  CreateEmployee(employee: Employee) : Observable<Employee>{
+  Create(employee: Employee) : Observable<Employee>{
     return this.http.post<Employee>(this.url + 'api/employee/CreateEmployee', employee, httpOptions);
   }
+
 }
