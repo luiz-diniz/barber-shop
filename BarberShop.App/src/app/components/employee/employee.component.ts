@@ -9,13 +9,14 @@ import { EmployeeService } from 'src/app/services/employee.service';
 })
 export class EmployeeComponent implements OnInit {
 
+  hideForm: boolean = false;
+
   employee: Employee = {
     Cpf: '',
     Name: '',
     Username: '',
     Password: ''
   };
-
   employees: Employee[] = [];
 
   constructor(private service: EmployeeService) {
@@ -24,9 +25,12 @@ export class EmployeeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  Create(){
+  Create(){ 
     this.service.Create(this.employee).subscribe(
-      employee => console.log('Success'),
+      success => {
+        this.ResetForm(),
+        this.GetAllEmployees()
+      },
       err => {
         console.log(err);
         alert('Error: Contact the administrator.')
@@ -36,11 +40,20 @@ export class EmployeeComponent implements OnInit {
 
   GetAllEmployees(){
     this.service.GetAllEmployees().subscribe(
-      employees => console.log(employees),
+      employees => this.employees = employees,
       err => {
         console.log(err);
-        alert('Error: Contact the administrator.')
+        alert('Error trying to load the employees.\nContact the administrator.')
       }
     )
+  }
+
+  ResetForm(){
+    this.employee = {
+      Cpf: '',
+      Name: '',
+      Username: '',
+      Password: ''
+    };
   }
 }

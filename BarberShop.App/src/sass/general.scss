@@ -1,3 +1,5 @@
+@import 'variables.scss';
+
 *{
     font-family: 'Roboto', sans-serif;
     margin: 0;
@@ -6,7 +8,10 @@
 }
 
 .btn{
-    padding: 0.5rem 2rem;
-    cursor: pointer;
     font-weight: bold;
+}
+
+.my-dark{
+    background-color: $black-light; 
+    color: $white;
 }
