@@ -17,9 +17,10 @@ namespace BarberShop.Service.Controllers
 
         [HttpPost]
         [Route("CreateEmployee")]
-        public void Create(Employee employee)
+        public IActionResult Create(Employee employee)
         {
-            _employeeService.Create(employee);
+             _employeeService.Create(employee);
+            return Ok();
         }
 
         [HttpDelete]
