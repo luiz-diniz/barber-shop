@@ -83,6 +83,19 @@ namespace BarberShop.Service.Services
             }
         }
 
+        public List<Employee> GetAllEmployees()
+        {
+            try
+            {
+                return _employeeRepository.GetAllEmployees();
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.ToString());
+                throw ex;
+            }
+        }
+
         public void Update(Employee employeeArgument)
         {
             try

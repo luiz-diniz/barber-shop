@@ -1,6 +1,7 @@
 ﻿using BarberShop.Service.Models;
 using BarberShop.Service.Repository.Interfaces.ModelsRepository;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -77,6 +78,38 @@ namespace BarberShop.Service.Repository.Database
                     }
 
                     return employee;
+                }
+            }
+        }
+
+        public List<Employee> GetAllEmployees()
+        {
+            string query = "select id_employee, cpf_employee, name_employee, username_employee from Employee";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    List<Employee> employees = new List<Employee>();
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        employees.Add(new Employee()
+                        {
+                            Id = Convert.ToInt32(reader["id_employee"]),
+                            Cpf = Convert.ToString(reader["cpf_employee"]),
+                            Name = Convert.ToString(reader["name_employee"]),
+                            Username = Convert.ToString(reader["username_employee"])
+                        });
+                    }
+
+                    return employees;
                 }
             }
         }

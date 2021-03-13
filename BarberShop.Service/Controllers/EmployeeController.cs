@@ -1,6 +1,7 @@
 ﻿using BarberShop.Service.Models;
 using BarberShop.Service.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace BarberShop.Service.Controllers
 {
@@ -35,6 +36,13 @@ namespace BarberShop.Service.Controllers
         public Employee Read(string cpf)
         {
             return _employeeService.Read(cpf);
+        }
+
+        [HttpGet]
+        [Route("GetAllEmployees")]
+        public ActionResult<List<Employee>> GetAllEmployees()
+        {
+            return _employeeService.GetAllEmployees();
         }
 
         [HttpPut]
