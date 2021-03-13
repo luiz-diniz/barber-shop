@@ -16,8 +16,11 @@ export class EmployeeComponent implements OnInit {
     Password: ''
   };
 
-  constructor(private service: EmployeeService) { }
+  employees: Employee[] = [];
 
+  constructor(private service: EmployeeService) {
+    this.GetAllEmployees();
+  }
   ngOnInit(): void {
   }
 
@@ -31,4 +34,13 @@ export class EmployeeComponent implements OnInit {
     );
   }
 
+  GetAllEmployees(){
+    this.service.GetAllEmployees().subscribe(
+      employees => console.log(employees),
+      err => {
+        console.log(err);
+        alert('Error: Contact the administrator.')
+      }
+    )
+  }
 }
