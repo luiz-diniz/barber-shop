@@ -11,7 +11,15 @@
     font-weight: bold;
 }
 
+.my-btn-dark:hover{
+    &:hover{
+        background-color: $yellow; 
+        color: $black-light;
+    }
+}
+
 .my-dark{
     background-color: $black-light; 
     color: $white;
+
 }
