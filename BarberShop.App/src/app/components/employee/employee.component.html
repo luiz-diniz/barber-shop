@@ -1,6 +1,6 @@
 <button type="button" class="btn mt-2 mb-2 my-dark my-btn-dark" (click)="this.hideForm = !this.hideForm">Add new</button>
 <div class="card mb-3" *ngIf="this.hideForm">
-    <form #employeeForm="ngForm" (submit)="Create(ngForm)" class="p-3">
+    <form #employeeForm="ngForm" (submit)="Create()" class="p-3">
         <div class="form-group">
             <label for="cpf">CPF</label>
             <input type="text" class="form-control" 

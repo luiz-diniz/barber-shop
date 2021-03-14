@@ -29,7 +29,8 @@ export class EmployeeComponent implements OnInit {
     this.service.Create(this.employee).subscribe(
       success => {
         this.ResetForm(),
-        this.GetAllEmployees()
+        this.GetAllEmployees(),
+        this.hideForm = false;
       },
       err => {
         console.log(err);
