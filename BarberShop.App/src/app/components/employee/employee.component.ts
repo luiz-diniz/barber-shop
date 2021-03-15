@@ -15,9 +15,12 @@ export class EmployeeComponent implements OnInit {
     Cpf: '',
     Name: '',
     Username: '',
-    Password: ''
+    Password: '',
+    Hide: true
   };
   employees: Employee[] = [];
+
+  test: boolean = false;
 
   constructor(private service: EmployeeService) {
     this.GetAllEmployees();
@@ -54,7 +57,8 @@ export class EmployeeComponent implements OnInit {
       Cpf: '',
       Name: '',
       Username: '',
-      Password: ''
+      Password: '',
+      Hide: true
     };
   }
 }

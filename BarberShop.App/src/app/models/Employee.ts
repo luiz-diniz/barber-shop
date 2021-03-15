@@ -5,4 +5,5 @@ export class Employee{
     public Username: string;
     public Password: string;
     public SaltPassword?: string;
+    public Hide: boolean;
 }

@@ -29,28 +29,29 @@
         <button type="submit" [disabled]="!employeeForm.form.valid" class="btn my-dark my-btn-dark">Submit</button>
     </form>
 </div>
-<div class="table-responsive">
-    <table class="table">
-        <thead class="my-dark">
-          <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Cpf</th>
-            <th scope="col">Name</th>
-            <th scope="col">Username</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody *ngFor="let employee of employees">
-          <tr>
-            <td>{{employee.id}}</td>
-            <td>{{employee.cpf}}</td>
-            <td>{{employee.name}}</td>
-            <td>{{employee.username}}</td>
-            <td>
-                <button type="button" class="btn btn-success btn-sm mr-2"><i class="fas fa-edit"></i></button>
-                <button type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+<h3>Employees</h3>
+<hr>
+<div class="container">
+  <div class="content" *ngFor="let employee of employees">
+    <div class="card mb-3">
+      <div class="card-header d-flex justify-content-between">
+        <h4>
+          {{employee.name}}
+        </h4>
+        <button (click)="employee.hide = !employee.hide" class="btn my-dark my-btn-dark btn-sm ml-">
+          <i [ngClass]="!employee.hide ? 'fa fa-plus' : 'fa fa-minus'"></i>
+        </button>
+      </div>
+      <ul class="list-group p-3 list-unstyled" *ngIf="employee.hide">
+        <li class="list-item">Cpf: {{employee.cpf}}</li>
+        <hr>
+        <li class="list-item">Username: {{employee.username}}</li>
+        <hr>
+        <li class="list-item">
+          <button type="button" class="btn btn-success btn-sm mr-2"><i class="fas fa-edit"></i></button>
+          <button type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+       </li>
+      </ul> 
+    </div>
+  </div>
 </div>
