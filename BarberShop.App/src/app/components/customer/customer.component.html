@@ -1,1 +1,53 @@
-<p>customer works!</p>
+<button type="button" class="btn mt-2 mb-2 my-dark my-btn-dark" (click)="this.showForm = !this.showForm">Add new</button>
+<div class="card mb-3" *ngIf="this.showForm">
+    <form #customerForm="ngForm" (submit)="OnSubmit()" class="p-3">
+        <div class="form-group">
+            <label for="cpf">CPF</label>
+            <input type="text" class="form-control" 
+            name="cpf" 
+            [(ngModel)]="this.customer.cpf" 
+            [ngClass]="{'is-invalid': CustomerCpf.errors && CustomerCpf.touched}"
+            required 
+            mask="000.000.000-00"
+            #CustomerCpf="ngModel">
+            <div class="invalid-feedback" [hidden]="!CustomerCpf.errors">
+              Digit a valid CPF. Ex.: 000.000.000-00
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" name="name" [(ngModel)]="this.customer.name" required>
+        </div>
+        <div class="form-group">
+            <label for="name">Birth</label>
+            <input type="date" class="form-control" name="password" [(ngModel)]="this.customer.birth" required>
+        </div>
+        <button type="submit" [disabled]="!customerForm.form.valid" class="btn my-dark my-btn-dark">Submit</button>
+    </form>
+</div>
+<h3>Customers</h3>
+<hr>
+<div class="container">
+  <div class="content" *ngFor="let customer of customers">
+    <div class="card mb-3">
+      <div class="card-header d-flex justify-content-between">
+        <h4>
+          {{customer.name}}
+        </h4>
+        <button (click)="customer.hide = !customer.hide" class="btn my-dark my-btn-dark btn-sm ml-">
+          <i [ngClass]="!customer.hide ? 'fa fa-plus' : 'fa fa-minus'"></i>
+        </button>
+      </div>
+      <ul class="list-group p-3 list-unstyled" *ngIf="customer.hide">
+        <li class="list-item">Cpf: {{this.format.FormatCPF(customer.cpf)}}</li>
+        <hr>
+        <li class="list-item">Name: {{customer.name}}</li>
+        <hr>
+        <li class="list-item">
+          <button type="button" class="btn btn-success btn-sm mr-2" (click)="EditInput(customer)"><i class="fas fa-edit"></i></button>
+          <button type="button" class="btn btn-danger btn-sm" (click)="Delete(customer)"><i class="fas fa-trash-alt"></i></button>
+       </li>
+      </ul> 
+    </div>
+  </div>
+</div>

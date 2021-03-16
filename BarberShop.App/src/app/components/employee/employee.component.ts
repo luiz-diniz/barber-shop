@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Employee } from 'src/app/models/employee';
-import { EmployeeService } from 'src/app/services/employee.service';
 import { FormatService } from 'src/app/services/format.service';
+import { WebapiService } from 'src/app/services/webapi.service';
 
 @Component({
   selector: 'app-employee',
@@ -16,8 +16,10 @@ export class EmployeeComponent implements OnInit {
   showForm: boolean = false;
   isEditing: boolean = false;
 
-  constructor(private service: EmployeeService,
-    private Format: FormatService
+  employeeApi: string = "api/employee/";
+
+  constructor(private service: WebapiService<Employee, any>,
+    private format: FormatService
     ) {
     this.GetAllEmployees();
   }
@@ -33,7 +35,8 @@ export class EmployeeComponent implements OnInit {
   }
 
   Create(){ 
-    this.service.Create(this.employee).subscribe(
+    const api = `${this.employeeApi}CreateEmployee`;
+    this.service.Create(this.employee, api).subscribe(
       success => {
         this.ResetForm(),
         this.GetAllEmployees(),
@@ -47,7 +50,8 @@ export class EmployeeComponent implements OnInit {
   }
 
   Edit(){
-    this.service.Edit(this.employee).subscribe(
+    const api = `${this.employeeApi}UpdateEmployee`;
+    this.service.Edit(this.employee, api).subscribe(
       success => {
         this.ResetForm();
         this.GetAllEmployees();
@@ -68,9 +72,11 @@ export class EmployeeComponent implements OnInit {
   }
 
   Delete(employee: Employee){
-    this.service.Delete(employee).subscribe(
+    const api = `${this.employeeApi}DeleteEmployee`;
+    this.service.Delete(employee, api).subscribe(
       success => {
         this.GetAllEmployees();
+        this.ResetForm();
       },
       err => {
         console.log(err);
@@ -80,7 +86,8 @@ export class EmployeeComponent implements OnInit {
   }
 
   GetAllEmployees(){
-    this.service.GetAllEmployees().subscribe(
+    const api = `${this.employeeApi}GetAllEmployees`;
+    this.service.GetAllEmployees(api).subscribe(
       employees => {this.employees = employees
       console.log(employees)
       },
