@@ -75,6 +75,23 @@ namespace BarberShop.Service.Services
             }
         }
 
+        public List<Customer> GetAllCustomers()
+        {
+            try
+            {
+                var result = _customerRepository.GetAllCustomers();
+
+                _logger.CreateLog("Database", "GetAllCustomers");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.ToString());
+                throw ex;
+            }
+        }
+
         public void Update(Customer customerArgument)
         {
             try

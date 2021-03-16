@@ -81,6 +81,38 @@ namespace BarberShop.Service.Repository.ModelsRepository
             }
         }
 
+        public List<Customer> GetAllCustomers()
+        {
+            string query = "select id_customer, cpf_customer, name_customer, birth_customer from Customer";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    List<Customer> employees = new List<Customer>();
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        employees.Add(new Customer()
+                        {
+                            Id = Convert.ToInt32(reader["id_customer"]),
+                            Cpf = Convert.ToString(reader["cpf_customer"]),
+                            Name = Convert.ToString(reader["name_customer"]),
+                            Birth = Convert.ToDateTime(reader["birth_customer"])
+                        });
+                    }
+
+                    return employees;
+                }
+            }
+        }
+
         public void Update(Customer customer)
         {
             string query = "update customer set cpf_customer = @P0, name_customer = @P1, birth_customer = @P2 where " +
@@ -213,6 +245,6 @@ namespace BarberShop.Service.Repository.ModelsRepository
                     cmd.ExecuteNonQuery();
                 }
             }
-        }       
+        }
     }
 }

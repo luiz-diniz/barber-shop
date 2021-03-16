@@ -45,6 +45,13 @@ namespace BarberShop.Service.Controllers
             _customerService.Update(customer);
         }
 
+        [HttpGet]
+        [Route("GetAllCustomers")]
+        public List<Customer> GetAllCustomers()
+        {
+            return _customerService.GetAllCustomers();
+        }
+
         //CustomerPhone table
         [HttpPost]
         [Route("CreateCustomerPhone")]

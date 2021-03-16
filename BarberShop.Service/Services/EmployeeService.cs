@@ -87,7 +87,11 @@ namespace BarberShop.Service.Services
         {
             try
             {
-                return _employeeRepository.GetAllEmployees();
+                var result = _employeeRepository.GetAllEmployees();
+
+                _logger.CreateLog("Database", "GetAllEmployees");
+
+                return result;
             }
             catch (Exception ex)
             {
