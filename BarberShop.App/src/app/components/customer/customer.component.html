@@ -43,6 +43,8 @@
         <hr>
         <li class="list-item">Name: {{customer.name}}</li>
         <hr>
+        <li class="list-item">Birth: {{customer.birth | date:'dd/MM/yyyy'}}</li>
+        <hr>
         <li class="list-item">
           <button type="button" class="btn btn-success btn-sm mr-2" (click)="EditInput(customer)"><i class="fas fa-edit"></i></button>
           <button type="button" class="btn btn-danger btn-sm" (click)="Delete(customer)"><i class="fas fa-trash-alt"></i></button>
