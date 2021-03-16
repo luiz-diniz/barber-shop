@@ -1,9 +1,9 @@
 export class Employee{
-    public Id?: number;
-    public Cpf: string;
-    public Name: string;
-    public Username: string;
-    public Password: string;
-    public SaltPassword?: string;
-    public Hide: boolean;
+    Id?: number;
+    Cpf: string;
+    Name: string;
+    Username: string;
+    Password: string;
+    SaltPassword?: string;
+    Hide: boolean;
 }

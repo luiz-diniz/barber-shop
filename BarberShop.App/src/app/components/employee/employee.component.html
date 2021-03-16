@@ -1,11 +1,11 @@
-<button type="button" class="btn mt-2 mb-2 my-dark my-btn-dark" (click)="this.hideForm = !this.hideForm">Add new</button>
-<div class="card mb-3" *ngIf="this.hideForm">
-    <form #employeeForm="ngForm" (submit)="Create()" class="p-3">
+<button type="button" class="btn mt-2 mb-2 my-dark my-btn-dark" (click)="this.showForm = !this.showForm">Add new</button>
+<div class="card mb-3" *ngIf="this.showForm">
+    <form #employeeForm="ngForm" (submit)="OnSubmit()" class="p-3">
         <div class="form-group">
             <label for="cpf">CPF</label>
             <input type="text" class="form-control" 
             name="cpf" 
-            [(ngModel)]="this.employee.Cpf" 
+            [(ngModel)]="this.employee.cpf" 
             [ngClass]="{'is-invalid': EmployeeCpf.errors && EmployeeCpf.touched}"
             required 
             mask="000.000.000-00"
@@ -16,15 +16,15 @@
         </div>
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" name="name" [(ngModel)]="this.employee.Name" required>
+            <input type="text" class="form-control" name="name" [(ngModel)]="this.employee.name" required>
         </div>
         <div class="form-group">
             <label for="name">Username</label>
-            <input type="text" class="form-control" name="username" [(ngModel)]="this.employee.Username" required>
+            <input type="text" class="form-control" name="username" [(ngModel)]="this.employee.username" required>
         </div>
-        <div class="form-group">
+        <div class="form-group" *ngIf="!this.isEditing">
             <label for="name">Password</label>
-            <input type="password" class="form-control" name="password" [(ngModel)]="this.employee.Password" required>
+            <input type="password" class="form-control" name="password" [(ngModel)]="this.employee.password" required>
         </div>
         <button type="submit" [disabled]="!employeeForm.form.valid" class="btn my-dark my-btn-dark">Submit</button>
     </form>
@@ -43,13 +43,13 @@
         </button>
       </div>
       <ul class="list-group p-3 list-unstyled" *ngIf="employee.hide">
-        <li class="list-item">Cpf: {{employee.cpf}}</li>
+        <li class="list-item">Cpf: {{this.Format.FormatCPF(employee.cpf)}}</li>
         <hr>
         <li class="list-item">Username: {{employee.username}}</li>
         <hr>
         <li class="list-item">
-          <button type="button" class="btn btn-success btn-sm mr-2"><i class="fas fa-edit"></i></button>
-          <button type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+          <button type="button" class="btn btn-success btn-sm mr-2" (click)="EditInput(employee)"><i class="fas fa-edit"></i></button>
+          <button type="button" class="btn btn-danger btn-sm" (click)="Delete(employee)"><i class="fas fa-trash-alt"></i></button>
        </li>
       </ul> 
     </div>
