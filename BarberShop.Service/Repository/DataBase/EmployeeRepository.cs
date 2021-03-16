@@ -127,7 +127,7 @@ namespace BarberShop.Service.Repository.Database
                     cmd.CommandType = CommandType.Text;
 
                     cmd.Parameters.Add(new SqlParameter("P0", employee.Cpf));
-                    cmd.Parameters.Add(new SqlParameter("P2", employee.Name));
+                    cmd.Parameters.Add(new SqlParameter("P1", employee.Name));
                     cmd.Parameters.Add(new SqlParameter("P2", employee.Username));
                     cmd.Parameters.Add(new SqlParameter("P3", employee.Id));
 

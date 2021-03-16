@@ -25,10 +25,11 @@ namespace BarberShop.Service.Controllers
         }
 
         [HttpDelete]
-        [Route("DeleteEmployee/{cpf}")]
-        public void Delete(Employee employee)
+        [Route("DeleteEmployee")]
+        public IActionResult Delete(Employee employee)
         {
             _employeeService.Delete(employee);
+            return Ok();
         }
 
         [HttpGet]
