@@ -87,7 +87,7 @@ export class EmployeeComponent implements OnInit {
 
   GetAllEmployees(){
     const api = `${this.employeeApi}GetAllEmployees`;
-    this.service.GetAllEmployees(api).subscribe(
+    this.service.GetAll(api).subscribe(
       employees => {this.employees = employees
       console.log(employees)
       },

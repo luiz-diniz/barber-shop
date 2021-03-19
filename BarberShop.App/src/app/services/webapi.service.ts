@@ -34,7 +34,7 @@ export class WebapiService<T, Y>{
     return this.http.put<Y>(environment.url + api, type, httpOptions);
   }
 
-  GetAllEmployees(api: string) : Observable<Y[]>{
+  GetAll(api: string) : Observable<Y[]>{
     return this.http.get<Y[]>(environment.url + api, httpOptions);
   }
 }

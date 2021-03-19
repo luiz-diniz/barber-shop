@@ -10,20 +10,20 @@ import { WebapiService } from 'src/app/services/webapi.service';
 })
 export class CustomerComponent implements OnInit {
 
-  constructor(
-    private service: WebapiService<Customer, any>,
-    private format: FormatService
-  ) {
-    this.GetAllCustomers();
-   }
-
   customer: Customer = new Customer();
   customers: Customer[] = [];
 
   showForm: boolean = false;
   isEditing: boolean = false;
 
-  employeeApi: string = "api/customer/";
+  customerApi: string = "api/customer/";
+
+  constructor(
+    private service: WebapiService<Customer, any>,
+    private format: FormatService
+  ) {
+    this.GetAllCustomers();
+   }
 
   ngOnInit(): void {
   }
@@ -32,12 +32,13 @@ export class CustomerComponent implements OnInit {
     if(this.isEditing === true){
       this.Edit();
     }else{
-      this.Create();
+      console.log(this.customer);
     }
   }
 
   Create(){ 
-    const api = 'api/customer/CreateCustomer';
+    const api = `${this.customerApi}CreateCustomer`;
+    console.log(this.customer);
     this.service.Create(this.customer, api).subscribe(
       success => {
         this.ResetForm(),
@@ -52,7 +53,7 @@ export class CustomerComponent implements OnInit {
   }
 
   Edit(){
-    const api = 'api/customer/UpdateCustomer';
+    const api = `${this.customerApi}UpdateCustomer`;
     this.service.Edit(this.customer, api).subscribe(
       success => {
         this.ResetForm();
@@ -74,7 +75,7 @@ export class CustomerComponent implements OnInit {
   }
 
   Delete(customer: Customer){
-    const api = 'api/customer/DeleteCustomer';
+    const api = `${this.customerApi}DeleteCustomer`;
     this.service.Delete(customer, api).subscribe(
       success => {
         this.GetAllCustomers();
@@ -88,10 +89,9 @@ export class CustomerComponent implements OnInit {
   }
 
   GetAllCustomers(){
-    const api = 'api/customer/GetAllCustomers';
-    this.service.GetAllEmployees(api).subscribe(
+    const api = `${this.customerApi}GetAllCustomers`;
+    this.service.GetAll(api).subscribe(
       customers => {this.customers = customers;
-      console.log(customers)
       },
       err => {
         console.log(err);
