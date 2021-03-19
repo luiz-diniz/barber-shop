@@ -29,16 +29,18 @@ export class CustomerComponent implements OnInit {
   }
 
   OnSubmit(){
+    console.log(this.isEditing);
+    console.log(this.customer);
+
     if(this.isEditing === true){
       this.Edit();
     }else{
-      console.log(this.customer);
+      this.Create();
     }
   }
 
   Create(){ 
     const api = `${this.customerApi}CreateCustomer`;
-    console.log(this.customer);
     this.service.Create(this.customer, api).subscribe(
       success => {
         this.ResetForm(),
@@ -104,7 +106,7 @@ export class CustomerComponent implements OnInit {
     this.customer = {
       Cpf: '',
       Name: '',
-      Birth: null,
+      Birth: new Date(),
       Phone: null,
       Hide: true
     };

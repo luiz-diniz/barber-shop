@@ -18,7 +18,8 @@ export class EmployeeComponent implements OnInit {
 
   employeeApi: string = "api/employee/";
 
-  constructor(private service: WebapiService<Employee, any>,
+  constructor(
+    private service: WebapiService<Employee, any>,
     private format: FormatService
     ) {
     this.GetAllEmployees();
@@ -89,7 +90,6 @@ export class EmployeeComponent implements OnInit {
     const api = `${this.employeeApi}GetAllEmployees`;
     this.service.GetAll(api).subscribe(
       employees => {this.employees = employees
-      console.log(employees)
       },
       err => {
         console.log(err);
