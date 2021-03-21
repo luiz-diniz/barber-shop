@@ -9,6 +9,9 @@ namespace BarberShop.Service.Repository.ModelsRepository
 {
     public class CustomerRepository : DatabaseConfiguration, ICustomerRepository
     {
+
+        public string Teste { get; set; }
+
         //Customer
         public void Create(Customer customer)
         {
@@ -29,6 +32,7 @@ namespace BarberShop.Service.Repository.ModelsRepository
                     cmd.ExecuteNonQuery();
                 }
             }
+
         }
 
         public void Delete(Customer customer)
