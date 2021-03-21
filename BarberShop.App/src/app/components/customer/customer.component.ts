@@ -10,43 +10,57 @@ import { WebapiService } from 'src/app/services/webapi.service';
 })
 export class CustomerComponent implements OnInit {
 
-  customer: Customer = new Customer();
-  customers: Customer[] = [];
+  customer: Customer;
+  customers: Customer[];
+  phone: string;
 
   showForm: boolean = false;
   isEditing: boolean = false;
 
   customerApi: string = "api/customer/";
 
-  constructor(
-    private service: WebapiService<Customer, any>,
-    private format: FormatService
-  ) {
+  constructor(private service: WebapiService<Customer, any>, private format: FormatService) {
+
+    this.customer = new Customer();
+    this.customer.Phone = [];
+    this.customers = [];
+
     this.GetAllCustomers();
-   }
+  }
 
   ngOnInit(): void {
   }
 
   OnSubmit(){
-    console.log(this.isEditing);
+    this.customer.Phone.push(this.phone);
+
     console.log(this.customer);
 
     if(this.isEditing === true){
       this.Edit();
     }else{
       this.Create();
+      this.CreatePhone();
     }
+
+    this.ResetForm();
+    this.GetAllCustomers();
+    this.showForm = false;
   }
 
   Create(){ 
     const api = `${this.customerApi}CreateCustomer`;
     this.service.Create(this.customer, api).subscribe(
-      success => {
-        this.ResetForm(),
-        this.GetAllCustomers(),
-        this.showForm = false;
-      },
+      err => {
+        console.log(err);
+        alert('Error: Contact the administrator.')
+      }
+    );
+  }
+
+  CreatePhone(){
+    const api = `${this.customerApi}CreateCustomerPhone`;
+    this.service.Create(this.customer, api).subscribe(
       err => {
         console.log(err);
         alert('Error: Contact the administrator.')
@@ -58,10 +72,7 @@ export class CustomerComponent implements OnInit {
     const api = `${this.customerApi}UpdateCustomer`;
     this.service.Edit(this.customer, api).subscribe(
       success => {
-        this.ResetForm();
-        this.GetAllCustomers();
         this.isEditing = false;
-        this.showForm = false;
       },
       err => {
         console.log(err);
@@ -107,7 +118,7 @@ export class CustomerComponent implements OnInit {
       Cpf: '',
       Name: '',
       Birth: new Date(),
-      Phone: null,
+      Phone: [],
       Hide: true
     };
   }

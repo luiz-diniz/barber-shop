@@ -20,7 +20,12 @@
         </div>
         <div class="form-group">
             <label for="name">Birth</label>
-            <input type="date" class="form-control" name="password" [(ngModel)]="this.customer.birth" required>
+            <input type="date" class="form-control" name="birth" [(ngModel)]="this.customer.birth" required>
+        </div>
+        <div class="form-group">
+          <label for="name">Phone</label>
+          <input type="text" class="form-control" name="phone" [(ngModel)]="this.phone" required
+          mask="(00) 00000-0000">
         </div>
         <button type="submit" [disabled]="!customerForm.form.valid" class="btn my-dark my-btn-dark">Submit</button>
     </form>
@@ -44,6 +49,8 @@
         <li class="list-item">Name: {{customer.name}}</li>
         <hr>
         <li class="list-item">Birth: {{customer.birth | date:'dd/MM/yyyy'}}</li>
+        <hr>
+        <li class="list-item">Phone: {{customer.phone[0]}}</li>
         <hr>
         <li class="list-item">
           <button type="button" class="btn btn-success btn-sm mr-2" (click)="EditInput(customer)"><i class="fas fa-edit"></i></button>
