@@ -40,7 +40,8 @@ export class CustomerComponent implements OnInit {
       this.Edit();
     }else{
       this.Create();
-      this.CreatePhone();
+      this.GetCustomer();
+      this.CreatePhone();      
     }
 
     this.ResetForm();
@@ -93,6 +94,20 @@ export class CustomerComponent implements OnInit {
       success => {
         this.GetAllCustomers();
         this.ResetForm();
+      },
+      err => {
+        console.log(err);
+        alert('Error: Contact the administrator.')
+      }
+    )
+  }
+
+  GetCustomer(){
+    const api = `${this.customerApi}ReadCustomer/48980150857}`;
+    console.log("teste = "+api);
+    this.service.Get(api).subscribe(
+      customer => {
+        this.customer = customer;
       },
       err => {
         console.log(err);

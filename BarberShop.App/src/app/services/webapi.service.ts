@@ -34,6 +34,10 @@ export class WebapiService<T, Y>{
     return this.http.put<Y>(environment.url + api, type, httpOptions);
   }
 
+  Get(api: string) : Observable<Y>{
+    return this.http.get<Y>(environment.url + api, httpOptions);
+  }
+
   GetAll(api: string) : Observable<Y[]>{
     return this.http.get<Y[]>(environment.url + api, httpOptions);
   }
