@@ -18,15 +18,33 @@ namespace BarberShop.Tests
         private string _name = "Angus";
         private DateTime _birth = Convert.ToDateTime("2000-01-01T00:00:00");
         private string _phone = "00111112222";
-        private List<string> _phones = new List<string>
-        {
-            "00111112222", "00111113333"
-        };
+
+        private List<Customer> _customers;
 
         public CustomerServiceTests()
         {
             _customerRepository = new Mock<ICustomerRepository>();
             _logger = new Mock<ILogger>();
+
+            _customers = new List<Customer>()
+            {
+                new Customer()
+                {
+                    Id = _id,
+                    Cpf = _cpf,
+                    Name = _name,
+                    Birth = _birth,
+                    Phone = _phone
+                },
+                 new Customer()
+                {
+                    Id = _id,
+                    Cpf = _cpf,
+                    Name = _name,
+                    Birth = _birth,
+                    Phone = _phone
+                }
+            };
         }
 
         [Fact]
@@ -48,7 +66,8 @@ namespace BarberShop.Tests
         {
             Customer customer = new Customer { 
                 Name = _name,
-                Birth = _birth
+                Birth = _birth,
+                Phone = _phone
             };
 
             _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
@@ -67,7 +86,8 @@ namespace BarberShop.Tests
             {
                 Cpf = "",
                 Name = _name,
-                Birth = _birth
+                Birth = _birth,
+                Phone = _phone
             };
 
             _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
@@ -85,7 +105,8 @@ namespace BarberShop.Tests
             Customer customer = new Customer
             {
                 Cpf = _cpf,
-                Birth = _birth
+                Birth = _birth,
+                Phone = _phone
             };
 
             _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
@@ -104,7 +125,47 @@ namespace BarberShop.Tests
             {
                 Cpf = _cpf,
                 Name = "",
-                Birth = _birth
+                Birth = _birth,
+                Phone = _phone
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Create(customer));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void CreateCustomerPhoneNullTest()
+        {
+            Customer customer = new Customer
+            {
+                Cpf = _cpf,
+                Name = _name,
+                Birth = _birth,
+            };
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+
+            var instance = GetInstance();
+
+            Assert.Throws<ArgumentException>(() => instance.Create(customer));
+
+            _logger.Verify();
+        }
+
+        [Fact]
+        public void CreateCustomerPhoneEmptyTest()
+        {
+            Customer customer = new Customer
+            {
+                Cpf = _cpf,
+                Name = _name,
+                Birth = _birth,
+                Phone = ""
             };
 
             _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
@@ -123,7 +184,8 @@ namespace BarberShop.Tests
             {
                 Cpf = _cpf,
                 Name = _name,
-                Birth = _birth
+                Birth = _birth,
+                Phone = _phone
             };
 
             _logger.Setup(x => x.CreateLog("Database", "Insert", "Customer", new string[] { customer.Cpf, customer.Name, customer.Birth.ToString() }));
@@ -295,181 +357,39 @@ namespace BarberShop.Tests
         }
 
         [Fact]
-        public void CreateCustomerPhoneNullTest()
+        public void GetAllNullCustomersTest()
         {
-            Customer customer = null;
+            List<Customer> customers = null;
 
             _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+            _customerRepository.Setup(x => x.GetAllCustomers()).Returns(customers);
 
             var instance = GetInstance();
 
-            Assert.Throws<ArgumentNullException>(() => instance.CreatePhone(customer));
-        }
-
-        [Fact]
-        public void CreatePhoneNullTest()
-        {
-            Customer customer = new Customer
-            {
-                Id = _id,
-                Name = _name,
-                Cpf = _cpf,
-                Phone = null
-            };
-
-            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
-
-            var instance = GetInstance();
-
-            Assert.Throws<ArgumentException>(() => instance.CreatePhone(customer));
-        }
-
-        [Fact]
-        public void CreatePhoneTest()
-        {
-            Customer customer = new Customer
-            {
-                Id = _id,
-                Name = _name,
-                Cpf = _cpf,
-                Phone = _phones
-            };
-
-            _logger.Setup(x => x.CreateLog("Database", "Insert", "CustomerPhone", new string[] { customer.Cpf, customer.Phone[0] }));
-            _customerRepository.Setup(x => x.CreatePhone(customer));
-
-            var instance = GetInstance();
-
-            instance.CreatePhone(customer);
+            Assert.Throws<Exception>(() => instance.GetAllCustomers());
 
             _logger.Verify();
             _customerRepository.Verify();
         }
 
         [Fact]
-        public void DeletePhoneNullTest()
+        public void GetAllCustomersTest()
         {
-            string phone = null;
+            List<Customer> customers = _customers;
 
-            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+            _logger.Setup(x => x.CreateLog("Database", "GetAllCustomers"));
+            _customerRepository.Setup(x => x.GetAllCustomers()).Returns(customers);
 
             var instance = GetInstance();
 
-            Assert.Throws<ArgumentException>(() => instance.DeletePhone(phone));
+            var result = instance.GetAllCustomers();
 
-            _logger.Verify();
-        }
-
-        [Fact]
-        public void DeletePhoneEmptyTest()
-        {
-            string phone = "";
-
-            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
-
-            var instance = GetInstance();
-
-            Assert.Throws<ArgumentException>(() => instance.DeletePhone(phone));
-
-            _logger.Verify();
-        }
-
-        [Fact]
-        public void DeletePhoneTest()
-        {
-            string phone = _phone;
-
-            _logger.Setup(x => x.CreateLog("Database", "Delete", "CustomerPhone", new string[] { phone }));
-            _customerRepository.Setup(x => x.DeletePhone(phone));
-
-            var instance = GetInstance();
-
-            instance.DeletePhone(phone);
+            Assert.IsAssignableFrom<List<Customer>>(result);
 
             _logger.Verify();
             _customerRepository.Verify();
         }
 
-        [Fact]
-        public void ReadPhoneNullTest()
-        {
-            string cpf = null;
-
-            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
-
-            var instance = GetInstance();
-
-            Assert.Throws<ArgumentException>(() => instance.ReadPhone(cpf));
-
-            _logger.Verify();
-        }
-
-        [Fact]
-        public void ReadPhoneEmptyTest()
-        {
-            string cpf = "";
-
-            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
-
-            var instance = GetInstance();
-
-            Assert.Throws<ArgumentException>(() => instance.ReadPhone(cpf));
-
-            _logger.Verify();
-        }
-
-        [Fact]
-        public void ReadPhoneTest()
-        {
-            string cpf = _cpf;
-            List<string> phones = _phones;
-
-            _logger.Setup(x => x.CreateLog("Database", "Read", "CustomerPhone", new string[] { cpf }));
-            _customerRepository.Setup(x => x.ReadPhone(cpf)).Returns(phones);
-
-            var instance = GetInstance();
-
-            var result = instance.ReadPhone(cpf);
-
-            Assert.IsAssignableFrom<List<String>>(result);
-
-            _logger.Verify();
-            _customerRepository.Verify();
-        }
-
-        [Fact]
-        public void UpdatePhoneNullTest()
-        {
-            string[] phones = null;
-
-            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
-
-            var instance = GetInstance();
-
-            Assert.Throws<ArgumentNullException>(() => instance.UpdatePhone(phones));
-
-            _logger.Verify();
-        }
-
-        [Fact]
-        public void UpdatePhoneTest()
-        {
-            string[] phones = new string[]
-            {
-                "00111112222", "00111113333"
-            };
-
-            _logger.Setup(x => x.CreateLog("Database", "Update", "CustomerPhone", new string[] { phones[0], phones[1] }));
-            _customerRepository.Setup(x => x.UpdatePhone(phones));
-
-            var instance = GetInstance();
-
-            instance.UpdatePhone(phones);
-
-            _logger.Verify();
-            _customerRepository.Verify();
-        }
-        
         private CustomerService GetInstance()
         {
             return new CustomerService(_customerRepository.Object, _logger.Object);

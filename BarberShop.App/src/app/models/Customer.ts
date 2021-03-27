@@ -1,8 +1,8 @@
 export class Customer{
-    Id?: number;
-    Cpf: string;
-    Name: string;
-    Birth: Date;
-    Phone: string[];
-    Hide: boolean;
+    id?: number;
+    cpf: string;
+    name: string;
+    birth: Date;
+    phone: string;
+    hide: boolean;
 }

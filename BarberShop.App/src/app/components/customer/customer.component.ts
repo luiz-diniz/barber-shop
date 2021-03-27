@@ -22,7 +22,6 @@ export class CustomerComponent implements OnInit {
   constructor(private service: WebapiService<Customer, any>, private format: FormatService) {
 
     this.customer = new Customer();
-    this.customer.Phone = [];
     this.customers = [];
 
     this.GetAllCustomers();
@@ -32,16 +31,12 @@ export class CustomerComponent implements OnInit {
   }
 
   OnSubmit(){
-    this.customer.Phone.push(this.phone);
-
-    console.log(this.customer);
+    console.log("onsubmit:" + this.customer.cpf);
 
     if(this.isEditing === true){
       this.Edit();
     }else{
       this.Create();
-      this.GetCustomer();
-      this.CreatePhone();      
     }
 
     this.ResetForm();
@@ -53,7 +48,6 @@ export class CustomerComponent implements OnInit {
     const api = `${this.customerApi}CreateCustomer`;
     this.service.Create(this.customer, api).subscribe(
       err => {
-        console.log(err);
         alert('Error: Contact the administrator.')
       }
     );
@@ -102,12 +96,13 @@ export class CustomerComponent implements OnInit {
     )
   }
 
-  GetCustomer(){
-    const api = `${this.customerApi}ReadCustomer/48980150857}`;
+  async GetCustomer(){
+    const api = `${this.customerApi}ReadCustomer/${this.customer.cpf}`;
     console.log("teste = "+api);
     this.service.Get(api).subscribe(
       customer => {
         this.customer = customer;
+        console.log(customer);
       },
       err => {
         console.log(err);
@@ -130,11 +125,11 @@ export class CustomerComponent implements OnInit {
 
   ResetForm(){
     this.customer = {
-      Cpf: '',
-      Name: '',
-      Birth: new Date(),
-      Phone: [],
-      Hide: true
+      cpf: '',
+      name: '',
+      birth: new Date(),
+      phone: '',
+      hide: true
     };
   }
 }

@@ -17,13 +17,13 @@ namespace BarberShop.Service.Services
             _logger = logger;
         }
 
-        //Customer
         public void Create(Customer customer)
         {
             try
             {
                 if (customer == null) throw new ArgumentNullException();
-                if (String.IsNullOrEmpty(customer.Cpf) || String.IsNullOrEmpty(customer.Name)) throw new ArgumentException();                
+                if (String.IsNullOrEmpty(customer.Cpf) || String.IsNullOrEmpty(customer.Name)
+                    || String.IsNullOrEmpty(customer.Phone)) throw new ArgumentException();                
 
                 _customerRepository.Create(customer);
 
@@ -81,6 +81,8 @@ namespace BarberShop.Service.Services
             {
                 var result = _customerRepository.GetAllCustomers();
 
+                if (result == null) throw new Exception("Null values from the database.");
+
                 _logger.CreateLog("Database", "GetAllCustomers");
 
                 return result;
@@ -105,83 +107,6 @@ namespace BarberShop.Service.Services
             catch (Exception ex)
             {
                 _logger.CreateLog("Error", ex.ToString());
-                throw ex;
-            }
-        }
-
-        //CustomerPhone
-        public void CreatePhone(Customer customer)
-        {
-            try
-            {
-                if (customer == null) throw new ArgumentNullException();
-                if (customer.Phone == null) throw new ArgumentException(); 
-
-                _customerRepository.CreatePhone(customer);
-
-                for (int i = 0; i < customer.Phone.Count; i++)
-                {
-                    _logger.CreateLog("Database", "Insert", "CustomerPhone", new string[] { customer.Cpf, customer.Phone[i] });
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.CreateLog("Error", ex.Message);
-                throw ex;
-            }
-        }
-
-        public void DeletePhone(string phone)
-        {
-            try
-            {
-                if (String.IsNullOrEmpty(phone)) throw new ArgumentException();
-
-                _customerRepository.DeletePhone(phone);
-
-                _logger.CreateLog("Database", "Delete", "CustomerPhone", new string[] { phone });
-            }
-            catch (Exception ex)
-            {
-                _logger.CreateLog("Error", ex.Message);
-                throw ex;
-            }
-        }
-
-        public List<string> ReadPhone(string cpf)
-        {
-            try
-            {
-                if (String.IsNullOrEmpty(cpf)) throw new ArgumentException();
-
-                List<string> phones = new List<string>();
-
-                phones = _customerRepository.ReadPhone(cpf);
-
-                _logger.CreateLog("Database", "Read", "CustomerPhone", new string[] { cpf });
-
-                return phones;
-            }
-            catch (Exception ex)
-            {
-                _logger.CreateLog("Error", ex.Message);
-                throw ex;
-            }
-        }
-
-        public void UpdatePhone(string[] phone)
-        {
-            try
-            {
-                if (phone == null) throw new ArgumentNullException();
-
-                _customerRepository.UpdatePhone(phone);
-
-                _logger.CreateLog("Database", "Update", "CustomerPhone", new string[] { phone[0], phone[1] });
-            }
-            catch (Exception ex)
-            {
-                _logger.CreateLog("Error", ex.Message);
                 throw ex;
             }
         }

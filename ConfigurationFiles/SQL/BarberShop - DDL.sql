@@ -6,15 +6,8 @@ create table Customer(
 	id_customer int identity(1,1) primary key,
 	cpf_customer char(11) not null unique,
 	name_customer varchar(50) not null,
-	birth_customer date not null
-)
-
-create table CustomerPhone(
-	id_customer_phone int identity(1,1) primary key,
-	id_customer int,
-	phone_customer varchar(20),
-
-	foreign key(id_customer) references Customer(id_customer)
+	birth_customer date not null,
+	phone_customer varchar(50) not null
 )
 
 create table Employee(
@@ -24,6 +17,7 @@ create table Employee(
 	username_employee varchar(50) not null,
 	password_employee varchar(50) not null,
 	salt_hash_password_employee varchar(50) not null,
+	login_attempts int default 0
 )
 
 create table Payment(

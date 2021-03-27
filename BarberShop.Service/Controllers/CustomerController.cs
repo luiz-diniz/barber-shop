@@ -16,7 +16,6 @@ namespace BarberShop.Service.Controllers
             _customerService = customerService;
         }
 
-        //Customer table
         [HttpPost]
         [Route("CreateCustomer")]
         public void Create(Customer customer)
@@ -50,35 +49,6 @@ namespace BarberShop.Service.Controllers
         public List<Customer> GetAllCustomers()
         {
             return _customerService.GetAllCustomers();
-        }
-
-        //CustomerPhone table
-        [HttpPost]
-        [Route("CreateCustomerPhone")]
-        public void CreatePhone(Customer customer)
-        {
-            _customerService.CreatePhone(customer);
-        }
-
-        [HttpDelete]
-        [Route("DeleteCustomerPhone/{phone}")]
-        public void DeletePhone(string phone)
-        {
-            _customerService.DeletePhone(phone);
-        }
-
-        [HttpGet]
-        [Route("ReadCustomerPhone/{cpf}")]
-        public List<string> ReadPhone(string cpf)
-        {
-            return _customerService.ReadPhone(cpf);
-        }
-
-        [HttpPut]
-        [Route("UpdateCustomerPhone")]
-        public void UpdatePhone(string[] phones)
-        {
-            _customerService.UpdatePhone(phones);
         }
     }
 }
