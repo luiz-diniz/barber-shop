@@ -12,7 +12,6 @@ export class CustomerComponent implements OnInit {
 
   customer: Customer;
   customers: Customer[];
-  phone: string;
 
   showForm: boolean = false;
   isEditing: boolean = false;
@@ -31,33 +30,24 @@ export class CustomerComponent implements OnInit {
   }
 
   OnSubmit(){
-    console.log("onsubmit:" + this.customer.cpf);
-
     if(this.isEditing === true){
       this.Edit();
     }else{
       this.Create();
     }
-
-    this.ResetForm();
-    this.GetAllCustomers();
-    this.showForm = false;
   }
 
   Create(){ 
     const api = `${this.customerApi}CreateCustomer`;
+    console.log(api);
+    console.log(this.customer);
     this.service.Create(this.customer, api).subscribe(
+      success =>{
+        this.ResetForm();
+        this.GetAllCustomers();
+        this.showForm = false;
+      },
       err => {
-        alert('Error: Contact the administrator.')
-      }
-    );
-  }
-
-  CreatePhone(){
-    const api = `${this.customerApi}CreateCustomerPhone`;
-    this.service.Create(this.customer, api).subscribe(
-      err => {
-        console.log(err);
         alert('Error: Contact the administrator.')
       }
     );
@@ -67,7 +57,10 @@ export class CustomerComponent implements OnInit {
     const api = `${this.customerApi}UpdateCustomer`;
     this.service.Edit(this.customer, api).subscribe(
       success => {
+        this.ResetForm();
+        this.GetAllCustomers();
         this.isEditing = false;
+        this.showForm = false;
       },
       err => {
         console.log(err);
@@ -96,13 +89,12 @@ export class CustomerComponent implements OnInit {
     )
   }
 
-  async GetCustomer(){
+  GetCustomer(){
     const api = `${this.customerApi}ReadCustomer/${this.customer.cpf}`;
     console.log("teste = "+api);
     this.service.Get(api).subscribe(
       customer => {
         this.customer = customer;
-        console.log(customer);
       },
       err => {
         console.log(err);

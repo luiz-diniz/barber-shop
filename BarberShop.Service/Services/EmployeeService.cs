@@ -63,7 +63,6 @@ namespace BarberShop.Service.Services
 
         public Employee Read(string cpf)
         {
-
             try
             {
                 if (String.IsNullOrEmpty(cpf)) throw new ArgumentException();

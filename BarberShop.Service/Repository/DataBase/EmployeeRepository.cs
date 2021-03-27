@@ -11,7 +11,7 @@ namespace BarberShop.Service.Repository.Database
     {
         public void Create(Employee employee)
         {
-            string query = "insert into employee values(@P0, @P1, @P2, @P3, @P4)";
+            string query = "insert into employee values(@P0, @P1, @P2, @P3, @P4, default)";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
