@@ -89,6 +89,8 @@ namespace BarberShop.Service.Services
             {
                 var result = _employeeRepository.GetAllEmployees();
 
+                if (result == null) throw new Exception("Null values from the database.");
+
                 _logger.CreateLog("Database", "GetAllEmployees");
 
                 return result;
