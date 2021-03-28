@@ -8,6 +8,6 @@
         public string Username { get; set; }
         public string Password { get; set; }
         public string SaltPassword { get; set; }
-        public int LoginAttemps { get; set; }
+        public int LoginAttempts { get; set; }
     }
 }

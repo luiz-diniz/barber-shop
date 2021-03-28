@@ -22,12 +22,40 @@ namespace BarberShop.Tests
         private string _name = "Eddie";
         private string _username = "eddie";
         private string _password = "eddietop";
+        private string _saltPassword = "hash";
+        private int _loginAttemts = 0;
+
+        private List<Employee> _employees;
 
         public EmployeeServiceTests()
         {
             _employeeRepository = new Mock<IEmployeeRepository>();
             _logger = new Mock<ILogger>();
             _hasher = new Mock<IHasher>();
+
+            _employees = new List<Employee>()
+            {
+                new Employee()
+                {
+                    Id = _id,
+                    Cpf = _cpf,
+                    Name = _name,
+                    Username = _username,
+                    Password = _password,
+                    SaltPassword = _saltPassword,
+                    LoginAttempts = _loginAttemts
+                },
+                new Employee()
+                {
+                    Id = _id,
+                    Cpf = _cpf,
+                    Name = _name,
+                    Username = _username,
+                    Password = _password,
+                    SaltPassword = _saltPassword,
+                    LoginAttempts = _loginAttemts
+                }
+            };
         }
 
         [Fact]
@@ -508,6 +536,40 @@ namespace BarberShop.Tests
             var instance = GetInstance();
 
             instance.Update(employee);
+
+            _logger.Verify();
+            _employeeRepository.Verify();
+        }
+
+        [Fact]
+        public void GetAllNullEmployeesTest()
+        {
+            List<Employee> employees = null;
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+            _employeeRepository.Setup(x => x.GetAllEmployees()).Returns(employees);
+
+            var instance = GetInstance();
+
+            Assert.Throws<Exception>(() => instance.GetAllEmployees());
+
+            _logger.Verify();
+            _employeeRepository.Verify();
+        }
+
+        [Fact]
+        public void GetAllEmployeeTest()
+        {
+            List<Employee> employees = _employees;
+
+            _logger.Setup(x => x.CreateLog("Database", "GetAllCustomers"));
+            _employeeRepository.Setup(x => x.GetAllEmployees()).Returns(employees);
+
+            var instance = GetInstance();
+
+            var result = instance.GetAllEmployees();
+
+            Assert.IsAssignableFrom<List<Employee>>(result);
 
             _logger.Verify();
             _employeeRepository.Verify();
