@@ -48,6 +48,7 @@ export class CustomerComponent implements OnInit {
         this.showForm = false;
       },
       err => {
+        console.log(err);
         alert('Error: Contact the administrator.')
       }
     );
