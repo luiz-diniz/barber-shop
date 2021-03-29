@@ -90,20 +90,6 @@ export class CustomerComponent implements OnInit {
     )
   }
 
-  GetCustomer(){
-    const api = `${this.customerApi}ReadCustomer/${this.customer.cpf}`;
-    console.log("teste = "+api);
-    this.service.Get(api).subscribe(
-      customer => {
-        this.customer = customer;
-      },
-      err => {
-        console.log(err);
-        alert('Error: Contact the administrator.')
-      }
-    )
-  }
-
   GetAllCustomers(){
     const api = `${this.customerApi}GetAllCustomers`;
     this.service.GetAll(api).subscribe(
