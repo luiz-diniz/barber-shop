@@ -100,11 +100,11 @@ export class EmployeeComponent implements OnInit {
 
   ResetForm(){
     this.employee = {
-      Cpf: '',
-      Name: '',
-      Username: '',
-      Password: '',
-      Hide: true
+      cpf: '',
+      name: '',
+      username: '',
+      password: '',
+      hide: true
     };
   }
 }
