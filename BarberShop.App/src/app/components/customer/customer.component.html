@@ -50,7 +50,7 @@
         <hr>
         <li class="list-item">Birth: {{customer.birth | date:'dd/MM/yyyy'}}</li>
         <hr>
-        <li class="list-item">Phone: {{customer.phone}}</li>
+        <li class="list-item">Phone: {{this.format.FormatPhone(customer.phone)}}</li>
         <hr>
         <li class="list-item">
           <button type="button" class="btn btn-success btn-sm mr-2" (click)="EditInput(customer)"><i class="fas fa-edit"></i></button>
