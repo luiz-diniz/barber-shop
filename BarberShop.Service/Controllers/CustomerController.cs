@@ -37,18 +37,18 @@ namespace BarberShop.Service.Controllers
             return _customerService.Read(cpf);
         }
 
-        [HttpPut]
-        [Route("UpdateCustomer")]
-        public void Update(Customer customer)
-        {
-            _customerService.Update(customer);
-        }
-
         [HttpGet]
         [Route("GetAllCustomers")]
         public List<Customer> GetAllCustomers()
         {
             return _customerService.GetAll();
+        }
+
+        [HttpPut]
+        [Route("UpdateCustomer")]
+        public void Update(Customer customer)
+        {
+            _customerService.Update(customer);
         }
     }
 }
