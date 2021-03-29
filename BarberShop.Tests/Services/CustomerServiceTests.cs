@@ -362,11 +362,11 @@ namespace BarberShop.Tests
             List<Customer> customers = null;
 
             _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
-            _customerRepository.Setup(x => x.GetAllCustomers()).Returns(customers);
+            _customerRepository.Setup(x => x.GetAll()).Returns(customers);
 
             var instance = GetInstance();
 
-            Assert.Throws<Exception>(() => instance.GetAllCustomers());
+            Assert.Throws<Exception>(() => instance.GetAll());
 
             _logger.Verify();
             _customerRepository.Verify();
@@ -378,11 +378,11 @@ namespace BarberShop.Tests
             List<Customer> customers = _customers;
 
             _logger.Setup(x => x.CreateLog("Database", "GetAllCustomers"));
-            _customerRepository.Setup(x => x.GetAllCustomers()).Returns(customers);
+            _customerRepository.Setup(x => x.GetAll()).Returns(customers);
 
             var instance = GetInstance();
 
-            var result = instance.GetAllCustomers();
+            var result = instance.GetAll();
 
             Assert.IsAssignableFrom<List<Customer>>(result);
 

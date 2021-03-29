@@ -51,38 +51,7 @@ namespace BarberShop.Service.Repository.Database
             }
         }
 
-        public Employee Read(string cpf)
-        {
-            string query = "select id_employee, cpf_employee, name_employee, username_employee from employee where cpf_employee = @P0";
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                conn.Open();
-
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    cmd.CommandType = CommandType.Text;
-
-                    cmd.Parameters.Add(new SqlParameter("P0", cpf));
-
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    Employee employee = new Employee();
-
-                    if(reader.Read())
-                    {
-                        employee.Id = Convert.ToInt32(reader["id_employee"]);
-                        employee.Cpf = Convert.ToString(reader["cpf_employee"]);
-                        employee.Name = Convert.ToString(reader["name_employee"]);
-                        employee.Username = Convert.ToString(reader["username_employee"]);
-                    }
-
-                    return employee;
-                }
-            }
-        }
-
-        public List<Employee> GetAllEmployees()
+        public List<Employee> GetAll()
         {
             string query = "select id_employee, cpf_employee, name_employee, username_employee from Employee";
 
@@ -110,6 +79,37 @@ namespace BarberShop.Service.Repository.Database
                     }
 
                     return employees;
+                }
+            }
+        }
+
+        public Employee Read(string cpf)
+        {
+            string query = "select id_employee, cpf_employee, name_employee, username_employee from employee where cpf_employee = @P0";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    cmd.Parameters.Add(new SqlParameter("P0", cpf));
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    Employee employee = new Employee();
+
+                    if(reader.Read())
+                    {
+                        employee.Id = Convert.ToInt32(reader["id_employee"]);
+                        employee.Cpf = Convert.ToString(reader["cpf_employee"]);
+                        employee.Name = Convert.ToString(reader["name_employee"]);
+                        employee.Username = Convert.ToString(reader["username_employee"]);
+                    }
+
+                    return employee;
                 }
             }
         }

@@ -5,6 +5,5 @@ namespace BarberShop.Service.Services.Interfaces
 {
     public interface ICustomerService : ICRUDService<Customer, Customer, string>
     {
-        List<Customer> GetAllCustomers();
     }
 }

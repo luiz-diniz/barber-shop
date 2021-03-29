@@ -43,7 +43,7 @@ namespace BarberShop.Service.Controllers
         [Route("GetAllEmployees")]
         public ActionResult<List<Employee>> GetAllEmployees()
         {
-            return _employeeService.GetAllEmployees();
+            return _employeeService.GetAll();
         }
 
         [HttpPut]

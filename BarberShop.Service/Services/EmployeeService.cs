@@ -82,11 +82,11 @@ namespace BarberShop.Service.Services
             }
         }
 
-        public List<Employee> GetAllEmployees()
+        public List<Employee> GetAll()
         {
             try
             {
-                var result = _employeeRepository.GetAllEmployees();
+                var result = _employeeRepository.GetAll();
 
                 if (result == null) throw new Exception("Null values from the database.");
 

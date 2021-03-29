@@ -83,7 +83,7 @@ namespace BarberShop.Service.Repository.ModelsRepository
             }
         }
 
-        public List<Customer> GetAllCustomers()
+        public List<Customer> GetAll()
         {
             string query = "select * from Customer";
 

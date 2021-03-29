@@ -3,6 +3,7 @@ using BarberShop.Service.Repository.Interfaces.ModelsRepository;
 using System;
 using System.Data.SqlClient;
 using System.Data;
+using System.Collections.Generic;
 
 namespace BarberShop.Service.Repository.Database
 {
@@ -47,6 +48,11 @@ namespace BarberShop.Service.Repository.Database
                     cmd.ExecuteNonQuery();
                 }
             }
+        }
+
+        public List<OrderInfo> GetAll()
+        {
+            throw new NotImplementedException();
         }
 
         public OrderInfo Read(int orderId)

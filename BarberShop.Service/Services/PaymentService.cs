@@ -56,6 +56,11 @@ namespace BarberShop.Service.Services
             }
         }
 
+        public List<Payment> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
         public Payment Read(string name)
         {
             try

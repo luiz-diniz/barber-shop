@@ -5,6 +5,5 @@ namespace BarberShop.Service.Repository.Interfaces
 {
     public interface ICustomerRepository : ICRUD<Customer, Customer, string>
     {
-        List<Customer> GetAllCustomers();
     }
 }

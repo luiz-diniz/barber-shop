@@ -3,6 +3,7 @@ using BarberShop.Service.Repository.Interfaces;
 using BarberShop.Service.Repository.Interfaces.ModelsRepository;
 using BarberShop.Service.Services.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace BarberShop.Service.Services
 {
@@ -57,6 +58,11 @@ namespace BarberShop.Service.Services
                 _logger.CreateLog("Error", ex.ToString());
                 throw ex;
             }
+        }
+
+        public List<ShopAddress> GetAll()
+        {
+            throw new NotImplementedException();
         }
 
         public ShopAddress Read(string name)

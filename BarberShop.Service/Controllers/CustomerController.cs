@@ -48,7 +48,7 @@ namespace BarberShop.Service.Controllers
         [Route("GetAllCustomers")]
         public List<Customer> GetAllCustomers()
         {
-            return _customerService.GetAllCustomers();
+            return _customerService.GetAll();
         }
     }
 }

@@ -3,6 +3,7 @@ using BarberShop.Service.Repository.Interfaces;
 using BarberShop.Service.Repository.Interfaces.ModelsRepository;
 using BarberShop.Service.Services.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace BarberShop.Service.Services
 {
@@ -51,6 +52,11 @@ namespace BarberShop.Service.Services
             {
                 _logger.CreateLog("Database", "Delete", "OrderPayment", new string[] { orderPayment.Id.ToString(), orderPayment.Order.Id.ToString(), orderPayment.PaymentInfo[0].Id.ToString() });
             }
+        }
+
+        public List<OrderPayment> GetAll()
+        {
+            throw new NotImplementedException();
         }
 
         public OrderPayment Read(int orderId)

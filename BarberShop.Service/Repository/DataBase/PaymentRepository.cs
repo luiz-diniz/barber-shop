@@ -1,6 +1,7 @@
 ﻿using BarberShop.Service.Models;
 using BarberShop.Service.Repository.Interfaces.ModelsRepository;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -44,6 +45,11 @@ namespace BarberShop.Service.Repository.Database
                     cmd.ExecuteNonQuery();
                 }
             }
+        }
+
+        public List<Payment> GetAll()
+        {
+            throw new NotImplementedException();
         }
 
         public Payment Read(string name)

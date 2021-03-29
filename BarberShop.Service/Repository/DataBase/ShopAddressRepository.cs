@@ -53,6 +53,11 @@ namespace BarberShop.Service.Repository.Database
             }
         }
 
+        public List<ShopAddress> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
         public ShopAddress Read(string name)
         {
             string query = "select * from shopaddress where name_shop = @P0";

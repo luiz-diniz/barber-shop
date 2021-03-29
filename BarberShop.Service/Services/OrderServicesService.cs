@@ -53,6 +53,11 @@ namespace BarberShop.Service.Services
             }
         }
 
+        public List<OrderServices> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
         public OrderServices Read(int orderInfoId)
         {
             OrderServices services = new OrderServices();

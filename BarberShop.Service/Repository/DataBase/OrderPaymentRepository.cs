@@ -54,6 +54,11 @@ namespace BarberShop.Service.Repository.Database
             }
         }
 
+        public List<OrderPayment> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
         public OrderPayment Read(int orderId)
         {
             string query = "select * from Payment pa right join OrderPayment op on pa.id_payment = op.id_order_payment " +

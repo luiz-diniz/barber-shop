@@ -3,6 +3,7 @@ using BarberShop.Service.Repository.Interfaces;
 using BarberShop.Service.Repository.Interfaces.ModelsRepository;
 using BarberShop.Service.Services.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace BarberShop.Service.Services
 {
@@ -90,6 +91,11 @@ namespace BarberShop.Service.Services
             {
                 _logger.CreateLog("Database", "Update", "OrderInfo", new string[] { orderInfo.CustomerInfo.Cpf, orderInfo.EmployeeInfo.Cpf, orderInfo.ShopAddressInfo.Name, orderInfo.OrderDate.ToString() });
             }
+        }
+
+        public List<OrderInfo> GetAll()
+        {
+            throw new NotImplementedException();
         }
     }
 }

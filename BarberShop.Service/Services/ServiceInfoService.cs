@@ -58,6 +58,11 @@ namespace BarberShop.Service.Services
             }
         }
 
+        public List<ServiceInfo> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
         public ServiceInfo Read(string name)
         {
             try

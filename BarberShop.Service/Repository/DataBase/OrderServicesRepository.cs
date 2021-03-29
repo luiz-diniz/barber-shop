@@ -53,6 +53,11 @@ namespace BarberShop.Service.Repository.Database
             }
         }
 
+        public List<OrderServices> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
         public OrderServices Read(int orderInfoId)
         {
             string query = "select * from ServiceInfo si right join OrderServices os on si.id_service = os.id_service " +
