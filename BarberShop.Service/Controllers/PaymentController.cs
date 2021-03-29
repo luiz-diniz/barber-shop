@@ -1,6 +1,7 @@
 ﻿using BarberShop.Service.Models;
 using BarberShop.Service.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace BarberShop.Service.Controllers
 {
@@ -34,6 +35,13 @@ namespace BarberShop.Service.Controllers
         public Payment Read(string name)
         {
             return _paymentService.Read(name);
+        }
+
+        [HttpGet]
+        [Route("GetAllPayments")]
+        public List<Payment> GetAll()
+        {
+            return _paymentService.GetAll();
         }
 
         [HttpPut]

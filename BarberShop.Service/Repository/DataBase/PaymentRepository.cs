@@ -49,7 +49,32 @@ namespace BarberShop.Service.Repository.Database
 
         public List<Payment> GetAll()
         {
-            throw new NotImplementedException();
+            string query = "select * from payment";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    List<Payment> payments = new List<Payment>();
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        payments.Add(new Payment()
+                        {
+                            Id = Convert.ToInt32(reader["id_payment"]),
+                            Name = Convert.ToString(reader["name_payment"])
+                        });
+                    }
+
+                    return payments;
+                }
+            }
         }
 
         public Payment Read(string name)

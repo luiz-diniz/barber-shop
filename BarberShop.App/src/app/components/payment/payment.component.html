@@ -1,1 +1,33 @@
-<p>payment works!</p>
+<button type="button" class="btn mt-2 mb-2 my-dark my-btn-dark" (click)="this.showForm = !this.showForm">Add new</button>
+<div class="card mb-3" *ngIf="this.showForm">
+    <form #paymentForm="ngForm" (submit)="OnSubmit()" class="p-3">
+        <div class="form-group">
+            <label for="name">Payment Name</label>
+            <input type="text" class="form-control" name="name" [(ngModel)]="this.payment.name" required>
+        </div>
+        <button type="submit" [disabled]="!this.paymentForm.valid" class="btn my-dark my-btn-dark">Submit</button>
+    </form>
+</div>
+<h3>Payments</h3>
+<div class="container">
+    <div class="content" *ngFor="let payment of payments">
+        <div class="card mb-3">
+            <div class="card-header d-flex justify-content-between">
+              <h4>
+                {{payment.name}}
+              </h4>
+              <button (click)="payment.hide = !payment.hide" class="btn my-dark my-btn-dark btn-sm ml-">
+                <i [ngClass]="!payment.hide ? 'fa fa-plus' : 'fa fa-minus'"></i>
+              </button>
+            </div>
+            <ul class="list-group p-3 list-unstyled" *ngIf="payment.hide">
+              <li class="list-item">Name: {{this.payment.name}}</li>
+              <hr>  
+              <li class="list-item">
+                <button type="button" class="btn btn-success btn-sm mr-2" (click)="EditInput(payment)"><i class="fas fa-edit"></i></button>
+                <button type="button" class="btn btn-danger btn-sm" (click)="Delete(payment)"><i class="fas fa-trash-alt"></i></button>
+             </li>
+            </ul> 
+          </div>
+    </div>
+</div>

@@ -58,7 +58,21 @@ namespace BarberShop.Service.Services
 
         public List<Payment> GetAll()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var result = _paymentRepository.GetAll();
+
+                if (result == null) throw new Exception("Null values from the database.");
+
+                _logger.CreateLog("Database", "GetAllPayments");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.ToString());
+                throw ex;
+            }
         }
 
         public Payment Read(string name)

@@ -17,10 +17,26 @@ namespace BarberShop.Tests
         private int _id = 666;
         private string _name = "Money";
 
+        private List<Payment> _payments;
+
         public PaymentServiceTests()
         {
             _paymentRepository = new Mock<IPaymentRepository>();
             _logger = new Mock<ILogger>();
+
+            _payments = new List<Payment>()
+            {
+                new Payment()
+                {
+                    Id = _id,
+                    Name = _name
+                },
+                new Payment()
+                {
+                    Id = _id,
+                    Name = _name
+                }
+            };
         }
 
         [Fact]
@@ -288,6 +304,40 @@ namespace BarberShop.Tests
             var instance = GetInstance();
 
             instance.Update(payment);
+
+            _logger.Verify();
+            _paymentRepository.Verify();
+        }
+
+        [Fact]
+        public void GetAllNullPaymentsTest()
+        {
+            List<Payment> payments = null;
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+            _paymentRepository.Setup(x => x.GetAll()).Returns(payments);
+
+            var instance = GetInstance();
+
+            Assert.Throws<Exception>(() => instance.GetAll());
+
+            _logger.Verify();
+            _paymentRepository.Verify();            
+        }
+
+        [Fact]
+        public void GetAllPaymentsTest()
+        {
+            List<Payment> payments = _payments;
+
+            _logger.Setup(x => x.CreateLog("Database", "GetAllPayments"));
+            _paymentRepository.Setup(x => x.GetAll()).Returns(payments);
+
+            var instance = GetInstance();
+
+            var result = instance.GetAll();
+
+            Assert.IsAssignableFrom<List<Payment>>(result);
 
             _logger.Verify();
             _paymentRepository.Verify();
