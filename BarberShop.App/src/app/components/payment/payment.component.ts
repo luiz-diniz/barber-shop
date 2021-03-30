@@ -40,6 +40,7 @@ export class PaymentComponent implements OnInit {
     this.service.Create(this.payment, api).subscribe(
       success => {
         this.ResetForm();
+        this.GetAllPayments();
         this.showForm = false;
       }, 
       err => {
