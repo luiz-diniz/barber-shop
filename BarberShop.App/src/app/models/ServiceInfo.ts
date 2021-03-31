@@ -1,6 +1,7 @@
 export class ServiceInfo{
-    id: number; 
+    id?: number; 
     name: string; 
     description: string; 
     value: number; 
+    hide: boolean;
 }

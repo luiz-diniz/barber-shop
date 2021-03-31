@@ -20,7 +20,9 @@ export class ServiceInfoComponent implements OnInit {
 
   constructor(private service: WebapiService<ServiceInfo, any>) { 
     this.serviceInfo = new ServiceInfo();
+    this.serviceInfo.value = 0;
     this.servicesInfo = [];
+    this.GetAllServices();
   }
 
   ngOnInit(): void {
@@ -28,7 +30,7 @@ export class ServiceInfoComponent implements OnInit {
 
   OnSubmit(){
     if(this.isEditing === true){
-
+      this.Edit();
     }else{
       this.Create();
     }
@@ -44,9 +46,11 @@ export class ServiceInfoComponent implements OnInit {
         this.showForm = false;
         this.isEditing = false;
         this.GetAllServices();
+        this.ResetForm();
       }, 
       err => {
         console.log(err);
+        alert('Error: Contact the administrator.')
       }
     )
   }
@@ -60,7 +64,52 @@ export class ServiceInfoComponent implements OnInit {
       }, 
       err => {
         console.log(err);
+        alert('Error: Contact the administrator.')
       }
     )
+  }
+
+  Edit(){
+    const api = `${this.serviceInfoApi}UpdateServiceInfo`;
+    this.service.Edit(this.serviceInfo, api).subscribe(
+      success => {
+        this.showForm = false;
+        this.isEditing = false;
+        this.GetAllServices();
+      },
+      err => {
+        console.log(err);
+        alert('Error: Contact the administrator.')
+      }
+    )
+  }
+
+  EditInput(serviceInfo: ServiceInfo){
+    this.showForm = true;
+    this.isEditing = true;
+    this.serviceInfo = serviceInfo;
+  }
+
+  Delete(serviceInfo: ServiceInfo){
+    const api = `${this.serviceInfoApi}DeleteServiceInfo`;
+    this.service.Delete(serviceInfo, api).subscribe(
+      success => {
+        this.GetAllServices();
+        this.ResetForm();
+      },
+      err => {
+        console.log(err);
+        alert('Error: Contact the administrator.')
+      }
+    )
+  }
+
+  ResetForm(){
+    this.serviceInfo = {
+      name: '',
+      description: '',
+      value: 0,
+      hide: true
+    }
   }
 }
