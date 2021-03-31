@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { EmployeeComponent } from '../components/employee/employee.component';
 import { CustomerComponent } from '../components/customer/customer.component';
 import { PaymentComponent } from '../components/payment/payment.component';
+import { ServiceInfoComponent } from '../components/service-info/service-info.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: 'payment',
     component: PaymentComponent
+  },
+  {
+    path: 'services',
+    component: ServiceInfoComponent
   }
 ]
 
