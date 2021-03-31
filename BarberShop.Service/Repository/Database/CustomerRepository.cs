@@ -95,9 +95,9 @@ namespace BarberShop.Service.Repository.ModelsRepository
                 {
                     cmd.CommandType = CommandType.Text;
 
-                    List<Customer> customers = new List<Customer>();
-
                     SqlDataReader reader = cmd.ExecuteReader();
+
+                    List<Customer> customers = new List<Customer>();
 
                     while (reader.Read())
                     {

@@ -59,9 +59,9 @@ namespace BarberShop.Service.Repository.Database
                 {
                     cmd.CommandType = CommandType.Text;
 
-                    List<Payment> payments = new List<Payment>();
-
                     SqlDataReader reader = cmd.ExecuteReader();
+
+                    List<Payment> payments = new List<Payment>();
 
                     while (reader.Read())
                     {

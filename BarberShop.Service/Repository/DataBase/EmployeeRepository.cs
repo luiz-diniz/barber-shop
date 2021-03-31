@@ -63,9 +63,9 @@ namespace BarberShop.Service.Repository.Database
                 {
                     cmd.CommandType = CommandType.Text;
 
-                    List<Employee> employees = new List<Employee>();
-
                     SqlDataReader reader = cmd.ExecuteReader();
+
+                    List<Employee> employees = new List<Employee>();
 
                     while (reader.Read())
                     {
