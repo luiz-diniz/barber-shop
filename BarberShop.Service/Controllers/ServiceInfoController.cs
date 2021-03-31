@@ -1,6 +1,7 @@
 ﻿using BarberShop.Service.Models;
 using BarberShop.Service.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace BarberShop.Service.Controllers
 {
@@ -34,6 +35,13 @@ namespace BarberShop.Service.Controllers
         public ServiceInfo Read(string name)
         {
             return _serviceInfoService.Read(name);
+        }
+
+        [HttpGet]
+        [Route("GetAllServices")]
+        public List<ServiceInfo> GetAll()
+        {
+            return _serviceInfoService.GetAll();
         }
 
         [HttpPut]

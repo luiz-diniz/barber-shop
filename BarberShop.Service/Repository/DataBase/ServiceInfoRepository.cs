@@ -51,7 +51,34 @@ namespace BarberShop.Service.Repository.Database
 
         public List<ServiceInfo> GetAll()
         {
-            throw new NotImplementedException();
+            string query = "select * from serviceInfo";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    List<ServiceInfo> services = new List<ServiceInfo>();
+
+                    while (reader.Read())
+                    {
+                        services.Add(new ServiceInfo()
+                        {
+                            Id = Convert.ToInt32(reader["id_service"]),
+                            Name = Convert.ToString(reader["name_service"]),
+                            Description = Convert.ToString(reader["description_service"]),
+                            Value = Convert.ToDecimal(reader["value_service"])
+                        });
+                    }
+
+                    return services;
+                }
+            }
         }
 
         public ServiceInfo Read(string name)

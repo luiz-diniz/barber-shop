@@ -14,11 +14,13 @@ export class ServiceInfoComponent implements OnInit {
   isEditing: boolean = false;
   
   serviceInfo: ServiceInfo;
+  servicesInfo: ServiceInfo[];
 
   serviceInfoApi: string = "api/serviceinfo/";
 
   constructor(private service: WebapiService<ServiceInfo, any>) { 
     this.serviceInfo = new ServiceInfo();
+    this.servicesInfo = [];
   }
 
   ngOnInit(): void {
@@ -34,15 +36,30 @@ export class ServiceInfoComponent implements OnInit {
 
   Create(){
     this.serviceInfo.value = parseFloat(this.serviceInfo.value.toString());
-    console.log(this.serviceInfo)
-    const api = `${this.serviceInfoApi}CreateServiceInfo`
+
+    const api = `${this.serviceInfoApi}CreateServiceInfo`;
+
     this.service.Create(this.serviceInfo, api).subscribe(
       success => {
-        console.log("foi");
+        this.showForm = false;
+        this.isEditing = false;
+        this.GetAllServices();
       }, 
       err => {
         console.log(err);
-        console.log("erro");
+      }
+    )
+  }
+
+  GetAllServices(){
+    const api = `${this.serviceInfoApi}GetAllServices`;
+    this.service.GetAll(api).subscribe(
+      servicesInfo => {
+        this.servicesInfo = servicesInfo;
+        console.log(this.servicesInfo);
+      }, 
+      err => {
+        console.log(err);
       }
     )
   }

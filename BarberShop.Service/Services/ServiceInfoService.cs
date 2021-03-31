@@ -60,7 +60,21 @@ namespace BarberShop.Service.Services
 
         public List<ServiceInfo> GetAll()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var result = _serviceInfoRepository.GetAll();
+
+                if (result == null) throw new Exception("Null values from the database.");
+
+                _logger.CreateLog("Database", "GetAllServiceInfo");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.ToString());
+                throw ex;
+            }
         }
 
         public ServiceInfo Read(string name)
