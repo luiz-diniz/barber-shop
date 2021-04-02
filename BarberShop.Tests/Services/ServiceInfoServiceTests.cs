@@ -20,10 +20,30 @@ namespace BarberShop.Tests
         private string _description = "Description";
         private decimal _value = 10.90m;
 
+        private List<ServiceInfo> _servicesInfo;
+
         public ServiceInfoServiceTests()
         {
             _serviceInfoRepository = new Mock<IServiceInfoRepository>();
             _logger = new Mock<ILogger>();
+
+            _servicesInfo = new List<ServiceInfo>()
+            {
+                new ServiceInfo()
+                {
+                    Id = _id,
+                    Name = _name,
+                    Description = _description,
+                    Value = _value
+                },
+                new ServiceInfo()
+                {
+                    Id = _id,
+                    Name = _name,
+                    Description = _description,
+                    Value = _value
+                }
+            };
         }
 
         [Fact]
@@ -389,6 +409,40 @@ namespace BarberShop.Tests
             var instance = GetInstance();
 
             instance.Update(serviceInfo);
+
+            _logger.Verify();
+            _serviceInfoRepository.Verify();
+        }
+
+        [Fact]
+        public void GetAllServicesNullTest()
+        {
+            List<ServiceInfo> servicesInfo = null;
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+            _serviceInfoRepository.Setup(x => x.GetAll()).Returns(servicesInfo);
+
+            var instance = GetInstance();
+
+            Assert.Throws<Exception>(() => instance.GetAll());
+
+            _logger.Verify();
+            _serviceInfoRepository.Verify();
+        }
+
+        [Fact]
+        public void GetAllServicesTest()
+        {
+            var servicesInfo = _servicesInfo;
+
+            _logger.Setup(x => x.CreateLog("Database", "GetAllServices"));
+            _serviceInfoRepository.Setup(x => x.GetAll()).Returns(servicesInfo);
+
+            var instance = GetInstance();
+
+            var result = instance.GetAll();
+
+            Assert.IsAssignableFrom<List<ServiceInfo>>(result);
 
             _logger.Verify();
             _serviceInfoRepository.Verify();
