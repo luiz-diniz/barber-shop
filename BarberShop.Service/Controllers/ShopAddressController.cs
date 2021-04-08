@@ -1,6 +1,7 @@
 ﻿using BarberShop.Service.Models;
 using BarberShop.Service.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace BarberShop.Service.Controllers
 {
@@ -34,6 +35,13 @@ namespace BarberShop.Service.Controllers
         public ShopAddress Read(string name)
         {
             return _shopAddressService.Read(name);
+        }
+
+        [HttpGet]
+        [Route("GetAllShopAddresses")]
+        public List<ShopAddress> GetAll()
+        {
+            return _shopAddressService.GetAll();
         }
 
         [HttpPut]

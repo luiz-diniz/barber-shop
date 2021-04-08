@@ -62,7 +62,21 @@ namespace BarberShop.Service.Services
 
         public List<ShopAddress> GetAll()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var result = _shopAddressRepository.GetAll();
+
+                if (result == null) throw new Exception("Null values from the database.");
+
+                _logger.CreateLog("Database", "GetAllShopAddresses");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.ToString());
+                throw ex;
+            }
         }
 
         public ShopAddress Read(string name)

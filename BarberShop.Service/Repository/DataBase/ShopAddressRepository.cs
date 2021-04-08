@@ -55,12 +55,41 @@ namespace BarberShop.Service.Repository.Database
 
         public List<ShopAddress> GetAll()
         {
-            throw new NotImplementedException();
+            string query = "select * from shopAddress";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    List<ShopAddress> shopAddresses = new List<ShopAddress>();
+
+                    while (reader.Read())
+                    {
+                        shopAddresses.Add(new ShopAddress()
+                        {
+                            Id = Convert.ToInt32(reader["id_shop"]),
+                            Name = Convert.ToString(reader["name_shop"]),
+                            Street = Convert.ToString(reader["street_shop"]),
+                            Number = Convert.ToInt32(reader["number_shop"]),
+                            City = Convert.ToString(reader["city_shop"]),
+                            State = Convert.ToString(reader["state_shop"])
+                        });
+                    }
+
+                    return shopAddresses;
+                }
+            }
         }
 
         public ShopAddress Read(string name)
         {
-            string query = "select * from shopaddress where name_shop = @P0";
+            string query = "select * from shopAddress where name_shop = @P0";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
