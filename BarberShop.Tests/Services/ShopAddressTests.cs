@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using BarberShop.Service.Models;
+using BarberShop.Service.Utilities;
 
 namespace BarberShop.Tests
 {

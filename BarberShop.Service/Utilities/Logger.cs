@@ -1,9 +1,10 @@
 ﻿using BarberShop.Service.Repository.Interfaces;
+using BarberShop.Service.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace BarberShop.Service.Repository.IO
+namespace BarberShop.Service.Utilities
 {
     public class Logger : ILogger
     {

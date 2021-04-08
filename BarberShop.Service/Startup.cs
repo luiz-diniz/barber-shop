@@ -1,7 +1,6 @@
 using BarberShop.Service.Repository.Interfaces;
 using BarberShop.Service.Services;
 using BarberShop.Service.Services.Interfaces;
-using BarberShop.Service.Repository.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -11,8 +10,8 @@ using Microsoft.Extensions.Hosting;
 using BarberShop.Service.Repository.Database;
 using BarberShop.Service.Repository.ModelsRepository;
 using BarberShop.Service.Repository.Interfaces.ModelsRepository;
-using BarberShop.Service.Utilities;
 using BarberShop.Service.Repository.Interfaces.Database;
+using BarberShop.Service.Utilities;
 
 namespace BarberShop.Service
 {

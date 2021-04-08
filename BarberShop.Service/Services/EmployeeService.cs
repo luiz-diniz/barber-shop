@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using BarberShop.Service.Models;
-using BarberShop.Service.Repository.Interfaces;
 using BarberShop.Service.Repository.Interfaces.ModelsRepository;
 using BarberShop.Service.Services.Interfaces;
 using BarberShop.Service.Utilities;
