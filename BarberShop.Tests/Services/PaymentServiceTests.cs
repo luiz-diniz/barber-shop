@@ -219,7 +219,9 @@ namespace BarberShop.Tests
 
             var instance = GetInstance();
 
-            instance.Read(name);
+            var result = instance.Read(name);
+
+            Assert.NotNull(result);
 
             _logger.Verify();
             _paymentRepository.Verify();
@@ -338,7 +340,7 @@ namespace BarberShop.Tests
 
             var result = instance.GetAll();
 
-            Assert.IsAssignableFrom<List<Payment>>(result);
+            Assert.NotNull(result);
 
             _logger.Verify();
             _paymentRepository.Verify();

@@ -378,9 +378,10 @@ namespace BarberShop.Tests
             _employeeRepository.Setup(x => x.Read(cpf)).Returns(employee);
 
             var instance = GetInstance();
+
             var result = instance.Read(cpf);
 
-            Assert.IsAssignableFrom<Employee>(result);
+            Assert.NotNull(result);
 
             _logger.Verify();
             _employeeRepository.Verify();
@@ -569,7 +570,7 @@ namespace BarberShop.Tests
 
             var result = instance.GetAll();
 
-            Assert.IsAssignableFrom<List<Employee>>(result);
+            Assert.NotNull(result);
 
             _logger.Verify();
             _employeeRepository.Verify();

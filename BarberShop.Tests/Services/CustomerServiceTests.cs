@@ -315,7 +315,7 @@ namespace BarberShop.Tests
 
             var result = instance.Read(cpf);
 
-            Assert.IsAssignableFrom<Customer>(result);
+            Assert.NotNull(result);
 
             _logger.Verify();
             _customerRepository.Verify();
@@ -385,7 +385,7 @@ namespace BarberShop.Tests
 
             var result = instance.GetAll();
 
-            Assert.IsAssignableFrom<List<Customer>>(result);
+            Assert.NotNull(result);
 
             _logger.Verify();
             _customerRepository.Verify();

@@ -21,11 +21,31 @@ namespace BarberShop.Tests
         private int _number = 100;
         private string _city = "City";
         private string _state = "State";
+        private List<ShopAddress> _shopAddresses;
 
         public ShopAddressTests()
         {
             _shopAddressRepository = new Mock<IShopAddressRepository>();
             _logger = new Mock<ILogger>();
+            _shopAddresses = new List<ShopAddress>()
+            {
+                new ShopAddress()
+                {
+                    Id = _id,
+                    Name = _name,
+                    Number = _number,
+                    City = _city,
+                    State = _state
+                },
+                new ShopAddress()
+                {
+                    Id = _id,
+                    Name = _name,
+                    Number = _number,
+                    City = _city,
+                    State = _state
+                }
+            };        
         }
 
         [Fact]
@@ -357,7 +377,9 @@ namespace BarberShop.Tests
 
             var instance = GetInstance();
 
-            instance.Read(name);
+            var result = instance.Read(name);
+
+            Assert.NotNull(result);
 
             _logger.Verify();
             _shopAddressRepository.Verify();
@@ -584,6 +606,40 @@ namespace BarberShop.Tests
             var instance = GetInstance();
 
             instance.Update(shopAddress);
+
+            _logger.Verify();
+            _shopAddressRepository.Verify();
+        }
+
+        [Fact]
+        public void GetAllNullShopAddressesTest()
+        {
+            List<ShopAddress> shopAddresses = null;
+
+            _logger.Setup(x => x.CreateLog("Error", "Exception Message"));
+            _shopAddressRepository.Setup(x => x.GetAll()).Returns(shopAddresses);
+
+            var instance = GetInstance();
+
+            Assert.Throws<Exception>(() => instance.GetAll());
+
+            _logger.Verify();
+            _shopAddressRepository.Verify();
+        }
+
+        [Fact]
+        public void GetAllShopAddressesTest()
+        {
+            List<ShopAddress> shopAddresses = _shopAddresses;
+
+            _logger.Setup(x => x.CreateLog("Database", "GetAllShopAddresses"));
+            _shopAddressRepository.Setup(x => x.GetAll()).Returns(shopAddresses);
+
+            var instance = GetInstance();
+
+            var result = instance.GetAll();
+
+            Assert.NotNull(result);
 
             _logger.Verify();
             _shopAddressRepository.Verify();
