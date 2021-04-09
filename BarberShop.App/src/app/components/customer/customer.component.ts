@@ -39,8 +39,6 @@ export class CustomerComponent implements OnInit {
 
   Create(){ 
     const api = `${this.customerApi}CreateCustomer`;
-    console.log(api);
-    console.log(this.customer);
     this.service.Create(this.customer, api).subscribe(
       success =>{
         this.ResetForm();
