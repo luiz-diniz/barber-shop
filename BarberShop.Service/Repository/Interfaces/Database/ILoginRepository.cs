@@ -8,6 +8,7 @@ namespace BarberShop.Service.Repository.Interfaces.Database
 {
     public interface ILoginRepository
     {
-        Employee GetEmployee(string username);
+        Employee Login(string username, string password);
+        void Logout(Employee employee);
     }
 }

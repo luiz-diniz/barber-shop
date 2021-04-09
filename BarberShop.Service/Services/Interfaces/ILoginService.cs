@@ -8,6 +8,7 @@ namespace BarberShop.Service.Services.Interfaces
 {
     public interface ILoginService
     {
-        bool Login(string username, string password);
+        Employee Login(string username, string password);
+        void Logout(Employee employee);
     }
 }
