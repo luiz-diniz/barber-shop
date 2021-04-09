@@ -1,1 +1,26 @@
-<p>shop-address works!</p>
+<button type="button" class="btn mt-2 mb-2 my-dark my-btn-dark" (click)="this.showForm = !this.showForm">Add new</button>
+<div class="card mb-3" *ngIf="this.showForm">
+    <form #shopAddressForm="ngForm" (submit)="OnSubmit()" class="p-3">
+        <div class="form-group">
+            <label for="name">Shop name</label>
+            <input type="text" class="form-control" name="name" [(ngModel)]="this.shopAddress.name" required>
+        </div>
+        <div class="form-group">
+            <label for="name">Street</label>
+            <input type="text" class="form-control" name="street" [(ngModel)]="this.shopAddress.street" required>
+        </div>
+        <div class="form-group">
+            <label for="number">Number</label>
+            <input type="number" class="form-control" name="number" [(ngModel)]="this.shopAddress.number" required>
+        </div>
+        <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" class="form-control" name="city" [(ngModel)]="this.shopAddress.city" required>
+        </div>
+        <div class="form-group">
+            <label for="state">State</label>
+            <input type="text" class="form-control" name="state" [(ngModel)]="this.shopAddress.state" required>
+        </div>
+        <button type="submit" [disabled]="!shopAddressForm.form.valid" class="btn my-dark my-btn-dark">Submit</button>
+    </form>
+</div>
