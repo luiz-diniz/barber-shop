@@ -24,3 +24,35 @@
         <button type="submit" [disabled]="!shopAddressForm.form.valid" class="btn my-dark my-btn-dark">Submit</button>
     </form>
 </div>
+<h3>Shops</h3>
+<hr>
+<div class="container">
+    <div class="content" *ngFor="let shop of shopAddresses">
+        <div class="card mb-3">
+            <div class="card-header d-flex justify-content-between">
+                <h4>
+                  {{shop.name}}
+                </h4>
+                <button (click)="shop.hide = !shop.hide" class="btn my-dark my-btn-dark btn-sm ml-">
+                  <i [ngClass]="!shop.hide ? 'fa fa-plus' : 'fa fa-minus'"></i>
+                </button>
+              </div>
+              <ul class="list-group p-3 list-unstyled" *ngIf="shop.hide">
+            <li class="list-item">Name: {{shop.name}}</li>
+            <hr>
+            <li class="list-item">Street: {{shop.street}}</li>
+            <hr>
+            <li class="list-item">Number: {{shop.number}}</li>
+            <hr>
+            <li class="list-item">City: {{shop.city}}</li>
+            <hr>
+            <li class="list-item">State: {{shop.state}}</li>
+            <hr>
+            <li class="list-item">
+              <button type="button" class="btn btn-success btn-sm mr-2" (click)="EditInput(shop)"><i class="fas fa-edit"></i></button>
+              <button type="button" class="btn btn-danger btn-sm" (click)="Delete(shop)"><i class="fas fa-trash-alt"></i></button>
+           </li>
+          </ul> 
+        </div>   
+    </div>
+</div>

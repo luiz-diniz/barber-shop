@@ -9,11 +9,11 @@ import { WebapiService } from 'src/app/services/webapi.service';
 })
 export class ShopAddressComponent implements OnInit {
 
-  showForm: boolean = false;
-  isEditing: boolean = false;
-
   shopAddress: ShopAddress;
   shopAddresses: ShopAddress[];
+
+  showForm: boolean = false;
+  isEditing: boolean = false;
 
   shopAddressApi: string = "api/shopAddress/";
 
@@ -45,20 +45,67 @@ export class ShopAddressComponent implements OnInit {
       }, 
       err =>{
         console.log(err);
-        alert('Error: Contact the administrator.')
+        alert('Error: Contact the administrator.');
+      }
+    )
+  }
+
+  Delete(shop: ShopAddress){
+    const api = `${this.shopAddressApi}DeleteShopAddress`;
+    this.service.Delete(shop, api).subscribe(
+      success => {
+        this.GetAllShopAddresses();
+        this.ResetForm();
+      },
+      err => {
+        console.log(err);
+        alert('Error: Contact the administrator.');
       }
     )
   }
 
   Edit(){
+    const api = `${this.shopAddressApi}UpdateShopAddress`;
+    this.service.Edit(this.shopAddress, api).subscribe(
+      success => {
+        this.ResetForm();
+        this.GetAllShopAddresses();
+        this.isEditing = false;
+        this.showForm = false;
+      },
+      err =>{
+        console.log(err);
+        alert('Error: Contact the administrator.');
+      }
+    )
+  }
 
+  EditInput(shop: ShopAddress){
+    this.showForm = true;
+    this.isEditing = true;
+    this.shopAddress = shop;
   }
 
   GetAllShopAddresses(){
-
+    const api = `${this.shopAddressApi}GetAllShopAddresses`
+    this.service.GetAll(api).subscribe(
+      shops => {
+        this.shopAddresses = shops;
+      },
+      err => {
+        console.log(err);
+        alert('Error: Contact the administrator.');
+      }
+    )
   }
 
   ResetForm(){
-
+    this.shopAddress = {
+      name: '',
+      street: '',      
+      number: 0,
+      city: '',
+      state: ''
+    }
   }
 }
