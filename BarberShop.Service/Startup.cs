@@ -70,11 +70,13 @@ namespace BarberShop.Service
             app.UseCors("AllowAnyOrigin");
             app.UseMvc();
 
+            env.ApplicationName = "BarberShop Service";
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGet("/", async context =>
                 {
-                    await context.Response.WriteAsync("Hello World!");
+                    await context.Response.WriteAsync($"{env.ApplicationName} running at localhost");
                 });
             });
         }
