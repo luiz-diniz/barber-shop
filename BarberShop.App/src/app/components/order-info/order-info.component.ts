@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { OrderInfo } from 'src/app/models/OrderInfo';
+import { WebapiService } from 'src/app/services/webapi.service';
 
 @Component({
   selector: 'app-order-info',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderInfoComponent implements OnInit {
 
-  constructor() { }
+  constructor(private service: WebapiService<OrderInfo, any>) { }
+  
+  
 
   ngOnInit(): void {
+
   }
 
+  GetAllOrders(){
+
+  }
 }

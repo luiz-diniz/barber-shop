@@ -8,6 +8,7 @@ import { PaymentComponent } from '../components/payment/payment.component';
 import { ServiceInfoComponent } from '../components/service-info/service-info.component';
 import { ShopAddressComponent } from '../components/shop-address/shop-address.component';
 import { LoginComponent } from '../components/login/login.component';
+import { OrderInfoComponent } from '../components/order-info/order-info.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'order',
+    component: OrderInfoComponent
   }
 ]
 
