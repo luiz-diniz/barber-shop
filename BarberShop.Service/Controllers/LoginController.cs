@@ -28,9 +28,9 @@ namespace BarberShop.Service.Controllers
 
         [HttpPost]
         [Route("logout")]
-        public void Logout()
+        public void Logout(Employee employee)
         {
-            _loginService.Logout();
+            _loginService.Logout(employee);
         }
     }
 }
