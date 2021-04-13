@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Employee } from 'src/app/models/employee';
+import { Employee } from 'src/app/models/Employee';
 import { FormatService } from 'src/app/services/format.service';
 import { WebapiService } from 'src/app/services/webapi.service';
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Employee } from 'src/app/models/employee';
+import { Employee } from 'src/app/models/Employee';
 
 @Component({
   selector: 'app-login',

@@ -1,5 +1,5 @@
-import { Customer } from "./customer";
-import { Employee } from "./employee";
+import { Customer } from "./Customer";
+import { Employee } from "./Employee";
 import { ShopAddress } from "./ShopAddress";
 
 export class OrderInfo{

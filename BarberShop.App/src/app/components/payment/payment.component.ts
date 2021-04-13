@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Payment } from 'src/app/models/payment';
+import { Payment } from 'src/app/models/Payment';
 import { WebapiService } from 'src/app/services/webapi.service';
 
 @Component({

@@ -1,5 +1,5 @@
 import { OrderInfo } from "./OrderInfo";
-import { Payment } from "./payment";
+import { Payment } from "./Payment";
 
 export class OrderPayment{
     public Id: number; 
