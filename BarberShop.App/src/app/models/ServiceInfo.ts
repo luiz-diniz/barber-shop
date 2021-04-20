@@ -4,4 +4,5 @@ export class ServiceInfo{
     description: string; 
     value: number; 
     hide: boolean;
+    isChecked?: boolean;
 }
