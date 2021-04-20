@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { forkJoin } from 'rxjs';
 import { Customer } from 'src/app/models/Customer';
 import { Employee } from 'src/app/models/Employee';
 import { OrderInfo } from 'src/app/models/OrderInfo';
+import { Payment } from 'src/app/models/Payment';
 import { ShopAddress } from 'src/app/models/ShopAddress';
 import { FormatService } from 'src/app/services/format.service';
 import { WebapiService } from 'src/app/services/webapi.service';
@@ -15,8 +17,8 @@ export class OrderInfoComponent implements OnInit {
 
   orderInfo: OrderInfo;
   orders: OrderInfo[];
-
   addresses: ShopAddress[];
+  payments: Payment[];
 
   showForm: boolean = false;
   isEditing: boolean = false;
@@ -31,8 +33,9 @@ export class OrderInfoComponent implements OnInit {
 
       this.orders = [];
       this.addresses = [];
+      this.payments = [];
 
-      this.GetAllAddresses();
+      this.LoadData();
      }
   
   ngOnInit(): void {
@@ -42,16 +45,29 @@ export class OrderInfoComponent implements OnInit {
     console.log(0);
   }
 
-  GetAllAddresses(){
-    const api = "api/shopAddress/GetAllShopAddresses";
-    this.service.GetAll(api).subscribe(
-      shops => {
-        this.addresses = shops;
-        console.log(this.addresses);
-      }, 
-      err =>{
+  GetCustomer(){
+    const api = `api/customer/ReadCustomer/${this.orderInfo.customerInfo.cpf}`;
+    this.service.Get(api).subscribe(
+      customer => {
+        this.orderInfo.customerInfo = customer;
+      },
+      err => {
         console.log(err);
         alert('Error: Contact the administrator.')
+      }
+    )
+  }
+
+  LoadData(){
+    const paymentsApi = this.service.GetAll("api/payment/GetAllPayments");
+    const addressesApi = this.service.GetAll("api/shopAddress/GetAllShopAddresses");
+
+    const observales = [paymentsApi, addressesApi];
+
+    forkJoin(observales).subscribe(
+      result => {
+        this.payments = result[0],
+        this.addresses = result[1]
       }
     )
   }
