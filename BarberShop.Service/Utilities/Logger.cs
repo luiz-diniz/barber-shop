@@ -8,6 +8,8 @@ namespace BarberShop.Service.Utilities
 {
     public class Logger : ILogger
     {
+        object _lock = new object();
+
         public void CreateLog(string header, string log)
         {
             string fileName = $"{DateTime.Now.Year}_{DateTime.Now.Month}_{DateTime.Now.Day}";
@@ -18,13 +20,17 @@ namespace BarberShop.Service.Utilities
                 Directory.CreateDirectory($@"../logs/");
             }
 
-            using (StreamWriter sw = new StreamWriter(path, true))
+            lock (_lock)
             {
-                sw.WriteLine($"---{header}---");
-                sw.WriteLine($"{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}_{DateTime.Now.Hour}h{DateTime.Now.Minute}m{DateTime.Now.Second}s");
-                sw.WriteLine(log);
-                sw.Write("\n\n");
+                using (StreamWriter sw = new StreamWriter(path, true))
+                {
+                    sw.WriteLine($"---{header}---");
+                    sw.WriteLine($"{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}_{DateTime.Now.Hour}h{DateTime.Now.Minute}m{DateTime.Now.Second}s");
+                    sw.WriteLine(log);
+                    sw.Write("\n\n");
+                }
             }
+            
         }
 
         public void CreateLog(string header, string log, string type, string[] data)
@@ -37,19 +43,22 @@ namespace BarberShop.Service.Utilities
                 Directory.CreateDirectory($@"../logs/");
             }
 
-            using (StreamWriter sw = new StreamWriter(path, true))
+            lock (_lock)
             {
-                sw.WriteLine($"---{header}---");
-                sw.WriteLine($"{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}_{DateTime.Now.Hour}h{DateTime.Now.Minute}m{DateTime.Now.Second}s");
-                sw.WriteLine(log);
-                sw.WriteLine(type);
-                sw.WriteLine("Data:");
-                for (int i = 0;i < data.Length;i++)
+                using (StreamWriter sw = new StreamWriter(path, true))
                 {
-                    sw.WriteLine(data[i]);
+                    sw.WriteLine($"---{header}---");
+                    sw.WriteLine($"{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}_{DateTime.Now.Hour}h{DateTime.Now.Minute}m{DateTime.Now.Second}s");
+                    sw.WriteLine(log);
+                    sw.WriteLine(type);
+                    sw.WriteLine("Data:");
+                    for (int i = 0; i < data.Length; i++)
+                    {
+                        sw.WriteLine(data[i]);
+                    }
+                    sw.Write("\n\n");
                 }
-                sw.Write("\n\n");
-            }
+            } 
         }
     }
 }
