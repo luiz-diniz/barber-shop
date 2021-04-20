@@ -9,6 +9,7 @@
             [ngClass]="{'is-invalid': CustomerCpf.errors && CustomerCpf.touched}"
             required 
             mask="000.000.000-00"
+            placeholder="000.000.000-00" 
             #CustomerCpf="ngModel">
             <div class="invalid-feedback" [hidden]="!CustomerCpf.errors">
               Digit a valid CPF. Ex.: 000.000.000-00

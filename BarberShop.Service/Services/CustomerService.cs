@@ -65,7 +65,7 @@ namespace BarberShop.Service.Services
 
                 customer = _customerRepository.Read(cpf);
 
-                _logger.CreateLog("Database", "Update", "Customer", new string[] { customer.Id.ToString(), customer.Cpf, customer.Name, customer.Birth.ToString() });
+                _logger.CreateLog("Database", "Read", "Customer", new string[] { customer.Id.ToString(), customer.Cpf, customer.Name, customer.Birth.ToString() });
 
                 return customer;
             }
