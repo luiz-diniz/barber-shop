@@ -5,22 +5,34 @@
             <label for="name">Shop name</label>
             <input type="text" class="form-control" name="name" [(ngModel)]="this.shopAddress.name" required>
         </div>
-        <div class="form-group">
-            <label for="name">Street</label>
-            <input type="text" class="form-control" name="street" [(ngModel)]="this.shopAddress.street" required>
-        </div>
-        <div class="form-group">
-            <label for="number">Number</label>
-            <input type="number" class="form-control" name="number" [(ngModel)]="this.shopAddress.number" required>
-        </div>
-        <div class="form-group">
-            <label for="city">City</label>
-            <input type="text" class="form-control" name="city" [(ngModel)]="this.shopAddress.city" required>
-        </div>
-        <div class="form-group">
-            <label for="state">State</label>
-            <input type="text" class="form-control" name="state" [(ngModel)]="this.shopAddress.state" required>
-        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="name">Street</label>
+                    <input type="text" class="form-control" name="street" [(ngModel)]="this.shopAddress.street" required>
+                </div>
+            </div>
+            <div class="col col-md-4">
+                <div class="form-group">
+                    <label for="number">Number</label>
+                    <input type="number" class="form-control" name="number" [(ngModel)]="this.shopAddress.number" required>
+                </div>
+            </div>      
+        </div> 
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" class="form-control" name="city" [(ngModel)]="this.shopAddress.city" required>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="state">State</label>
+                    <input type="text" class="form-control" name="state" [(ngModel)]="this.shopAddress.state" required>
+                </div>
+            </div>  
+        </div>       
         <button type="submit" [disabled]="!shopAddressForm.form.valid" class="btn my-dark my-btn-dark">Submit</button>
     </form>
 </div>
