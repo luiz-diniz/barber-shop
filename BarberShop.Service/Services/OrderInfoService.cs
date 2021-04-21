@@ -19,21 +19,28 @@ namespace BarberShop.Service.Services
             _logger = logger;
         }
 
+        //TODO: Unit tests
         public void Create(OrderInfo orderInfo)
         {
-            orderInfo.OrderDate = DateTime.Now;
-
             try
             {
+                if (orderInfo == null) throw new ArgumentNullException();
+
+                if (orderInfo.CustomerInfo == null ||
+                    orderInfo.EmployeeInfo == null ||
+                    orderInfo.ShopAddressInfo == null ||
+                    orderInfo.PaymentInfo == null) throw new ArgumentException();
+
+                orderInfo.OrderDate = DateTime.Now;
+
                 _orderInfoRepository.Create(orderInfo);
+
+                _logger.CreateLog("Database", "Insert", "OrderInfo", new string[] { orderInfo.CustomerInfo.Cpf, orderInfo.EmployeeInfo.Cpf, orderInfo.ShopAddressInfo.Name, orderInfo.OrderDate.ToString() });
             }
             catch (Exception ex)
             {
                 _logger.CreateLog("Error", ex.ToString());
-            }
-            finally
-            {
-                _logger.CreateLog("Database", "Insert", "OrderInfo", new string[] { orderInfo.CustomerInfo.Cpf, orderInfo.EmployeeInfo.Cpf, orderInfo.ShopAddressInfo.Name, orderInfo.OrderDate.ToString() });
+                throw ex;
             }
         }
 
@@ -59,7 +66,8 @@ namespace BarberShop.Service.Services
             {
                 CustomerInfo = new Customer(),
                 EmployeeInfo = new Employee(),
-                ShopAddressInfo = new ShopAddress()
+                ShopAddressInfo = new ShopAddress(),
+                PaymentInfo = new List<Payment>()
             };
 
             try

@@ -62,7 +62,7 @@
         </div>
         <div class="d-flex justify-content-between">
             <p></p>
-            <h2>Total:  {{SumTotal() | currency: "R$"}}</h2>
+            <h2>Total:  {{this.total | currency: "R$"}}</h2>
         </div>
         <button type="submit" [disabled]="!orderInfoForm.form.valid || ValidateForm()" class="btn my-dark my-btn-dark">Submit</button>
     </form>

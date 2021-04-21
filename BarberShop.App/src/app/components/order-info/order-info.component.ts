@@ -29,7 +29,7 @@ export class OrderInfoComponent implements OnInit {
 
   showForm: boolean = false;
   isEditing: boolean = false;
-
+  total: number;
 
   constructor(private service: WebapiService<OrderInfo, any>,
     private format: FormatService) {
@@ -45,6 +45,8 @@ export class OrderInfoComponent implements OnInit {
       this.services = [];
       this.paymentsSelected = [];
       this.servicesSelected = [];
+      
+      this.total = 0;
 
       this.LoadData();
      }
