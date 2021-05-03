@@ -47,7 +47,6 @@ namespace BarberShop.Service
             services.AddSingleton<ILoginService, LoginService>();
             services.AddSingleton<ILoginRepository, LoginRepository>();
 
-
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAnyOrigin",

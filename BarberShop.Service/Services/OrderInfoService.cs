@@ -19,7 +19,6 @@ namespace BarberShop.Service.Services
             _logger = logger;
         }
 
-        //TODO: Unit tests
         public void Create(OrderInfo orderInfo)
         {
             try
@@ -28,8 +27,7 @@ namespace BarberShop.Service.Services
 
                 if (orderInfo.CustomerInfo == null ||
                     orderInfo.EmployeeInfo == null ||
-                    orderInfo.ShopAddressInfo == null ||
-                    orderInfo.PaymentInfo == null) throw new ArgumentException();
+                    orderInfo.ShopAddressInfo == null) throw new ArgumentException();
 
                 orderInfo.OrderDate = DateTime.Now;
 
@@ -67,7 +65,6 @@ namespace BarberShop.Service.Services
                 CustomerInfo = new Customer(),
                 EmployeeInfo = new Employee(),
                 ShopAddressInfo = new ShopAddress(),
-                PaymentInfo = new List<Payment>()
             };
 
             try
