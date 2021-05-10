@@ -1,5 +1,5 @@
 import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { forkJoin } from 'rxjs';
 import { Customer } from 'src/app/models/Customer';
 import { Employee } from 'src/app/models/Employee';
@@ -16,6 +16,8 @@ import { WebapiService } from 'src/app/services/webapi.service';
   styleUrls: ['./order-info.component.scss']
 })
 export class OrderInfoComponent implements OnInit {
+
+  @ViewChildren("checkboxes") checkboxes: QueryList<ElementRef>;
 
   orderInfo: OrderInfo;
   currentCpf: string;
@@ -45,17 +47,11 @@ export class OrderInfoComponent implements OnInit {
       this.services = [];
       this.paymentsSelected = [];
       this.servicesSelected = [];
-      
-      this.total = 0;
 
       this.LoadData();
      }
   
   ngOnInit(): void {
-  }
-
-  OnSubmit(){
-    console.log(0);
   }
 
   GetCustomer(){
@@ -72,14 +68,20 @@ export class OrderInfoComponent implements OnInit {
     )
   }
 
+  ShowForm(){
+    this.showForm = !this.showForm;
+
+    if(this.showForm){
+      this.Uncheck();
+    }
+  }
+
   SumTotal(){
-    let total = 0;
+    this.total = 0;
 
     for (let i = 0; i < this.servicesSelected.length; i++) {
-      total += this.servicesSelected[i].value;
+      this.total += this.servicesSelected[i].value;
     }
-
-    return total;
   }
 
   EditServiceList(service: ServiceInfo){
@@ -95,7 +97,6 @@ export class OrderInfoComponent implements OnInit {
     this.SumTotal();
   }
 
-
   EditPaymentList(payment: Payment){
     payment.isChecked = !payment.isChecked;
 
@@ -105,6 +106,19 @@ export class OrderInfoComponent implements OnInit {
       const index = this.paymentsSelected.indexOf(payment);
       this.paymentsSelected.splice(index, 1);
     }
+  }
+
+  Uncheck(){
+    this.servicesSelected.forEach((item) =>{
+      item.isChecked = false;
+    });
+
+    this.checkboxes.forEach((item) => {
+      item.nativeElement.checked = false;
+    })
+
+    this.servicesSelected = [];
+    this.total = 0;
   }
 
   LoadData(){
