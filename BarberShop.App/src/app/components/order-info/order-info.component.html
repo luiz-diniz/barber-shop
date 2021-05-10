@@ -42,7 +42,7 @@
             <label for="services">Services</label>
             <div class="form-check">
                 <div class="content" *ngFor="let service of services">
-                    <input #checkboxes class="form-check-input" type="checkbox" value="{{service.id}}" id="{{service.id}}" (change)="EditServiceList(service)">
+                    <input #servicesCheckbox class="form-check-input" type="checkbox" value="{{service.id}}" id="{{service.id}}" (change)="EditServiceList(service)">
                     <label class="form-check-label" for="{{service.id}}">
                       {{service.name}} - {{service.value | currency: "R$"}}
                     </label>
@@ -53,8 +53,8 @@
             <label>Payment Method</label>
             <div class="form-check">
                 <div class="content" *ngFor="let payment of payments">
-                    <input class="form-check-input" type="checkbox" value="{{payment.id}}" id="{{payment.id}}" (change)="EditPaymentList(payment)">
-                    <label class="form-check-label" for="{{payment.id}}">
+                    <input #paymentsCheckbox class="form-check-input" type="checkbox" value="{{payment.id}}" id="payment-{{payment.id}}" (change)="EditPaymentList(payment)">
+                    <label class="form-check-label" for="payment-{{payment.id}}">
                       {{payment.name}}
                     </label>
                 </div>

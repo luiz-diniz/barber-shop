@@ -17,7 +17,8 @@ import { WebapiService } from 'src/app/services/webapi.service';
 })
 export class OrderInfoComponent implements OnInit {
 
-  @ViewChildren("checkboxes") checkboxes: QueryList<ElementRef>;
+  @ViewChildren("servicesCheckbox") servicesCheckbox: QueryList<ElementRef>;
+  @ViewChildren("paymentsCheckbox") paymentsCheckbox: QueryList<ElementRef>;
 
   orderInfo: OrderInfo;
   currentCpf: string;
@@ -106,6 +107,8 @@ export class OrderInfoComponent implements OnInit {
       const index = this.paymentsSelected.indexOf(payment);
       this.paymentsSelected.splice(index, 1);
     }
+
+    console.log(this.paymentsSelected);
   }
 
   Uncheck(){
@@ -113,11 +116,20 @@ export class OrderInfoComponent implements OnInit {
       item.isChecked = false;
     });
 
-    this.checkboxes.forEach((item) => {
+    this.servicesCheckbox.forEach((item) => {
+      item.nativeElement.checked = false;
+    })
+
+    this.paymentsSelected.forEach((item) =>{
+      item.isChecked = false;
+    });
+
+    this.paymentsCheckbox.forEach((item) => {
       item.nativeElement.checked = false;
     })
 
     this.servicesSelected = [];
+    this.paymentsSelected = [];
     this.total = 0;
   }
 
