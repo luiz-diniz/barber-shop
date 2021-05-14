@@ -18,7 +18,6 @@ namespace BarberShop.Tests.Services
         private Customer _customer;
         private Employee _employee;
         private ShopAddress _shopAddress;
-        private Payment[] _paymentsInfo;
         private DateTime _dateTime;
 
         public OrderInfoTests()

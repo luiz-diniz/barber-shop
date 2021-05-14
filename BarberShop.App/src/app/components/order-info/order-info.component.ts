@@ -1,3 +1,4 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { forkJoin } from 'rxjs';
 import { Customer } from 'src/app/models/Customer';
@@ -43,6 +44,8 @@ export class OrderInfoComponent implements OnInit {
       this.orderInfo.customerInfo = new Customer();
       this.orderInfo.employeeInfo = new Employee();
       this.orderInfo.shopAddressInfo = new ShopAddress();
+
+      this.orderInfo.employeeInfo.id = 1;
       
       this.orders = [];
       this.addresses = [];
@@ -63,6 +66,10 @@ export class OrderInfoComponent implements OnInit {
 
   Create(){
     const api = `${this.orderInfoApi}CreateOrderInfo`;
+
+    this.orderInfo.paymentsInfo = this.paymentsSelected;
+    this.orderInfo.servicesInfo = this.servicesSelected;
+
     this.service.Create(this.orderInfo, api).subscribe(
       success => {
         console.log("foi krai");

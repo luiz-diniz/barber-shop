@@ -26,7 +26,7 @@ namespace BarberShop.Service.Repository.Database
                     cmd.Parameters.Add(new SqlParameter("P2", orderInfo.ShopAddressInfo.Id));
                     cmd.Parameters.Add(new SqlParameter("P3", orderInfo.OrderDate));
 
-                    cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();                    
                 }
             }
         }

@@ -10,12 +10,16 @@ namespace BarberShop.Service.Services
 {
     public class OrderInfoService : IOrderInfoService
     {
-        public IOrderInfoRepository _orderInfoRepository{ get; set; }
+        public IOrderInfoRepository _orderInfoRepository;
+        public IOrderPaymentService _orderPaymentService;
+        public IOrderServicesService _orderServicesService;
         public ILogger _logger;
 
-        public OrderInfoService(IOrderInfoRepository orderInfoRepository, ILogger logger)
+        public OrderInfoService(IOrderInfoRepository orderInfoRepository, IOrderPaymentService orderPayment, IOrderServicesService orderService, ILogger logger)
         {
             _orderInfoRepository = orderInfoRepository;
+            _orderPaymentService = orderPayment;
+            _orderServicesService = orderService;
             _logger = logger;
         }
 
@@ -30,8 +34,6 @@ namespace BarberShop.Service.Services
                     orderInfo.ShopAddressInfo == null) throw new ArgumentException();
 
                 orderInfo.OrderDate = DateTime.Now;
-
-                _orderInfoRepository.Create(orderInfo);
 
                 _logger.CreateLog("Database", "Insert", "OrderInfo", new string[] { orderInfo.CustomerInfo.Cpf, orderInfo.EmployeeInfo.Cpf, orderInfo.ShopAddressInfo.Name, orderInfo.OrderDate.ToString() });
             }

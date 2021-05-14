@@ -1,6 +1,7 @@
 import { Customer } from "./Customer";
 import { Employee } from "./Employee";
 import { Payment } from "./Payment";
+import { ServiceInfo } from "./ServiceInfo";
 import { ShopAddress } from "./ShopAddress";
 
 export class OrderInfo{
@@ -9,6 +10,7 @@ export class OrderInfo{
     employeeInfo: Employee;
     shopAddressInfo: ShopAddress;
     paymentsInfo: Payment[];
+    servicesInfo: ServiceInfo[];
     orderDate: Date;
     hide: boolean;
 }
