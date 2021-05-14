@@ -1,4 +1,3 @@
-import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
 import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { forkJoin } from 'rxjs';
 import { Customer } from 'src/app/models/Customer';
@@ -24,15 +23,18 @@ export class OrderInfoComponent implements OnInit {
   currentCpf: string;
 
   orders: OrderInfo[];
+  address: ShopAddress;
   addresses: ShopAddress[];
   payments: Payment[];
   services: ServiceInfo[];
   paymentsSelected: Payment[];
   servicesSelected: ServiceInfo[];
+  addressSelected: ShopAddress;
 
   showForm: boolean = false;
   isEditing: boolean = false;
   total: number;
+  orderInfoApi: string = "api/orderInfo/";
 
   constructor(private service: WebapiService<OrderInfo, any>,
     private format: FormatService) {
@@ -41,7 +43,7 @@ export class OrderInfoComponent implements OnInit {
       this.orderInfo.customerInfo = new Customer();
       this.orderInfo.employeeInfo = new Employee();
       this.orderInfo.shopAddressInfo = new ShopAddress();
-
+      
       this.orders = [];
       this.addresses = [];
       this.payments = [];
@@ -53,6 +55,22 @@ export class OrderInfoComponent implements OnInit {
      }
   
   ngOnInit(): void {
+  }
+
+  OnSubmit(){
+    this.Create();
+  }
+
+  Create(){
+    const api = `${this.orderInfoApi}CreateOrderInfo`;
+    this.service.Create(this.orderInfo, api).subscribe(
+      success => {
+        console.log("foi krai");
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
   GetCustomer(){
@@ -107,8 +125,6 @@ export class OrderInfoComponent implements OnInit {
       const index = this.paymentsSelected.indexOf(payment);
       this.paymentsSelected.splice(index, 1);
     }
-
-    console.log(this.paymentsSelected);
   }
 
   Uncheck(){
@@ -157,7 +173,8 @@ export class OrderInfoComponent implements OnInit {
     if(
       this.currentCpf != this.orderInfo.customerInfo.cpf 
       || this.paymentsSelected.length === 0
-      || this.servicesSelected.length === 0){
+      || this.servicesSelected.length === 0
+      || Object.keys(this.orderInfo.shopAddressInfo).length === 0){
       return true;
     }
 

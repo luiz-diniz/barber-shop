@@ -8,7 +8,6 @@ namespace BarberShop.Service.Models
         public Customer CustomerInfo { get; set; }
         public Employee EmployeeInfo { get; set; }
         public ShopAddress ShopAddressInfo { get; set; }
-        public Payment[] PaymentsInfo { get; set; }
         public DateTime OrderDate { get; set; }
     }
 }
