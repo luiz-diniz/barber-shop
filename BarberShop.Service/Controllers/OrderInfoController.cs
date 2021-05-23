@@ -19,7 +19,7 @@ namespace BarberShop.Service.Controllers
         [Route("CreateOrderInfo")]
         public void Create(OrderInfo orderInfo)
         {
-            _orderInfoService.Create(orderInfo);
+            _orderInfoService.CreateOrder(orderInfo);
         }
 
         [HttpDelete]

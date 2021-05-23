@@ -46,11 +46,13 @@ create table OrderInfo(
 	id_customer int,
 	id_employee int,
 	id_shop int,
+	id_payment int,
 	order_date datetime not null,
 
 	foreign key (id_customer) references Customer(id_customer),
 	foreign key (id_employee) references Employee(id_employee),
-	foreign key (id_shop) references ShopAddress(id_shop)
+	foreign key (id_shop) references ShopAddress(id_shop),
+	foreign key (id_payment) references Payment(id_payment)
 )
 
 create table OrderServices(
@@ -60,13 +62,4 @@ create table OrderServices(
 
 	foreign key(id_order_info) references OrderInfo(id_order_info),
 	foreign key(id_service) references ServiceInfo(id_service)
-)
-
-create table OrderPayment(
-	id_order_payment int identity(1,1) primary key,
-	id_payment int,
-	id_order_info int,
-
-	foreign key (id_payment) references Payment(id_payment),
-	foreign key (id_order_info) references OrderInfo(id_order_info)
 )

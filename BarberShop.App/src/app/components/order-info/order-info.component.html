@@ -32,10 +32,10 @@
         </div>      
         <div class="form-group">
             <label for="address">Shop Address</label>
-            <select name="item" class="form-control" [(ngModel)]="this.orderInfo.shopAddressInfo" required>
+            <select name="item-shop" class="form-control" [(ngModel)]="this.orderInfo.shopAddressInfo" required>
                 <option *ngFor="let address of addresses" [ngValue]="address" >
                     {{address.name}}
-                </option>
+                </option>                
             </select>
         </div>
         <div class="form-group">
@@ -51,14 +51,11 @@
         </div>
         <div class="form-group">
             <label>Payment Method</label>
-            <div class="form-check">
-                <div class="content" *ngFor="let payment of payments">
-                    <input #paymentsCheckbox class="form-check-input" type="checkbox" value="{{payment.id}}" id="payment-{{payment.id}}" (change)="EditPaymentList(payment)">
-                    <label class="form-check-label" for="payment-{{payment.id}}">
-                      {{payment.name}}
-                    </label>
-                </div>
-            </div>
+            <select name="item-payment" class="form-control" [(ngModel)]="this.orderInfo.paymentInfo" required>
+                <option *ngFor="let payment of payments" [ngValue]="payment" >
+                    {{payment.name}}
+                </option>                
+            </select>
         </div>
         <div class="d-flex justify-content-between">
             <p></p>

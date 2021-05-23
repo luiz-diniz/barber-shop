@@ -1,4 +1,3 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { forkJoin } from 'rxjs';
 import { Customer } from 'src/app/models/Customer';
@@ -18,7 +17,6 @@ import { WebapiService } from 'src/app/services/webapi.service';
 export class OrderInfoComponent implements OnInit {
 
   @ViewChildren("servicesCheckbox") servicesCheckbox: QueryList<ElementRef>;
-  @ViewChildren("paymentsCheckbox") paymentsCheckbox: QueryList<ElementRef>;
 
   orderInfo: OrderInfo;
   currentCpf: string;
@@ -28,9 +26,10 @@ export class OrderInfoComponent implements OnInit {
   addresses: ShopAddress[];
   payments: Payment[];
   services: ServiceInfo[];
-  paymentsSelected: Payment[];
   servicesSelected: ServiceInfo[];
   addressSelected: ShopAddress;
+  employee: Employee;
+  test: Map<Payment, number>;
 
   showForm: boolean = false;
   isEditing: boolean = false;
@@ -42,18 +41,22 @@ export class OrderInfoComponent implements OnInit {
 
       this.orderInfo = new OrderInfo();
       this.orderInfo.customerInfo = new Customer();
-      this.orderInfo.employeeInfo = new Employee();
       this.orderInfo.shopAddressInfo = new ShopAddress();
 
-      this.orderInfo.employeeInfo.id = 1;
+      this.employee = {
+        id: 1,
+        cpf: '11111111111',
+        name: 'Raimundo',
+        username: 'rdiniz',
+        password: 'sF4f8dLoeeRTfQefWxUWnM/QPw9+zqb8N+Jx3vyFIOc='
+      }
       
       this.orders = [];
       this.addresses = [];
       this.payments = [];
       this.services = [];
-      this.paymentsSelected = [];
       this.servicesSelected = [];
-
+      
       this.LoadData();
      }
   
@@ -67,12 +70,12 @@ export class OrderInfoComponent implements OnInit {
   Create(){
     const api = `${this.orderInfoApi}CreateOrderInfo`;
 
-    this.orderInfo.paymentsInfo = this.paymentsSelected;
     this.orderInfo.servicesInfo = this.servicesSelected;
+    this.orderInfo.employeeInfo = this.employee;
 
     this.service.Create(this.orderInfo, api).subscribe(
       success => {
-        console.log("foi krai");
+        console.log("test");
       },
       err => {
         console.log(err);
@@ -98,7 +101,7 @@ export class OrderInfoComponent implements OnInit {
     this.showForm = !this.showForm;
 
     if(this.showForm){
-      this.Uncheck();
+      this.ResetOrderInfo();
     }
   }
 
@@ -123,18 +126,7 @@ export class OrderInfoComponent implements OnInit {
     this.SumTotal();
   }
 
-  EditPaymentList(payment: Payment){
-    payment.isChecked = !payment.isChecked;
-
-    if(payment.isChecked === true){
-      this.paymentsSelected.push(payment);
-    }else{
-      const index = this.paymentsSelected.indexOf(payment);
-      this.paymentsSelected.splice(index, 1);
-    }
-  }
-
-  Uncheck(){
+  ResetOrderInfo(){
     this.servicesSelected.forEach((item) =>{
       item.isChecked = false;
     });
@@ -143,16 +135,15 @@ export class OrderInfoComponent implements OnInit {
       item.nativeElement.checked = false;
     })
 
-    this.paymentsSelected.forEach((item) =>{
-      item.isChecked = false;
-    });
-
-    this.paymentsCheckbox.forEach((item) => {
-      item.nativeElement.checked = false;
-    })
-
     this.servicesSelected = [];
-    this.paymentsSelected = [];
+
+    this.orderInfo = new OrderInfo();
+    this.orderInfo.customerInfo = new Customer();
+
+    this.orderInfo.servicesInfo = null;
+    this.orderInfo.shopAddressInfo = null;
+    this.orderInfo.paymentInfo = null;
+    
     this.total = 0;
   }
 
@@ -179,7 +170,6 @@ export class OrderInfoComponent implements OnInit {
   ValidateForm(){
     if(
       this.currentCpf != this.orderInfo.customerInfo.cpf 
-      || this.paymentsSelected.length === 0
       || this.servicesSelected.length === 0
       || Object.keys(this.orderInfo.shopAddressInfo).length === 0){
       return true;

@@ -5,5 +5,5 @@ export class Employee{
     username: string;
     password: string;
     saltPassword?: string;
-    hide: boolean;
+    hide?: boolean;
 }

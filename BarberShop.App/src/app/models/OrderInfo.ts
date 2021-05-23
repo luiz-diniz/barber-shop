@@ -9,7 +9,7 @@ export class OrderInfo{
     customerInfo: Customer;
     employeeInfo: Employee;
     shopAddressInfo: ShopAddress;
-    paymentsInfo: Payment[];
+    paymentInfo: Payment;
     servicesInfo: ServiceInfo[];
     orderDate: Date;
     hide: boolean;

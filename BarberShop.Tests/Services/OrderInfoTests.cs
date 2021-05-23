@@ -42,7 +42,7 @@ namespace BarberShop.Tests.Services
 
         public OrderInfoService GetInstance()
         {
-            return new OrderInfoService(_orderInfoRepository.Object, _logger.Object);
+            return null;
         }
     }
 }

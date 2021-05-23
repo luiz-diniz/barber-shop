@@ -42,8 +42,6 @@ namespace BarberShop.Service
             services.AddSingleton<IOrderInfoRepository, OrderInfoRepository>();
             services.AddSingleton<IOrderServicesService, OrderServicesService>();
             services.AddSingleton<IOrderServicesRepository, OrderServicesRepository>();
-            services.AddSingleton<IOrderPaymentService, OrderPaymentService>();
-            services.AddSingleton<IOrderPaymentRepository, OrderPaymentRepository>();
             services.AddSingleton<ILoginService, LoginService>();
             services.AddSingleton<ILoginRepository, LoginRepository>();
 

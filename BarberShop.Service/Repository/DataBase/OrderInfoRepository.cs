@@ -9,9 +9,9 @@ namespace BarberShop.Service.Repository.Database
 {
     public class OrderInfoRepository : DatabaseConfiguration, IOrderInfoRepository
     {
-        public void Create(OrderInfo orderInfo)
+        public int CreateOrder(OrderInfo orderInfo)
         {
-            string query = "insert into orderInfo values(@P0, @P1, @P2, @P3)";
+            string query = "insert into orderInfo values(@P0, @P1, @P2, @P3, @P4) select @@Identity";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -24,11 +24,15 @@ namespace BarberShop.Service.Repository.Database
                     cmd.Parameters.Add(new SqlParameter("P0", orderInfo.CustomerInfo.Id));
                     cmd.Parameters.Add(new SqlParameter("P1", orderInfo.EmployeeInfo.Id));
                     cmd.Parameters.Add(new SqlParameter("P2", orderInfo.ShopAddressInfo.Id));
-                    cmd.Parameters.Add(new SqlParameter("P3", orderInfo.OrderDate));
+                    cmd.Parameters.Add(new SqlParameter("P3", orderInfo.PaymentInfo.Id));
+                    cmd.Parameters.Add(new SqlParameter("P4", orderInfo.OrderDate));
 
-                    cmd.ExecuteNonQuery();                    
+
+                    var teste = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    return teste;
                 }
-            }
+            };
         }
 
         public void Delete(OrderInfo orderInfo)

@@ -19,80 +19,44 @@ namespace BarberShop.Service.Services
             _logger = logger;
         }
 
-        public void Create(OrderServices orderServices)
+        public void Create(OrderInfo orderInfo)
         {
             try
             {
-                _orderServicesRepository.Create(orderServices);
-            }
-            catch (Exception ex)
-            {
-                _logger.CreateLog("Error", ex.ToString());
-            }
-            finally
-            {
-                for (int i = 0; i < orderServices.Service.Count; i++)
+                if (orderInfo.ServicesInfo.Count == 0) throw new ArgumentException();
+
+                _orderServicesRepository.Create(orderInfo);
+
+                foreach (var service in orderInfo.ServicesInfo)
                 {
-                    _logger.CreateLog("Database", "Insert", "OrderServices", new string[] { orderServices.Id.ToString(), orderServices.Order.Id.ToString(), orderServices.Service[i].Id.ToString() });
+                    _logger.CreateLog("Database", "Insert", "OrderServices", new string[] { service.Id.ToString(), service.Name });
                 }
             }
-        }
-
-        public void Delete(OrderServices orderServices)
-        {
-            try
-            {
-                _orderServicesRepository.Delete(orderServices);
-            }
             catch (Exception ex)
             {
                 _logger.CreateLog("Error", ex.ToString());
-            }
-            finally
-            {
-                _logger.CreateLog("Database", "Delete", "OrderServices", new string[] { orderServices.Id.ToString(), orderServices.Order.Id.ToString(), orderServices.Service[0].Id.ToString() });
+                throw;
             }
         }
 
-        public List<OrderServices> GetAll()
+        public void Delete(OrderInfo orderInfo)
         {
             throw new NotImplementedException();
         }
 
-        public OrderServices Read(int orderInfoId)
+        public List<OrderInfo> GetAll()
         {
-            OrderServices services = new OrderServices();
-
-            try
-            {
-                services = _orderServicesRepository.Read(orderInfoId);
-            }
-            catch (Exception ex)
-            {
-                _logger.CreateLog("Error", ex.ToString());
-            }
-            finally
-            {
-                _logger.CreateLog("Database", "Read", "OrderServices", new string[] { orderInfoId.ToString() });
-            }
-
-            return services;
+            throw new NotImplementedException();
         }
 
-        public void Update(OrderServices orderServices)
+        public OrderInfo Read(int number)
         {
-            try
-            {
-                _orderServicesRepository.Update(orderServices);
-            }
-            catch (Exception ex)
-            {
-                _logger.CreateLog("Error", ex.ToString());
-            }
-            finally
-            {
-                _logger.CreateLog("Database", "Update", "OrderServices", new string[] { orderServices.Order.Id.ToString(), orderServices.Service[0].Id.ToString(), orderServices.Service[1].Id.ToString() });
-            }        
+            throw new NotImplementedException();
+        }
+
+        public void Update(OrderInfo type)
+        {
+            throw new NotImplementedException();
         }
     }
 }
