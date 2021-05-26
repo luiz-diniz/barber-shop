@@ -99,6 +99,11 @@ namespace BarberShop.Service.Services
             }
         }
 
+        public ServiceInfo Read(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(ServiceInfo serviceInfo)
         {
             try

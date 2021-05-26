@@ -6,6 +6,7 @@ namespace BarberShop.Service.Repository
     {
         void Create(X type);
         T Read(Z type);
+        T Read(int id);
         void Update(X type);
         void Delete(X type);
         List<T> GetAll();

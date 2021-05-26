@@ -111,5 +111,24 @@ namespace BarberShop.Service.Services
                 throw ex;
             }
         }
+
+        public Customer Read(int id)
+        {
+            try
+            {
+                if (id < 0) throw new ArgumentOutOfRangeException();
+
+                var customer = _customerRepository.Read(id);
+
+                _logger.CreateLog("Database", "Read", "Customer", new string[] { customer.Id.ToString(), customer.Cpf, customer.Name, customer.Birth.ToString() });
+
+                return customer;
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.ToString());
+                throw;
+            }
+        }
     }
 }

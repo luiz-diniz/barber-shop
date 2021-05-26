@@ -112,6 +112,11 @@ namespace BarberShop.Service.Repository.Database
             }
         }
 
+        public ServiceInfo Read(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(ServiceInfo serviceInfo)
         {
             string query = "update serviceInfo set name_service = @P0, description_service = @P1, value_service = @P2 where id_service = @P3";

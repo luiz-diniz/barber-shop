@@ -9,5 +9,6 @@ namespace BarberShop.Service.Repository.Interfaces
     public interface IOrderManager
     {
         int CreateOrder(OrderInfo orderInfo);
+        List<OrderInfo> GetAll();
     }
 }

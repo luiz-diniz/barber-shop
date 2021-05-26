@@ -139,5 +139,37 @@ namespace BarberShop.Service.Repository.ModelsRepository
                 }
             }
         }
+
+        public Customer Read(int id)
+        {
+            string query = "select * from customer where id_customer = @P0";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    cmd.Parameters.Add(new SqlParameter("P0", id));
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    var customer = new Customer();
+
+                    if (reader.Read())
+                    {
+                        customer.Id = Convert.ToInt32(reader["id_customer"]);
+                        customer.Cpf = Convert.ToString(reader["cpf_customer"]);
+                        customer.Name = Convert.ToString(reader["name_customer"]);
+                        customer.Birth = Convert.ToDateTime(reader["birth_customer"]);
+                        customer.Phone = Convert.ToString(reader["phone_customer"]);
+                    }
+
+                    return customer;
+                }
+            }
+        }
     }
 }

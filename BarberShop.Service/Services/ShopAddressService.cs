@@ -101,6 +101,11 @@ namespace BarberShop.Service.Services
             }
         }
 
+        public ShopAddress Read(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(ShopAddress shopAddress)
         {
             try

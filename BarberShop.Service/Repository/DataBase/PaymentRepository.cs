@@ -106,6 +106,11 @@ namespace BarberShop.Service.Repository.Database
             }
         }
 
+        public Payment Read(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Payment payment) 
         {
             string query = "update payment set name_payment = @P0 where id_payment = @P1";

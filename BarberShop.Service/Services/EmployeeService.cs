@@ -118,5 +118,10 @@ namespace BarberShop.Service.Services
                 throw ex;
             }
         }
+
+        public Employee Read(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

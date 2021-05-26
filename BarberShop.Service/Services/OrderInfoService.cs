@@ -11,12 +11,17 @@ namespace BarberShop.Service.Services
     public class OrderInfoService : IOrderInfoService
     {
         public IOrderInfoRepository _orderInfoRepository;
+        public ICustomerService _customerService;
         public IOrderServicesService _orderServicesService;
         public ILogger _logger;
 
-        public OrderInfoService(IOrderInfoRepository orderInfoRepository, IOrderServicesService orderService, ILogger logger)
+        public OrderInfoService(IOrderInfoRepository orderInfoRepository, 
+            IOrderServicesService orderService, 
+            ICustomerService customerService,
+            ILogger logger)
         {
             _orderInfoRepository = orderInfoRepository;
+            _customerService = customerService;
             _orderServicesService = orderService;
             _logger = logger;
         }
@@ -79,12 +84,27 @@ namespace BarberShop.Service.Services
             throw new NotImplementedException();
         }
 
-        public void Update(OrderInfo orderInfo)
+        public List<OrderInfo> GetAll()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var result = _orderInfoRepository.GetAll();
+
+                foreach(var orderInfo in result)
+                {
+                    orderInfo.CustomerInfo = _customerService.Read(orderInfo.CustomerInfo.Id);
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.ToString());
+                throw;
+            }
         }
 
-        public List<OrderInfo> GetAll()
+        public void Update(OrderInfo orderInfo)
         {
             throw new NotImplementedException();
         }

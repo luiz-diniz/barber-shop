@@ -114,6 +114,11 @@ namespace BarberShop.Service.Repository.Database
             }
         }
 
+        public Employee Read(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Employee employee)
         {
             string query = "update employee set cpf_employee = @P0, name_employee = @P1, username_employee = @P2 where id_employee = @P3";

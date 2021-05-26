@@ -56,7 +56,48 @@ namespace BarberShop.Service.Repository.Database
 
         public List<OrderInfo> GetAll()
         {
-            throw new NotImplementedException();
+            string query = "select * from orderInfo";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    var orderInfoList = new List<OrderInfo>();
+
+                    while (reader.Read())
+                    {
+                        orderInfoList.Add(new OrderInfo
+                        {
+                            Id = Convert.ToInt32(reader["id_order_info"]),
+                            CustomerInfo = new Customer()
+                            {
+                                Id = Convert.ToInt32(reader["id_customer"])
+                            },
+                            EmployeeInfo = new Employee()
+                            {
+                                Id = Convert.ToInt32(reader["id_employee"])
+                            },
+                            ShopAddressInfo = new ShopAddress()
+                            {
+                                Id = Convert.ToInt32(reader["id_shop"])
+                            },
+                            PaymentInfo = new Payment()
+                            {
+                                Id = Convert.ToInt32(reader["id_payment"])
+                            },
+                            OrderDate = Convert.ToDateTime(reader["order_date"])
+                        });
+                    }
+
+                    return orderInfoList;
+                }
+            }
         }
 
         public OrderInfo Read(int orderId)

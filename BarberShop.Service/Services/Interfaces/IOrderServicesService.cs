@@ -3,7 +3,9 @@ using System.Collections.Generic;
 
 namespace BarberShop.Service.Services.Interfaces
 {
-    public interface IOrderServicesService : ICRUDService<ServiceInfo, OrderInfo, int>
+    public interface IOrderServicesService
     {
+        void Create(OrderInfo orderInfo);
+        List<ServiceInfo> GetAll(List<OrderInfo> orderInfoList);
     }
 }

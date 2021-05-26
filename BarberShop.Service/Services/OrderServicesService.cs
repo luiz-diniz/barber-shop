@@ -26,7 +26,7 @@ namespace BarberShop.Service.Services
                 if (orderInfo.ServicesInfo.Count == 0) throw new ArgumentException();
 
                 _orderServicesRepository.Create(orderInfo);
-
+                
                 foreach (var service in orderInfo.ServicesInfo)
                 {
                     _logger.CreateLog("Database", "Insert", "OrderServices", new string[] { service.Id.ToString(), service.Name });
@@ -39,22 +39,7 @@ namespace BarberShop.Service.Services
             }
         }
 
-        public void Delete(OrderInfo orderInfo)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<ServiceInfo> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public ServiceInfo Read(int number)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(OrderInfo type)
+        public List<ServiceInfo> GetAll(List<OrderInfo> orderInfoList)
         {
             throw new NotImplementedException();
         }

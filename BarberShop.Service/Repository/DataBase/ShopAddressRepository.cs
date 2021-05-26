@@ -120,6 +120,11 @@ namespace BarberShop.Service.Repository.Database
             }
         }
 
+        public ShopAddress Read(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(ShopAddress shopAddress)
         {
             string query = "update shopAddress set name_shop = @P0, street_shop = @P1, number_shop = @P2, city_shop = @P3," +

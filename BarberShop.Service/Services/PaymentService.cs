@@ -97,6 +97,11 @@ namespace BarberShop.Service.Services
             }
         }
 
+        public Payment Read(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Payment payment)
         {
             try
