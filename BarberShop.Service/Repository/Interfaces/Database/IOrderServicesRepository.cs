@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BarberShop.Service.Repository.Interfaces.ModelsRepository
 {
-    public interface IOrderServicesRepository : ICRUD<OrderInfo, OrderInfo, int>
+    public interface IOrderServicesRepository : ICRUD<ServiceInfo, OrderInfo, int>
     {
     }
 }

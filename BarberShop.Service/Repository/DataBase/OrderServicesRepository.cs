@@ -38,12 +38,12 @@ namespace BarberShop.Service.Repository.Database
             throw new NotImplementedException();
         }
 
-        public List<OrderInfo> GetAll()
+        public List<ServiceInfo> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public OrderInfo Read(int type)
+        public ServiceInfo Read(int type)
         {
             throw new NotImplementedException();
         }

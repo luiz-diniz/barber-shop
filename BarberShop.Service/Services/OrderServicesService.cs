@@ -44,12 +44,12 @@ namespace BarberShop.Service.Services
             throw new NotImplementedException();
         }
 
-        public List<OrderInfo> GetAll()
+        public List<ServiceInfo> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public OrderInfo Read(int number)
+        public ServiceInfo Read(int number)
         {
             throw new NotImplementedException();
         }
