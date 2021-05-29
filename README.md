@@ -12,7 +12,7 @@ Future Features:
 - Report module to extract valuable data
 
 
-## Techonologies
+## Techonlogies
 
 - C# and ASP.Net Core
 - Angular 11+
