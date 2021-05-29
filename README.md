@@ -28,7 +28,7 @@ Future Features:
 
 1. Run the SQL DDL Scripts
 2. Configure the connection string (DatabaseConfiguration.cs) and start the BarberShop.Service
-3. Run "npm install" and after the package is installed run the Angular app
+3. Run "npm install" on the BarberShop.App fodler and after the package is installed run app using the command "ng serve"
 
 
 ## License
