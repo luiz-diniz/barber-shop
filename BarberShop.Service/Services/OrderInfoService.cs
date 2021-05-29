@@ -11,18 +11,21 @@ namespace BarberShop.Service.Services
     public class OrderInfoService : IOrderInfoService
     {
         public IOrderInfoRepository _orderInfoRepository;
-        public ICustomerService _customerService;
         public IOrderServicesService _orderServicesService;
+        public ICustomerService _customerService;
+        public IEmployeeService _employeeService;
         public ILogger _logger;
 
         public OrderInfoService(IOrderInfoRepository orderInfoRepository, 
             IOrderServicesService orderService, 
             ICustomerService customerService,
+            IEmployeeService employeeService,
             ILogger logger)
         {
             _orderInfoRepository = orderInfoRepository;
-            _customerService = customerService;
             _orderServicesService = orderService;
+            _customerService = customerService;
+            _employeeService = employeeService;
             _logger = logger;
         }
 
@@ -93,6 +96,7 @@ namespace BarberShop.Service.Services
                 foreach(var orderInfo in result)
                 {
                     orderInfo.CustomerInfo = _customerService.Read(orderInfo.CustomerInfo.Id);
+                    orderInfo.EmployeeInfo = _employeeService.Read(orderInfo.EmployeeInfo.Id);
                 }
 
                 return result;

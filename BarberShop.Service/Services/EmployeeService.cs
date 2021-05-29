@@ -81,6 +81,25 @@ namespace BarberShop.Service.Services
             }
         }
 
+        public Employee Read(int id)
+        {
+            try
+            {
+                if (id < 0) throw new ArgumentOutOfRangeException();
+
+                var employee = _employeeRepository.Read(id);
+
+                _logger.CreateLog("Database", "Read", "Customer", new string[] { employee.Id.ToString(), employee.Cpf, employee.Name, employee.Username });
+
+                return employee;
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.ToString());
+                throw;
+            }
+        }
+
         public List<Employee> GetAll()
         {
             try
@@ -117,11 +136,6 @@ namespace BarberShop.Service.Services
                 _logger.CreateLog("Error", ex.ToString());
                 throw ex;
             }
-        }
-
-        public Employee Read(int id)
-        {
-            throw new NotImplementedException();
-        }
+        }       
     }
 }
