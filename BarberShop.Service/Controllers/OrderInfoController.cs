@@ -38,7 +38,7 @@ namespace BarberShop.Service.Controllers
         }
 
         [HttpGet]
-        [Route("GetAllOrderInfo")]
+        [Route("GetAll")]
         public List<OrderInfo> GetAll()
         {
             return _orderInfoService.GetAll();
