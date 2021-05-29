@@ -12,6 +12,12 @@ Future Features:
 - Report module to extract valuable data
 
 
+## Techonologies
+
+- C# and ASP.Net Core
+- Angular 11+
+- SQL
+
 ## Requirements
 
 1. SQL Server
