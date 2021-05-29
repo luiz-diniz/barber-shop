@@ -15,7 +15,7 @@ Future Features:
 ## Techonlogies
 
 - C# and ASP.Net Core
-- Angular 11+
+- Angular 11+, HTML, CSS and Bootstrap
 - SQL
 
 ## Requirements
