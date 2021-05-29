@@ -9,6 +9,7 @@ Doing/done:
 - Unit tests
 
 Future Features:
+- Products management
 - Report module to extract valuable data
 
 
