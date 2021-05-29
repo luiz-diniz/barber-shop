@@ -99,7 +99,21 @@ namespace BarberShop.Service.Services
 
         public Payment Read(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (id < 0) throw new ArgumentOutOfRangeException();
+
+                var payment = _paymentRepository.Read(id);
+
+                _logger.CreateLog("Database", "Read", "Payment", new string[] { payment.Name });
+
+                return payment;
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.ToString());
+                throw;
+            }
         }
 
         public void Update(Payment payment)

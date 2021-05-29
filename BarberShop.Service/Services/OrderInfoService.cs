@@ -14,18 +14,24 @@ namespace BarberShop.Service.Services
         public IOrderServicesService _orderServicesService;
         public ICustomerService _customerService;
         public IEmployeeService _employeeService;
+        public IPaymentService _paymentService;
+        public IShopAddressService _shopAddressService;
         public ILogger _logger;
 
         public OrderInfoService(IOrderInfoRepository orderInfoRepository, 
             IOrderServicesService orderService, 
             ICustomerService customerService,
             IEmployeeService employeeService,
+            IPaymentService paymentService,
+            IShopAddressService shopAddressService,
             ILogger logger)
         {
             _orderInfoRepository = orderInfoRepository;
             _orderServicesService = orderService;
             _customerService = customerService;
             _employeeService = employeeService;
+            _paymentService = paymentService;
+            _shopAddressService = shopAddressService;
             _logger = logger;
         }
 
@@ -97,6 +103,7 @@ namespace BarberShop.Service.Services
                 {
                     orderInfo.CustomerInfo = _customerService.Read(orderInfo.CustomerInfo.Id);
                     orderInfo.EmployeeInfo = _employeeService.Read(orderInfo.EmployeeInfo.Id);
+                    orderInfo.PaymentInfo = _paymentService.Read(orderInfo.PaymentInfo.Id);
                 }
 
                 return result;

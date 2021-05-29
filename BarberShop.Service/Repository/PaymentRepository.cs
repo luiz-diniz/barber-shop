@@ -108,7 +108,31 @@ namespace BarberShop.Service.Repository.Database
 
         public Payment Read(int id)
         {
-            throw new NotImplementedException();
+            string query = "select * from payment where id_payment = @P0";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    cmd.Parameters.Add(new SqlParameter("P0", id));
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    Payment payment = new Payment();
+
+                    if (reader.Read())
+                    {
+                        payment.Id = Convert.ToInt32(reader["id_payment"]);
+                        payment.Name = Convert.ToString(reader["name_payment"]);
+                    }
+
+                    return payment;
+                }
+            }
         }
 
         public void Update(Payment payment) 
