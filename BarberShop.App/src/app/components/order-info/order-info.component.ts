@@ -58,6 +58,7 @@ export class OrderInfoComponent implements OnInit {
       this.servicesSelected = [];
       
       this.LoadData();
+      this.GetOrders();
      }
   
   ngOnInit(): void {
@@ -93,6 +94,20 @@ export class OrderInfoComponent implements OnInit {
       err => {
         console.log(err);
         alert('Error: Contact the administrator.')
+      }
+    )
+  }
+
+  GetOrders(){
+    const api = 'api/orderInfo/GetAll';
+    this.service.GetAll(api).subscribe(
+      orders => {
+        this.orders = orders;
+        console.log(this.orders);
+      }, 
+      err => {
+        console.log(err);
+        alert('Error: Contact the administrator.');
       }
     )
   }

@@ -64,3 +64,33 @@
         <button type="submit" [disabled]="!orderInfoForm.form.valid || ValidateForm()" class="btn my-dark my-btn-dark">Submit</button>
     </form>
 </div>
+<h3>Orders</h3>
+<hr>
+<div class="container">
+    <div class="content" *ngFor="let order of orders">
+        <div class="card mb-3">
+            <div class="card-header d-flex justify-content-between">
+                <h4>Id: {{order.id}}</h4>
+                <button (click)="order.hide = !order.hide" class="btn my-dark my-btn-dark btn-sm ml-">
+                    <i [ngClass]="!order.hide ? 'fa fa-plus' : 'fa fa-minus'"></i>
+                </button>
+            </div>
+            <ul class="list-group p-3 list-unstyled" *ngIf="order.hide">
+                <h5>Customer</h5>
+                <li class="list-item">Name: {{this.order.customerInfo.name}}</li>
+                <li class="list-item">CPF: {{this.order.customerInfo.cpf}}</li>
+                <hr>
+                <h5>Employee</h5>
+                <li class="list-item">Name: {{this.order.employeeInfo.name}}</li>
+                <hr>
+                <h5>Shop</h5>  
+                <li class="list-item">Name: {{this.order.shopAddressInfo.name}}</li>
+                <hr>
+                <li class="list-item">
+                  <button type="button" class="btn btn-success btn-sm mr-2"><i class="fas fa-edit"></i></button>
+                  <button type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+               </li>
+              </ul> 
+        </div>
+    </div>
+</div>
