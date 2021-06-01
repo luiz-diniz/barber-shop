@@ -33,25 +33,42 @@ namespace BarberShop.Service.Repository.Database
             }
         }
 
-        public void Delete(OrderInfo type)
+        public List<ServiceInfo> Read(int orderId)
         {
-            throw new NotImplementedException();
+            string query = "select si.id_service, si.name_service, si.value_service, si.description_service from ServiceInfo si " +
+                "inner join OrderServices os on si.id_service = os.id_service where os.id_order_info = @P0 order by si.id_service";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    cmd.Parameters.Add(new SqlParameter("P0", orderId));
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    var servicesInfo = new List<ServiceInfo>();
+
+                    while (reader.Read())
+                    {
+                        servicesInfo.Add(new ServiceInfo()
+                        {
+                            Id = Convert.ToInt32(reader["id_service"]),
+                            Name = Convert.ToString(reader["name_service"]),
+                            Value = Convert.ToDecimal(reader["value_service"]),
+                            Description = Convert.ToString(reader["description_service"])
+                        });
+                    }
+
+                    return servicesInfo;
+                }
+            }
         }
 
-        public List<ServiceInfo> GetAll()
-        {
-            throw new NotImplementedException();
-        }
 
-        public ServiceInfo Read(int type)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(OrderInfo type)
-        {
-            throw new NotImplementedException();
-        }
 
         //public void Delete(OrderServices orderServices)
         //{

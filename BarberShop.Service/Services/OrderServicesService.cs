@@ -39,9 +39,26 @@ namespace BarberShop.Service.Services
             }
         }
 
-        public List<ServiceInfo> GetAll(List<OrderInfo> orderInfoList)
+        public List<ServiceInfo> Read(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (id < 0) throw new ArgumentOutOfRangeException();
+
+                var services = _orderServicesRepository.Read(id);
+
+                foreach (var service in services)
+                {
+                    _logger.CreateLog("Database", "Read", "OrderServices join Services", new string[] { service.Id.ToString(), service.Name });
+                }
+
+                return services;
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.ToString());
+                throw;
+            }
         }
     }
 }

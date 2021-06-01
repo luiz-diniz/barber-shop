@@ -122,7 +122,35 @@ namespace BarberShop.Service.Repository.Database
 
         public ShopAddress Read(int id)
         {
-            throw new NotImplementedException();
+            string query = "select * from shopAddress where id_shop = @P0";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    cmd.Parameters.Add(new SqlParameter("P0", id));
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    ShopAddress shopAddress = new ShopAddress();
+
+                    if (reader.Read())
+                    {
+                        shopAddress.Id = Convert.ToInt32(reader["id_shop"]);
+                        shopAddress.Name = Convert.ToString(reader["name_shop"]);
+                        shopAddress.Street = Convert.ToString(reader["street_shop"]);
+                        shopAddress.Number = Convert.ToInt32(reader["number_shop"]);
+                        shopAddress.City = Convert.ToString(reader["city_shop"]);
+                        shopAddress.State = Convert.ToString(reader["state_shop"]);
+                    }
+
+                    return shopAddress;
+                }
+            }
         }
 
         public void Update(ShopAddress shopAddress)

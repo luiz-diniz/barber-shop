@@ -86,9 +86,7 @@ namespace BarberShop.Service.Services
             {
                 if (String.IsNullOrEmpty(name)) throw new ArgumentException();
 
-                ShopAddress shopAddress = new ShopAddress();
-
-                shopAddress = _shopAddressRepository.Read(name);
+                var shopAddress = _shopAddressRepository.Read(name);
 
                 _logger.CreateLog("Database", "Read", "ShopAddress", new string[] { shopAddress.Id.ToString(), shopAddress.Name, shopAddress.Street, shopAddress.Number.ToString(), shopAddress.City, shopAddress.State });
 
@@ -103,7 +101,21 @@ namespace BarberShop.Service.Services
 
         public ShopAddress Read(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (id < 0) throw new ArgumentOutOfRangeException();
+
+                var shopAddress = _shopAddressRepository.Read(id);
+
+                _logger.CreateLog("Database", "Read", "ShopAddress", new string[] { shopAddress.Id.ToString(), shopAddress.Name, shopAddress.Street, shopAddress.Number.ToString(), shopAddress.City, shopAddress.State });
+
+                return shopAddress;
+            }
+            catch (Exception ex)
+            {
+                _logger.CreateLog("Error", ex.ToString());
+                throw ex;
+            }
         }
 
         public void Update(ShopAddress shopAddress)

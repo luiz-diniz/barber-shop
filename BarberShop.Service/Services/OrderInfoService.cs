@@ -104,6 +104,8 @@ namespace BarberShop.Service.Services
                     orderInfo.CustomerInfo = _customerService.Read(orderInfo.CustomerInfo.Id);
                     orderInfo.EmployeeInfo = _employeeService.Read(orderInfo.EmployeeInfo.Id);
                     orderInfo.PaymentInfo = _paymentService.Read(orderInfo.PaymentInfo.Id);
+                    orderInfo.ShopAddressInfo = _shopAddressService.Read(orderInfo.ShopAddressInfo.Id);
+                    orderInfo.ServicesInfo = _orderServicesService.Read(orderInfo.Id);
                 }
 
                 return result;
