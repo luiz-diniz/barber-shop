@@ -17,7 +17,8 @@ create table Employee(
 	username_employee varchar(50) not null,
 	password_employee varchar(50) not null,
 	salt_hash_password_employee varchar(50) not null,
-	login_attempts int default 0
+	login_attempts int default 0,
+	user_type_employee varchar(25)
 )
 
 create table Payment(

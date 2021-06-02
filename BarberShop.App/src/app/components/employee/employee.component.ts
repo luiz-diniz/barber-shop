@@ -104,7 +104,8 @@ export class EmployeeComponent implements OnInit {
       name: '',
       username: '',
       password: '',
-      hide: true
+      hide: true,
+      userType: ''
     };
   }
 }

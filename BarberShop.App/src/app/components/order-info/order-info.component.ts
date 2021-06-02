@@ -48,7 +48,8 @@ export class OrderInfoComponent implements OnInit {
         cpf: '11111111111',
         name: 'Raimundo',
         username: 'rdiniz',
-        password: 'sF4f8dLoeeRTfQefWxUWnM/QPw9+zqb8N+Jx3vyFIOc='
+        password: 'sF4f8dLoeeRTfQefWxUWnM/QPw9+zqb8N+Jx3vyFIOc=',
+        userType: 'admin'
       }
       
       this.orders = [];

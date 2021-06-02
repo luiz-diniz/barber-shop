@@ -9,5 +9,6 @@
         public string Password { get; set; }
         public string SaltPassword { get; set; }
         public int LoginAttempts { get; set; }
+        public string UserType { get; set; }
     }
 }

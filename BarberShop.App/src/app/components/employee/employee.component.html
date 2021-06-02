@@ -17,15 +17,28 @@
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" class="form-control" name="name" [(ngModel)]="this.employee.name" required>
-        </div>
-        <div class="form-group">
-            <label for="name">Username</label>
-            <input type="text" class="form-control" name="username" [(ngModel)]="this.employee.username" required>
-        </div>
+        </div> 
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="name">Username</label>
+              <input type="text" class="form-control" name="username" [(ngModel)]="this.employee.username" required>
+          </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label for="name">User type</label>
+              <select name="user-type" class="form-control" id="user-type" [(ngModel)]="this.employee.userType" required>
+                <option value="default">Default</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
+          </div>
+        </div>      
         <div class="form-group" *ngIf="!this.isEditing">
             <label for="name">Password</label>
             <input type="password" class="form-control" name="password" [(ngModel)]="this.employee.password" required>
-        </div>
+        </div>        
         <button type="submit" [disabled]="!employeeForm.form.valid" class="btn my-dark my-btn-dark">Submit</button>
     </form>
 </div>
@@ -46,6 +59,8 @@
         <li class="list-item">Cpf: {{this.format.FormatCPF(employee.cpf)}}</li>
         <hr>
         <li class="list-item">Username: {{employee.username}}</li>
+        <hr>
+        <li class="list-item">User Type: {{employee.userType}}</li>
         <hr>
         <li class="list-item">
           <button type="button" class="btn btn-success btn-sm mr-2" (click)="EditInput(employee)"><i class="fas fa-edit"></i></button>
