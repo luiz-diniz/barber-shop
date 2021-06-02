@@ -103,6 +103,7 @@ export class OrderInfoComponent implements OnInit {
     this.service.GetAll(api).subscribe(
       orders => {
         this.orders = orders;
+        this.GetOrderTotal();
         console.log(this.orders);
       }, 
       err => {
@@ -110,6 +111,15 @@ export class OrderInfoComponent implements OnInit {
         alert('Error: Contact the administrator.');
       }
     )
+  }
+
+  GetOrderTotal(){
+    this.orders.forEach(function(order){
+      order.orderTotal = 0;
+      order.servicesInfo.forEach(function(service){
+        order.orderTotal += service.value;
+      })
+    })
   }
 
   ShowForm(){

@@ -77,20 +77,31 @@
             </div>
             <ul class="list-group p-3 list-unstyled" *ngIf="order.hide">
                 <h5>Customer</h5>
-                <li class="list-item">Name: {{this.order.customerInfo.name}}</li>
-                <li class="list-item">CPF: {{this.order.customerInfo.cpf}}</li>
+                <li class="list-item">Name: {{order.customerInfo.name}}</li>
+                <li class="list-item">CPF: {{this.format.FormatCPF(this.order.customerInfo.cpf)}}</li>
                 <hr>
                 <h5>Employee</h5>
-                <li class="list-item">Name: {{this.order.employeeInfo.name}}</li>
+                <li class="list-item">Name: {{order.employeeInfo.name}}</li>
                 <hr>
                 <h5>Shop</h5>  
-                <li class="list-item">Name: {{this.order.shopAddressInfo.name}}</li>
+                <li class="list-item">Name: {{order.shopAddressInfo.name}}</li>
+                <hr>
+                <h5>Payment</h5>
+                <li class="list-item">Name: {{order.paymentInfo.name}}</li>
+                <hr>
+                <h5>Services</h5>
+                <ul class="list-group p-3" >
+                    <li class="list-item" *ngFor="let service of order.servicesInfo">
+                        {{service.name}}
+                    </li>
+                </ul>
+                <h5>Total: <b>{{ order.orderTotal | currency: "R$" }}</b></h5>
                 <hr>
                 <li class="list-item">
-                  <button type="button" class="btn btn-success btn-sm mr-2"><i class="fas fa-edit"></i></button>
-                  <button type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
-               </li>
-              </ul> 
+                 <button type="button" class="btn btn-success btn-sm mr-2"><i class="fas fa-edit"></i></button>
+                 <button type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                </li>
+            </ul> 
         </div>
     </div>
 </div>

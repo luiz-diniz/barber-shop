@@ -12,5 +12,6 @@ export class OrderInfo{
     paymentInfo: Payment;
     servicesInfo: ServiceInfo[];
     orderDate: Date;
+    orderTotal: number;
     hide: boolean;
 }
