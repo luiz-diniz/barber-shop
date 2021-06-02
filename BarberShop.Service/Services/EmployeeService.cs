@@ -26,7 +26,8 @@ namespace BarberShop.Service.Services
             {
                 if (employee == null) throw new ArgumentNullException();
                 if (String.IsNullOrEmpty(employee.Cpf) || String.IsNullOrEmpty(employee.Name) || 
-                    String.IsNullOrEmpty(employee.Username) || String.IsNullOrEmpty(employee.Password)) throw new ArgumentException();
+                    String.IsNullOrEmpty(employee.Username) || String.IsNullOrEmpty(employee.Password) ||
+                    String.IsNullOrEmpty(employee.UserType)) throw new ArgumentException();
 
                 employee.SaltPassword = _hasher.CreateSalt(20);
                 employee.Password = _hasher.GenerateHash(employee.Password, employee.SaltPassword);
@@ -119,17 +120,17 @@ namespace BarberShop.Service.Services
             }
         }
 
-        public void Update(Employee employeeArgument)
+        public void Update(Employee employee)
         {
             try
             {
-                if (employeeArgument == null) throw new ArgumentNullException();
-                if (String.IsNullOrEmpty(employeeArgument.Cpf) || String.IsNullOrEmpty(employeeArgument.Name) ||
-                    String.IsNullOrEmpty(employeeArgument.Username)) throw new ArgumentException();
+                if (employee == null) throw new ArgumentNullException();
+                if (String.IsNullOrEmpty(employee.Cpf) || String.IsNullOrEmpty(employee.Name) ||
+                    String.IsNullOrEmpty(employee.Username) || String.IsNullOrEmpty(employee.UserType)) throw new ArgumentException();
 
-                _employeeRepository.Update(employeeArgument);
+                _employeeRepository.Update(employee);
 
-                _logger.CreateLog("Database", "Update", "Employee", new string[] { employeeArgument.Cpf, employeeArgument.Name, employeeArgument.Username });
+                _logger.CreateLog("Database", "Update", "Employee", new string[] { employee.Cpf, employee.Name, employee.Username });
             }
             catch (Exception ex)
             {
