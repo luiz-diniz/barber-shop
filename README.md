@@ -2,7 +2,7 @@
 
 BarberShop is a product that helps managing a barbershop and much more =)
 
-This software is under development and its purpose is to learn/apply new technologies.
+-----This software is under development and its purpose is to learn/apply new technologies-----
 
 Doing/done:
 - Manage Customers, Employees, Services, Shop unities, Payment methods and Orders
