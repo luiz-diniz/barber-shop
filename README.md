@@ -1,8 +1,8 @@
 # BarberShop
 
-BarberShop is a product that helps managing a barbershop and much more =)
-
 -----This software is under development and its purpose is to learn/apply new technologies-----
+
+BarberShop is a product that helps managing a barbershop and much more =)
 
 Doing/done:
 - Manage Customers, Employees, Services, Shop unities, Payment methods and Orders
