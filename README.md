@@ -1,6 +1,6 @@
 # BarberShop
 
------This software is under development (so, there are a lot of unfinished things) and its purpose is to learn/apply new technologies-----
+-----This software is under development (so, there are a lot of unfinished things yet) and its purpose is to learn/apply new technologies-----
 
 BarberShop is a product that helps managing a barbershop and much more =)
 
